@@ -12,10 +12,20 @@ const Navbar = () => {
         exact={ true }
       >Home</NavLink>
       <NavLink 
-        to="/about" 
+        to="/nowplaying" 
         activeClassName="is-active"
         className="navbar__item router-link"
-      >About</NavLink>
+      >Now Playing</NavLink>
+      <NavLink 
+        to="/searchmovies/moviename" 
+        activeClassName="is-active"
+        className="navbar__item router-link"
+      >Query</NavLink>
+      <NavLink 
+        to="/movie/moviename" 
+        activeClassName="is-active"
+        className="navbar__item router-link"
+      >Movie</NavLink>
     </header>
   )
 } 
