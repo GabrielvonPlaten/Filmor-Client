@@ -1,12 +1,12 @@
 import React from 'react';
 import './NowPlaying.sass';
 
-const About = () => {
+const NowPlaying = () => {
   return (
     <div className="playinh-container">
-      <h1 className="about__title">Now Playing</h1>
+      <h1 className="NowPlaying__title">Now Playing</h1>
     </div>
   )
 }
 
-export default About
+export default NowPlaying
