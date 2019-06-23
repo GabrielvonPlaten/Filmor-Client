@@ -1,5 +1,7 @@
 import React from 'react';
 import './Home.sass';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStar } from '@fortawesome/free-solid-svg-icons'
 
 import BG_1 from '../../Styles/images/bg-1.jpg';
 
@@ -12,7 +14,10 @@ const Home = () => {
           className="jumbotron" 
           style={{backgroundImage: "url(" + BG_1 + ")"}}>
           <div className="jumbotron-header">
-            <p className="jumbotron__rating">7.4</p>
+            <p className="jumbotron__rating">
+              <FontAwesomeIcon icon={faStar} />
+              <span>7.4</span>
+            </p>
             <h1 className="jumbotron__title">Toy Story</h1>
             <p className="jumbotron__release-date">2019-06-19</p>
             <button className="btn btn--yellow jumbotron__btn">Read More</button>
