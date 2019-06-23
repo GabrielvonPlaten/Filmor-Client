@@ -14,7 +14,7 @@ const App = () => {
         <Switch>
           <Route exact={ true } path="/" component={ Home } />
           <Route exact={ true } path="/nowplaying" component={ NowPlaying } />
-          <Route exact={ true } path="/movie/:name" component={ Movie } />
+          <Route exact={ true } path="/movie/:id/:name" component={ Movie } />
           <Route exact={ true } path="/searchmovies/:query" component={ SearchMovies } />
         </Switch>
       </div>

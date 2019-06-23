@@ -1,0 +1,45 @@
+@import '../../Styles/style.sass'
+
+.popular-movie
+  background: $background-1
+  border: 1px solid #e2e2e2
+  border-radius: 4px
+  box-shadow: $box-shadow-1
+  height: 98%
+  transition: all 0.3s
+  &:hover
+    border: 1px solid #00b900
+
+  .movie__backdrop
+    height: 30vh
+    background-size: cover
+    background-repeat: no-repeat
+    border:
+      top-left-radius: 4px
+      top-right-radius: 4px
+
+  .popular-movie-header
+    display: flex
+    justify-content: space-between
+    padding: 1rem
+
+    &__title
+      margin: 0
+      width: 80%
+
+    &__rating
+      font-size: 2.5rem
+      font-weight: bold
+      margin-right: 1rem
+
+      .rating-star
+        color: $yellow-0
+
+  &__separation
+    border-bottom: 1px solid #EDEDED
+    margin: 0 1rem
+
+  &__description
+    padding: 1rem 2rem
+    font-size: 1.6rem
+    font-weight: 200
