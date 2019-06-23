@@ -1,19 +1,11 @@
-React Boilerplate made with Babel & Webpack 4
-
-## Features
-* Axios
-* React-router
-* Scss & Sass
-* Import images
-* js & jsx file format
+## Filmor -- Personal project using TMDb's API
 
 ## Commands
-
 **To install**
 ------
 ```
-git clone https://github.com/GabrielvonPlaten/React-Boilerplate.git
-cd React-Boilerplate
+git clone https://github.com/GabrielvonPlaten/Filmor-Client.git
+cd Filmor-Client
 npm / yarn install
 ```
 serve

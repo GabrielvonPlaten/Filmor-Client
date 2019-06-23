@@ -1,8 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from './Components/Home/Home';
-import About from './Components/About/About.jsx';
-import Navbar from './Components/Navbar/Navbar'
+import Navbar from './components/Navbar/Navbar'
+import NowPlaying from './components/NowPlaying/NowPlaying.js';
+import Movie from './components/Movie/Movie';
+import SearchMovies from './components/SearchMovies/SearchMovies';
 
 const App = () => {
   return (
@@ -11,7 +13,9 @@ const App = () => {
         <Navbar />
         <Switch>
           <Route exact={ true } path="/" component={ Home } />
-          <Route exact={ true } path="/about" component={ About } />
+          <Route exact={ true } path="/nowplaying" component={ NowPlaying } />
+          <Route exact={ true } path="/movie/:name" component={ Movie } />
+          <Route exact={ true } path="/searchmovies/:query" component={ SearchMovies } />
         </Switch>
       </div>
     </BrowserRouter>
