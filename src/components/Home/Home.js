@@ -6,25 +6,27 @@ import { faStar } from '@fortawesome/free-solid-svg-icons'
 // Api Service
 import apiService from '../../apis/service';
 
-// Static Image
-import BG_1 from '../../Styles/images/bg-1.jpg';
-
 const Home = () => {
 
   const [jumbotronData, setJumbotronData] = useState([]);
+  const [jumbotronGenres, setGenres] = useState([])
   const [popularData, setPopularMovies] = useState([]);
 
+  // Fetch data from the API once the website is loaded
   useEffect(() => {
     apiService.getPopularMovies()
-      .then(res => {
-        setPopularMovies(res.data.results.slice(1));
-        setJumbotronData(res.data.results[0]);
+    .then(res => {
+      // Retrieve all popular movies but the first
+      setPopularMovies(res.data.results.slice(1));
+        // Send the ID of the first movie to fetch more details
+        apiService.getMovieById(res.data.results[0].id)
+          .then(res => {
+            setJumbotronData(res.data) // Set jumbotron movie to state
+            setGenres(res.data.genres) // Set genres to state
+          })
       })
       .catch(err => console.log(err))
   }, [])
-
-  console.log("Jumbotron: ", jumbotronData);
-  console.log("Popular: ", popularData);
 
   return (
     <div className="landing-page">
@@ -38,6 +40,15 @@ const Home = () => {
               <span> {jumbotronData.vote_average}</span>
             </p>
             <h1 className="jumbotron__title">{jumbotronData.original_title}</h1>
+            <ul className="genre-list">
+              {jumbotronGenres.map((genre, index) => (
+                <li
+                  className="genre__item" 
+                  key={index}>
+                  {genre.name}
+                </li>
+              )) }
+            </ul>
             <p className="jumbotron__release-date">{jumbotronData.release_date}</p>
             <button className="btn btn--yellow jumbotron__btn">Read More</button>
           </div>
