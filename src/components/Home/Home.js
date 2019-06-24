@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 
 // Components
-import PopularMovies from '../PopularMovies/PopularMovies';
+import DisplayMovies from '../DisplayMovies/DisplayMovies';
 
 // Api Service
 import apiService from '../../apis/service';
@@ -72,7 +72,7 @@ const Home = () => {
           <Link 
             key={index} 
             to={"/movie/" + movieData.id + "/" + movieData.title}>
-            <PopularMovies movieData={ movieData } />
+            <DisplayMovies movieData={ movieData } />
           </Link>
         ))}
       </div>
