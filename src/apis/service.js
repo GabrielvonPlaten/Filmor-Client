@@ -16,5 +16,11 @@ export default {
   getPopularTVShows() {
     let url = `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US&page=1`;
     return axios.get(url);
+  },
+
+  // People
+  getTrendingPeople() {
+    let url = `https://api.themoviedb.org/3/person/popular?api_key=${API_KEY}&language=en-US&page=1`;
+    return axios.get(url);
   }
 }

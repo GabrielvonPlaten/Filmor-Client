@@ -6,6 +6,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons'
 
 // Components
 import DisplayMovies from '../DisplayMovies/DisplayMovies';
+import PeopleIcons from '../PeopleIcons/PeopleIcons';
 
 // Api Service
 import apiService from '../../apis/service';
@@ -15,9 +16,11 @@ const Home = () => {
   const [jumbotronGenres, setGenres] = useState([])
   const [popularData, setPopularMovies] = useState([]);
   const [popularTVShows, setPopularTVShows] = useState([]);
+  const [popularPeople, setPopularPeople] = useState([]);
 
   // Fetch data from the API once the website is loaded
   useEffect(() => {
+    // Popular Movies
     apiService.getPopularMovies()
     .then(res => {
       // Retrieve all popular movies but the first
@@ -31,10 +34,18 @@ const Home = () => {
       })
       .catch(err => console.log(err))
 
+
+    // Popular TV Shows
     apiService.getPopularTVShows()
       .then(res => {
         setPopularTVShows(res.data.results.slice(0, 6));
       })
+      .catch(err => console.log(err));
+
+
+    // Get trending people
+    apiService.getTrendingPeople()
+      .then(res => setPopularPeople(res.data.results))
       .catch(err => console.log(err));
   }, [])
 
@@ -59,7 +70,9 @@ const Home = () => {
                 </li>
               )) }
             </ul>
-            <p className="jumbotron__release-date">{jumbotronData.release_date}</p>
+            { jumbotronData.status !== "Released" ? 
+              <p className="jumbotron__release-date">{jumbotronData.release_date}</p> : 
+              <p className="jumbotron__release-date">{jumbotronData.status}!</p>}
             <Link
               to={"/movie/" + jumbotronData.id + "/" + jumbotronData.title} 
               className="btn btn--yellow jumbotron__btn">
@@ -71,10 +84,10 @@ const Home = () => {
       </div>
 
       {/* Popular Movies Section */}
-      <div class="homepage-showcase">
+      <div className="homepage-showcase">
         <div className="section-separation">
           <h2 className="section-separation__title">
-            <span class="title--yellow">Movies</span> - Popular
+            <span className="title--yellow">Movies</span> - Popular
           </h2>
         </div>
         <div className="popular-movies-container">
@@ -90,7 +103,7 @@ const Home = () => {
         {/* Popular TV shows Section */}
         <div className="section-separation">
           <h2 className="section-separation__title">
-            <span class="title--yellow">TV</span> - POPULAR
+            <span className="title--yellow">TV</span> - POPULAR
           </h2>
         </div>
         <div className="popular-movies-container">
@@ -99,6 +112,22 @@ const Home = () => {
               key={index} 
               to={"/tv/" + showData.id + "/" + showData.name}>
               <DisplayMovies movieData={ showData } />
+            </Link>
+          ))}
+        </div>
+
+         {/* Trending People */}
+         <div className="section-separation">
+          <h2 className="section-separation__title">
+            <span className="title--yellow">PEOPLE</span> - POPULAR
+          </h2>
+        </div>
+        <div className="trending-people-container">
+          { popularPeople.map((personData, index) => (
+            <Link 
+              key={index} 
+              to={"/people/" + personData.id + "/" + personData.name}>
+              <PeopleIcons personData={ personData } />
             </Link>
           ))}
         </div>
