@@ -69,8 +69,10 @@ const Home = () => {
       </div>
       <div className="popular-movies-container">
         { popularData.map((movieData, index) => (
-          <Link to={"/movie/" + movieData.id + "/" + movieData.title}>
-            <PopularMovies key={index} movieData={ movieData } />
+          <Link 
+            key={index} 
+            to={"/movie/" + movieData.id + "/" + movieData.title}>
+            <PopularMovies movieData={ movieData } />
           </Link>
         ))}
       </div>

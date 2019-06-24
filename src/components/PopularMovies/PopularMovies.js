@@ -1,5 +1,6 @@
 import React from 'react'
 import './PopularMovies.sass';
+import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 
@@ -23,6 +24,10 @@ const PopularMovies = ({ movieData }) => {
       <p className="popular-movie__description">{movieData.overview}</p>
     </div>
   )
+}
+
+PopularMovies.propTypes = {
+  movieData: PropTypes.object.isRequired,
 }
 
 export default PopularMovies
