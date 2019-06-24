@@ -4,6 +4,8 @@ import './Home.sass';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 
+import _ from 'lodash';
+
 // Components
 import DisplayMovies from '../DisplayMovies/DisplayMovies';
 import PeopleIcons from '../PeopleIcons/PeopleIcons';
@@ -23,8 +25,8 @@ const Home = () => {
     // Popular Movies
     apiService.getPopularMovies()
     .then(res => {
-      // Retrieve all popular movies but the first
-      setPopularMovies(res.data.results.slice(1, 7));
+      // Retrieve all first 13 popular movies but the first
+      setPopularMovies(res.data.results.slice(1, 13));
         // Send the ID of the first movie to fetch more details
         apiService.getMovieById(res.data.results[0].id)
           .then(res => {
@@ -48,6 +50,8 @@ const Home = () => {
       .then(res => setPopularPeople(res.data.results))
       .catch(err => console.log(err));
   }, [])
+
+  let orderedMovies = _.sortBy(popularData, "popularity").reverse();
 
   return (
     <div className="landing-page">
@@ -74,7 +78,7 @@ const Home = () => {
               <p className="jumbotron__release-date">{jumbotronData.release_date}</p> : 
               <p className="jumbotron__release-date">{jumbotronData.status}!</p>}
             <Link
-              to={"/movie/" + jumbotronData.id + "/" + jumbotronData.title} 
+              to={"/movie/" + jumbotronData.id} 
               className="btn btn--yellow jumbotron__btn">
               Read More
             </Link>
@@ -92,11 +96,13 @@ const Home = () => {
           </h2>
         </div>
         <div className="popular-movies-container">
-          { popularData.map((movieData, index) => (
+          { orderedMovies.map((movieData, index) => (
             <Link 
               key={index} 
-              to={"/movie/" + movieData.id + "/" + movieData.title}>
+              to={"/movie/" + movieData.id}>
               <DisplayMovies movieData={ movieData } />
+              <FontAwesomeIcon icon={faStar} />
+              <span className="popular-movie__rating">{movieData.vote_average}</span>
             </Link>
           ))}
         </div>
