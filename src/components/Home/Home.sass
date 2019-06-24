@@ -4,6 +4,7 @@
   margin-bottom: 5rem 
 
 .jumbotron-container
+  box-shadow: $box-shadow-0
 
   .jumbotron
     background-size: cover
@@ -64,11 +65,16 @@
       list-style-type: none
       margin: 1rem 1.5rem 2.5rem 0
 
+.homepage-showcase
+  border-left: 2px solid $yellow-0
+  width: 87%
+  margin: 0 auto
+
 .section-separation
   border-bottom: 1px solid #484a4f
-  margin: 0 6% 3% 6%
+  margin: 0 6% 2.5% 4%
 
-  .section__title
+  &__title
     font-size: 2.2rem
     font-weight: 200
     text-transform: uppercase
@@ -76,8 +82,11 @@
     margin: 4rem 0 0.6rem 0
     color: #cecece
 
+    .title--yellow
+      color: $yellow-0
+
 .popular-movies-container
-  margin: 0 6%
+  margin: 0 4%
   display: grid
   grid-template-columns: repeat(6, 1fr)
   grid-gap: 2rem

@@ -14,6 +14,7 @@ const Home = () => {
   const [jumbotronData, setJumbotronData] = useState([]);
   const [jumbotronGenres, setGenres] = useState([])
   const [popularData, setPopularMovies] = useState([]);
+  const [popularTVShows, setPopularTVShows] = useState([]);
 
   // Fetch data from the API once the website is loaded
   useEffect(() => {
@@ -29,6 +30,12 @@ const Home = () => {
           })
       })
       .catch(err => console.log(err))
+
+    apiService.getPopularTVShows()
+      .then(res => {
+        setPopularTVShows(res.data.results.slice(0, 6));
+      })
+      .catch(err => console.log(err));
   }, [])
 
   return (
@@ -64,17 +71,35 @@ const Home = () => {
       </div>
 
       {/* Popular Section */}
-      <div className="section-separation">
-        <h2 className="section__title">Popular</h2>
-      </div>
-      <div className="popular-movies-container">
-        { popularData.map((movieData, index) => (
-          <Link 
-            key={index} 
-            to={"/movie/" + movieData.id + "/" + movieData.title}>
-            <DisplayMovies movieData={ movieData } />
-          </Link>
-        ))}
+      <div class="homepage-showcase">
+        <div className="section-separation">
+          <h2 className="section-separation__title">
+            <span class="title--yellow">Movies</span> - Popular
+          </h2>
+        </div>
+        <div className="popular-movies-container">
+          { popularData.map((movieData, index) => (
+            <Link 
+              key={index} 
+              to={"/movie/" + movieData.id + "/" + movieData.title}>
+              <DisplayMovies movieData={ movieData } />
+            </Link>
+          ))}
+        </div>
+        <div className="section-separation">
+          <h2 className="section-separation__title">
+            <span class="title--yellow">TV</span> - POPULAR
+          </h2>
+        </div>
+        <div className="popular-movies-container">
+          { popularTVShows.map((showData, index) => (
+            <Link 
+              key={index} 
+              to={"/tv/" + showData.id + "/" + showData.name}>
+              <DisplayMovies movieData={ showData } />
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   )

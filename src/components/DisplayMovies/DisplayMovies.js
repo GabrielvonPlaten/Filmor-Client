@@ -6,10 +6,9 @@ const DisplayMovies = ({ movieData }) => {
 
   return (
     <div className="popular-movie">
-      <div
-        style={{backgroundImage: "url(https://image.tmdb.org/t/p/original/" + movieData.poster_path + ")"}}
-        className="movie__backdrop">
-      </div>
+      <img
+        src={"https://image.tmdb.org/t/p/original/" + movieData.poster_path}
+        className="movie__backdrop" />
     </div>
   )
 }
