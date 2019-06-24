@@ -70,7 +70,7 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Popular Section */}
+      {/* Popular Movies Section */}
       <div class="homepage-showcase">
         <div className="section-separation">
           <h2 className="section-separation__title">
@@ -86,6 +86,8 @@ const Home = () => {
             </Link>
           ))}
         </div>
+
+        {/* Popular TV shows Section */}
         <div className="section-separation">
           <h2 className="section-separation__title">
             <span class="title--yellow">TV</span> - POPULAR
