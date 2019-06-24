@@ -1,10 +1,14 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+// Components
 import Home from './Components/Home/Home';
-import Navbar from './components/Navbar/Navbar'
-import NowPlaying from './components/NowPlaying/NowPlaying.js';
 import Movie from './components/Movie/Movie';
+import Navbar from './components/Navbar/Navbar'
+import TVShow from './components/TVShow/TVShow';
+import NowPlaying from './components/NowPlaying/NowPlaying.js';
 import SearchMovies from './components/SearchMovies/SearchMovies';
+import PeopleProfile from './components/PeopleProfile/PeopleProfile';
 
 const App = () => {
   return (
@@ -13,9 +17,10 @@ const App = () => {
         <Navbar />
         <Switch>
           <Route exact={ true } path="/" component={ Home } />
-          <Route exact={ true } path="/nowplaying" component={ NowPlaying } />
+          <Route exact={ true } path="/tv/:id/:name" component={ TVShow } />
           <Route exact={ true } path="/movie/:id/:name" component={ Movie } />
-          <Route exact={ true } path="/tv/:id/:name" component={ Movie } />
+          <Route exact={ true } path="/nowplaying" component={ NowPlaying } />
+          <Route exact={ true } path="/people/:id/:name" component={ PeopleProfile } />
           <Route exact={ true } path="/searchmovies/:query" component={ SearchMovies } />
         </Switch>
       </div>

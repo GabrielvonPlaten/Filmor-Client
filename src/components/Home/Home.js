@@ -82,6 +82,7 @@ const Home = () => {
           <div className="jumbotron__gradient-shadow"></div>
         </div>
       </div>
+      
 
       {/* Popular Movies Section */}
       <div className="homepage-showcase">
