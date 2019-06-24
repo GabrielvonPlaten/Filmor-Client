@@ -2,8 +2,12 @@ html
   font-size: 62.5%
 
 body
-  font-family: Helvetica, Arial, sans-serif
+  // font-family: Roboto, Helvetica, Arial, sans-serif
+  font-family: 'Roboto', sans-serif
   font-size: $m-size
+  height: 100%
+  width: 100%
+  background: #222326
 
 button
   cursor: pointer
@@ -15,6 +19,14 @@ ol, ul
   padding: 0
   margin: 0
 
+// Buttons
+
+.btn
+  +btn
+
+  &--yellow
+    +btn--yellow
+
 // Router styling
 .router-link
   color: #eeeeee
@@ -22,7 +34,7 @@ ol, ul
   text-decoration: none
   font-size: 1.8rem
   &:hover
-    color: #ecbf97
+    color: $yellow-1
 
 .is-active
-  color: #ff8040
+  color: $yellow-0
