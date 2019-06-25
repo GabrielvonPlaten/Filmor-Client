@@ -1,24 +1,32 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './Movie.sass';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStar } from '@fortawesome/free-solid-svg-icons';
+
+// Components
+import PeopleIcons from '../PeopleIcons/PeopleIcons';
+
+// Api Service
 import apiService from '../../apis/service';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/free-solid-svg-icons'
 
 const Movie = (props) => {
   const [movieData, setMovieData] = useState([]);
   const [movieGenres, setMovieGenres] = useState([]);
+  const [movieCast, setMovieCast] = useState([]);
 
   useEffect(() => {
     apiService.getMovieById(props.match.params.id)
       .then(res => {
         setMovieData(res.data)
         setMovieGenres(res.data.genres)
+
+        apiService.getCastAndCrew(res.data.id)
+          .then(res => setMovieCast(res.data.cast))
       })
       .catch(err => console.log(err));
   }, []);
-
-  console.log(movieData);
 
   return (
     <div className="movie-container">
@@ -53,8 +61,21 @@ const Movie = (props) => {
               ))}
             </ul>
           </div>
-          <div className="movie-overview-description">
-                
+          <div className="movie-description">
+            <h3>Overview:</h3>
+            <p>{movieData.overview}</p>
+          </div>
+          <div className="cast-container">
+            <h3>Cast: </h3>
+            <div className="movie-cast">
+              { movieCast.slice(0, 10).map((personData, index) => (
+                <Link 
+                  key={index} 
+                  to={"/people/" + personData.id + "/" + personData.name}>
+                  <PeopleIcons personData={ personData } />
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </div>

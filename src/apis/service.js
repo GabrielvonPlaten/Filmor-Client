@@ -13,6 +13,12 @@ export default {
     return axios.get(url);
   },
 
+  getCastAndCrew(id) {
+    let url = `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${API_KEY}`;
+    return axios.get(url);
+  },
+
+  // TV Shows
   getPopularTVShows() {
     let url = `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US&page=1`;
     return axios.get(url);
