@@ -17,11 +17,13 @@ const Movie = (props) => {
   const [movieGenres, setMovieGenres] = useState([]);
   const [movieCast, setMovieCast] = useState([]);
   const [similarMovies, setSimilarMovies] = useState([]);
+  const [productionCompanies, setPropdCompanies] = useState([]);
 
   useEffect(() => {
     apiService.getMovieById(props.match.params.id)
       .then(res => {
         setMovieData(res.data)
+        setPropdCompanies(res.data.production_companies);
         setMovieGenres(res.data.genres)
 
         apiService.getSimilarMovies(res.data.id)
@@ -33,7 +35,7 @@ const Movie = (props) => {
       .catch(err => console.log(err));
   }, [props]);
 
-  console.log(similarMovies);
+  console.log(movieData);
 
   return (
     <div className="movie-container">
@@ -68,6 +70,8 @@ const Movie = (props) => {
               ))}
             </ul>
           </div>
+
+          {/* Movie Overview */}
           <div className="movie-description">
             <h3>Overview:</h3>
             <p>{movieData.overview}</p>
@@ -85,6 +89,8 @@ const Movie = (props) => {
             </div>
           </div>
         </div>
+
+        {/* Similar Movies */}
         <div class="similar-movies-container">
           <h3>Similar Movies</h3>
           <div className="similar-movies">
@@ -95,6 +101,20 @@ const Movie = (props) => {
                 to={"/movie/" + movieData.id}>
                 <DisplayMovies movieData={ movieData } />
               </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* Production Companies */}
+        <div className="production-companies">
+          <h3>Production Companies</h3>
+          <div className="production-companies-list">
+            { productionCompanies.map((company, index) => (
+              <div
+                className="production-company__item" 
+                key={index}>
+                <h2 className="production-company__name">{company.name}</h2>
+              </div>
             ))}
           </div>
         </div>
