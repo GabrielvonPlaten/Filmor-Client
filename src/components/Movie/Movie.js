@@ -75,6 +75,32 @@ const Movie = (props) => {
           <div className="movie-description">
             <h3>Overview:</h3>
             <p>{movieData.overview}</p>
+
+            {/* Runtime */}
+            <div className="runtime-container">
+              <h3 className="runtime-container__title">
+                Runtime:
+                {movieData.runtime ? 
+                  <span className="runtime-container__total">
+                    <span>{movieData.runtime} </span>
+                    Minutes
+                  </span> :
+                  <span className="runtime-container__total">
+                    Unkown
+                  </span>}
+              </h3>
+            </div>
+
+            {/* Revenue */}
+            <div className="movie-revenue">
+              <h3 className="movie-revenue__title">
+                Revenue: 
+                <span className="movie-revenue__total">
+                  $<span> {movieData.revenue}</span>
+                </span>
+
+              </h3>
+            </div>            
           </div>
           <div className="cast-container">
             <h3>Cast: </h3>
