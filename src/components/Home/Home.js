@@ -95,14 +95,14 @@ const Home = () => {
             <span className="title--yellow">Movies</span> - Popular
           </h2>
         </div>
-        <div className="popular-movies-container">
+        <div className="poster-list-container">
           { orderedMovies.map((movieData, index) => (
             <Link 
               key={index} 
               to={"/movie/" + movieData.id}>
               <DisplayMovies movieData={ movieData } />
               <FontAwesomeIcon icon={faStar} />
-              <span className="popular-movie__rating">{movieData.vote_average}</span>
+              <span className="poster-list__rating">{movieData.vote_average}</span>
             </Link>
           ))}
         </div>
@@ -113,7 +113,7 @@ const Home = () => {
             <span className="title--yellow">TV</span> - POPULAR
           </h2>
         </div>
-        <div className="popular-movies-container">
+        <div className="poster-list-container">
           { popularTVShows.map((showData, index) => (
             <Link 
               key={index} 

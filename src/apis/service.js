@@ -18,6 +18,11 @@ export default {
     return axios.get(url);
   },
 
+  getSimilarMovies(id) {
+    let url = `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${API_KEY}&language=en-US&page=1`;
+    return axios.get(url);
+  },
+
   // TV Shows
   getPopularTVShows() {
     let url = `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US&page=1`;

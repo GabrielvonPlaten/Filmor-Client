@@ -6,6 +6,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 // Components
 import PeopleIcons from '../PeopleIcons/PeopleIcons';
+import DisplayMovies from '../DisplayMovies/DisplayMovies';
 
 // Api Service
 import apiService from '../../apis/service';
@@ -15,6 +16,7 @@ const Movie = (props) => {
   const [movieData, setMovieData] = useState([]);
   const [movieGenres, setMovieGenres] = useState([]);
   const [movieCast, setMovieCast] = useState([]);
+  const [similarMovies, setSimilarMovies] = useState([]);
 
   useEffect(() => {
     apiService.getMovieById(props.match.params.id)
@@ -22,11 +24,16 @@ const Movie = (props) => {
         setMovieData(res.data)
         setMovieGenres(res.data.genres)
 
+        apiService.getSimilarMovies(res.data.id)
+          .then(res => setSimilarMovies(res.data.results))
+
         apiService.getCastAndCrew(res.data.id)
           .then(res => setMovieCast(res.data.cast))
       })
       .catch(err => console.log(err));
-  }, []);
+  }, [props]);
+
+  console.log(similarMovies);
 
   return (
     <div className="movie-container">
@@ -76,6 +83,19 @@ const Movie = (props) => {
                 </Link>
               ))}
             </div>
+          </div>
+        </div>
+        <div class="similar-movies-container">
+          <h3>Similar Movies</h3>
+          <div className="similar-movies">
+            {similarMovies.slice(0, 12).map((movieData, index) => (
+              <Link
+                className="similar-movies__item" 
+                key={index} 
+                to={"/movie/" + movieData.id}>
+                <DisplayMovies movieData={ movieData } />
+              </Link>
+            ))}
           </div>
         </div>
       </div>

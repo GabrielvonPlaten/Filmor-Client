@@ -85,7 +85,7 @@
       color: $yellow-0
       font-weight: bold
 
-.popular-movies-container
+.poster-list-container
   margin: 0 4%
   display: grid
   grid-template-columns: repeat(6, 1fr)
@@ -93,7 +93,7 @@
   color: $yellow-0
 
 
-  .popular-movie__rating
+  .poster-list__rating
     margin: 0
     margin-left: 1rem
     font-size: 1.6rem
@@ -112,3 +112,17 @@
     transition: all 0.3s
     &:hover
       color: green
+
+.similar-movies-container
+  margin-top: 8%
+
+.similar-movies
+  border-top: 1px solid #484a4f
+  padding: 3rem 0
+  margin-top: 1rem
+  display: grid
+  grid-template-columns: repeat(6, 1fr)
+  grid-gap: 1.5rem
+
+  .similar-movies__item
+    width: 85%
