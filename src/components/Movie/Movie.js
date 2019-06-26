@@ -33,7 +33,8 @@ const Movie = (props) => {
           .then(res => setMovieCast(res.data.cast))
       })
       .catch(err => console.log(err));
-  }, [props]);
+      
+    }, [props]);
 
   console.log(movieData);
 
@@ -76,6 +77,12 @@ const Movie = (props) => {
             <h3>Overview:</h3>
             <p>{movieData.overview}</p>
 
+            <div className="movie-release">
+              <span className="movie-release__date">
+                {movieData.release_date}
+              </span>
+            </div>
+
             {/* Runtime */}
             <div className="runtime-container">
               <h3 className="runtime-container__title">
@@ -98,9 +105,9 @@ const Movie = (props) => {
                 <span className="movie-revenue__total">
                   $<span> {movieData.revenue}</span>
                 </span>
-
               </h3>
-            </div>            
+            </div> 
+
           </div>
           <div className="cast-container">
             <h3>Cast: </h3>
@@ -117,7 +124,7 @@ const Movie = (props) => {
         </div>
 
         {/* Similar Movies */}
-        <div class="similar-movies-container">
+        <div className="similar-movies-container">
           <h3>Similar Movies</h3>
           <div className="similar-movies">
             {similarMovies.slice(0, 12).map((movieData, index) => (
@@ -125,7 +132,10 @@ const Movie = (props) => {
                 className="similar-movies__item" 
                 key={index} 
                 to={"/movie/" + movieData.id}>
-                <DisplayMovies movieData={ movieData } />
+                <DisplayMovies 
+                  mediaData={ movieData } 
+                  mediaTitle={ movieData.title.slice(0, 50)}
+                  mediaRating={movieData.vote_average} />
               </Link>
             ))}
           </div>

@@ -100,9 +100,10 @@ const Home = () => {
             <Link 
               key={index} 
               to={"/movie/" + movieData.id}>
-              <DisplayMovies movieData={ movieData } />
-              <FontAwesomeIcon icon={faStar} />
-              <span className="poster-list__rating">{movieData.vote_average}</span>
+              <DisplayMovies 
+                mediaData={ movieData } 
+                mediaTitle={ movieData.title.slice(0, 50) }
+                mediaRating={movieData.vote_average} />
             </Link>
           ))}
         </div>
@@ -118,7 +119,10 @@ const Home = () => {
             <Link 
               key={index} 
               to={"/tv/" + showData.id + "/" + showData.name}>
-              <DisplayMovies movieData={ showData } />
+              <DisplayMovies 
+                mediaData={ showData } 
+                mediaTitle={ showData.name.slice(0, 50)}
+                mediaRating={showData.vote_average} />
             </Link>
           ))}
         </div>
