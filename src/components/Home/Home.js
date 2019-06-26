@@ -7,7 +7,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons'
 import _ from 'lodash';
 
 // Components
-import DisplayMovies from '../DisplayMovies/DisplayMovies';
+import Poster from '../Poster/Poster';
 import PeopleIcons from '../PeopleIcons/PeopleIcons';
 
 // Api Service
@@ -100,7 +100,7 @@ const Home = () => {
             <Link 
               key={index} 
               to={"/movie/" + movieData.id}>
-              <DisplayMovies 
+              <Poster 
                 mediaData={ movieData } 
                 mediaTitle={ movieData.title.slice(0, 50) }
                 mediaRating={movieData.vote_average} />
@@ -119,7 +119,7 @@ const Home = () => {
             <Link 
               key={index} 
               to={"/tv/" + showData.id + "/" + showData.name}>
-              <DisplayMovies 
+              <Poster 
                 mediaData={ showData } 
                 mediaTitle={ showData.name.slice(0, 50)}
                 mediaRating={showData.vote_average} />

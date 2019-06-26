@@ -6,7 +6,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 // Components
 import PeopleIcons from '../PeopleIcons/PeopleIcons';
-import DisplayMovies from '../DisplayMovies/DisplayMovies';
+import Poster from '../Poster/Poster';
 
 // Api Service
 import apiService from '../../apis/service';
@@ -132,7 +132,7 @@ const Movie = (props) => {
                 className="similar-movies__item" 
                 key={index} 
                 to={"/movie/" + movieData.id}>
-                <DisplayMovies 
+                <Poster 
                   mediaData={ movieData } 
                   mediaTitle={ movieData.title.slice(0, 50)}
                   mediaRating={movieData.vote_average} />

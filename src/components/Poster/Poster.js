@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import './DisplayMovies.sass';
+import './Poster.sass';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 
-const DisplayMovies = ({ mediaData, mediaTitle, mediaRating }) => {
+const Poster = ({ mediaData, mediaTitle, mediaRating }) => {
   return (
     <div className="popular-movie">
       <img
@@ -19,10 +19,10 @@ const DisplayMovies = ({ mediaData, mediaTitle, mediaRating }) => {
   )
 }
 
-DisplayMovies.propTypes = {
+Poster.propTypes = {
   mediaData: PropTypes.object.isRequired,
   mediaTitle: PropTypes.string.isRequired,
   mediaRating: PropTypes.number.isRequired,
 }
 
-export default DisplayMovies
+export default Poster
