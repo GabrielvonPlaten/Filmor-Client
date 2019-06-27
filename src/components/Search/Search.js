@@ -46,7 +46,20 @@ const Search = () => {
       </Link>
     )
   });
-  
+
+  let displayShows = searchData.map((res, index) => {
+    if (res.media_type === "tv")
+    return (
+      <Link to={"/tv/" + res.id}>
+        <Poster
+          className="search-item"
+          key={index} 
+          mediaData={ res }
+          mediaTitle={ res.title }
+          mediaRating={ res.vote_average } />
+      </Link>
+    )
+  });
 
   return (
     <div className="search-container">
@@ -73,6 +86,14 @@ const Search = () => {
         { displayMovies.length > 0 &&
           <div className="search-movies">
             { displayMovies }
+          </div>
+        }
+      </div>
+      <div className="search-results-container">
+        { displayShows.length > 0 && <h2 className="search-title">TV Shows</h2> }
+        { displayShows.length > 0 &&
+          <div className="search-shows">
+            { displayShows }
           </div>
         }
       </div>
