@@ -9,8 +9,8 @@ import Home from './Components/Home/Home';
 import Movie from './components/Movie/Movie';
 import Navbar from './components/Navbar/Navbar'
 import TVShow from './components/TVShow/TVShow';
+import Search from './components/Search/Search';
 import NowPlaying from './components/NowPlaying/NowPlaying.js';
-import SearchMovies from './components/SearchMovies/SearchMovies';
 import PeopleProfile from './components/PeopleProfile/PeopleProfile';
 
 const App = () => {
@@ -21,11 +21,11 @@ const App = () => {
         <Navbar />
         <Switch>
           <Route exact={ true } path="/" component={ Home } />
-          <Route exact={ true } path="/tv/:id/:name" component={ TVShow } />
           <Route exact={ true } path="/movie/:id" component={ Movie } />
+          <Route exact={ true } path="/tv/:id/:name" component={ TVShow } />
+          <Route exact={ true } path="/search" component={ Search } />
           <Route exact={ true } path="/nowplaying" component={ NowPlaying } />
           <Route exact={ true } path="/people/:id/:name" component={ PeopleProfile } />
-          <Route exact={ true } path="/searchmovies/:query" component={ SearchMovies } />
         </Switch>
       </div>
     </BrowserRouter>
