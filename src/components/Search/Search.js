@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './Search.sass';
 
 import apiService from '../../apis/service'; 
@@ -35,12 +36,14 @@ const Search = () => {
   let displayMovies = searchData.map((res, index) => {
     if (res.media_type === "movie")
     return (
-      <Poster
-        className="search-item"
-        key={index} 
-        mediaData={ res }
-        mediaTitle={ res.title }
-        mediaRating={ res.vote_average } />
+      <Link to={"/movie/" + res.id}>
+        <Poster
+          className="search-item"
+          key={index} 
+          mediaData={ res }
+          mediaTitle={ res.title }
+          mediaRating={ res.vote_average } />
+      </Link>
     )
   });
   
