@@ -1,8 +1,9 @@
-import React from 'react'
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Navbar.sass';
 
-const Navbar = () => {
+const Navbar = (props) => {
+  console.log(props);
   return (
     <header className="navbar-container">
       <NavLink 
@@ -17,15 +18,10 @@ const Navbar = () => {
         className="navbar__item router-link"
       >Now Playing</NavLink>
       <NavLink 
-        to="/searchmovies/moviename" 
+        to="/search" 
         activeClassName="is-active"
         className="navbar__item router-link"
-      >Query</NavLink>
-      <NavLink 
-        to="/movie/moviename" 
-        activeClassName="is-active"
-        className="navbar__item router-link"
-      >Movie</NavLink>
+      >Search</NavLink>
     </header>
   )
 } 

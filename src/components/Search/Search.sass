@@ -1,0 +1,45 @@
+.search-container
+  padding-top: 5%
+
+  &__title
+    font-weight: 200
+    text-align: center
+
+.search-form
+  width: 30%
+  margin: 3rem auto
+  display: flex
+
+  &__input
+    background: none
+    padding: 1rem
+    border: none
+    width: 100%
+    border-bottom: 1px solid #414141
+    color: #fff
+
+.search-results-container
+  width: 80%
+  margin: 0 auto
+
+  .search-title
+    font-weight: 200
+    color: #d4d4d4
+    margin-top: 0.8rem
+    border-bottom: 1px solid #414141
+
+.search-people, .search-movies
+  display: grid
+  margin: 0 auto
+  padding: 2rem
+  grid-gap: 2rem
+
+  a
+    text-decoration: none
+
+
+.search-people
+  grid-template-columns: repeat(10, 1fr)
+
+.search-movies
+  grid-template-columns: repeat(8, 1fr)
