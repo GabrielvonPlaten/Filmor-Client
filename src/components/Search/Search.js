@@ -26,20 +26,24 @@ const Search = () => {
   let displayPerson = searchData.map((res, index) => {
     if (res.media_type === "person")
     return (
-      <PeopleIcons
-        className="search-item"
+      <Link
         key={index} 
-        personData={ res } />
+        to={"/people/" + res.id}>
+        <PeopleIcons
+          className="search-item"
+          personData={ res } />
+      </Link>
     )
   });
 
   let displayMovies = searchData.map((res, index) => {
     if (res.media_type === "movie")
     return (
-      <Link to={"/movie/" + res.id}>
+      <Link
+        key={index} 
+        to={"/movie/" + res.id}>
         <Poster
           className="search-item"
-          key={index} 
           mediaData={ res }
           mediaTitle={ res.title }
           mediaRating={ res.vote_average } />
@@ -50,10 +54,11 @@ const Search = () => {
   let displayShows = searchData.map((res, index) => {
     if (res.media_type === "tv")
     return (
-      <Link to={"/tv/" + res.id}>
+      <Link 
+        key={index}
+        to={"/tv/" + res.id} >
         <Poster
           className="search-item"
-          key={index} 
           mediaData={ res }
           mediaTitle={ res.title }
           mediaRating={ res.vote_average } />
