@@ -115,7 +115,7 @@ const Movie = (props) => {
               { movieCast.slice(0, 10).map((personData, index) => (
                 <Link 
                   key={index} 
-                  to={"/people/" + personData.id + "/" + personData.name}>
+                  to={"/people/" + personData.id}>
                   <PeopleIcons personData={ personData } />
                 </Link>
               ))}
