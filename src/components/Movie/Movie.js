@@ -36,8 +36,6 @@ const Movie = (props) => {
       
     }, [props]);
 
-  console.log(movieData);
-
   return (
     <div className="movie-container">
       <div className="jumbotron-container">

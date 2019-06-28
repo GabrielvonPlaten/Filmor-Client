@@ -5,7 +5,6 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import './Navbar.sass';
 
 const Navbar = (props) => {
-  console.log(props);
   return (
     <header className="navbar-container">
       <NavLink 

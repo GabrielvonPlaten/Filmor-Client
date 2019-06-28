@@ -7,8 +7,6 @@ import PropTypes from 'prop-types';
 import noImage from '../../Styles/images/no-image.svg';
 
 const Poster = ({ mediaData, mediaTitle, mediaRating }) => {
-
-
   return (
     <div className="popular-movie">
       <img
