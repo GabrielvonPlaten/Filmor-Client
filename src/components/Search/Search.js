@@ -19,8 +19,6 @@ const Search = () => {
         setSearchData(res.data.results)
       })
       .catch(err => console.log(err));
-      
-      console.log(searchData);
   };
 
   let displayPerson = searchData.map((res, index) => {

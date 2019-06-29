@@ -59,8 +59,6 @@ const PeopleProfile = (props) => {
     }
   };
 
-  console.log(personImages);
-
   return (
     <div className="person-container">
       <div className="jumbotron-container">

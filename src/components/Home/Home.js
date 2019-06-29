@@ -118,7 +118,7 @@ const Home = () => {
           { popularTVShows.map((showData, index) => (
             <Link 
               key={index} 
-              to={"/tv/" + showData.id + "/" + showData.name}>
+              to={"/tv/" + showData.id}>
               <Poster 
                 mediaData={ showData } 
                 mediaTitle={ showData.name.slice(0, 50)}

@@ -36,8 +36,6 @@ const Movie = (props) => {
       
     }, [props]);
 
-  console.log(movieData);
-
   return (
     <div className="movie-container">
       <div className="jumbotron-container">
@@ -55,7 +53,10 @@ const Movie = (props) => {
         <div className="movie-overview-information">
           <div className="movie-overview-header">
             <div className="header-rating">
-              <h2 className="movie-overview-header__title">{movieData.title}</h2>
+              <h2 className="movie-overview-header__title">
+                {movieData.title}
+                <span class="type-of-media">(Movie)</span>
+              </h2>
               <span className="movie-overview-header__rating">
                 <FontAwesomeIcon icon={faStar} />
                 <span> {movieData.vote_average}</span>
