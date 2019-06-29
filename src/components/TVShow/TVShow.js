@@ -55,7 +55,10 @@ const TVShow = (props) => {
         <div className="tv-show-overview-information">
           <div className="tv-show-overview-header">
             <div className="header-rating">
-              <h2 className="tv-show-overview-header__title">{tvShowData.name}</h2>
+              <h2 className="tv-show-overview-header__title">
+                {tvShowData.name}
+                <span class="type-of-media">(Show)</span>
+              </h2>
               <span className="tv-show-overview-header__rating">
                 <FontAwesomeIcon icon={faStar} />
                 <span> {tvShowData.vote_average}</span>
@@ -79,11 +82,11 @@ const TVShow = (props) => {
 
             <div className="tv-show-release">
               <span className="tv-show-release__date">
-                {tvShowData.release_date}
+                {tvShowData.first_air_date}
               </span>
             </div>
 
-            {/* Runtime */}
+            {/* Seasons */}
             <div className="tv-show-seasons">
               <h3 className="tv-show-seasons__title">
                 Seasons:
@@ -97,7 +100,7 @@ const TVShow = (props) => {
               </h3>
             </div>
 
-            {/* Revenue */}
+            {/* Episodes */}
             <div className="tv-show-episodes">
               <h3 className="tv-show-episodes__title">
                 Episodes: 
@@ -113,7 +116,7 @@ const TVShow = (props) => {
             </div> 
 
           </div>
-          <div className="tv-show-container">
+          <div className="tv-show-cast-container">
             <h3>Cast: </h3>
             <div className="tv-show-cast">
               { movieCast.slice(0, 10).map((personData, index) => (
