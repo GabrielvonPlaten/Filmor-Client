@@ -22,7 +22,7 @@ const App = () => {
         <Switch>
           <Route exact={ true } path="/" component={ Home } />
           <Route exact={ true } path="/movie/:id" component={ Movie } />
-          <Route exact={ true } path="/tv/:id/:name" component={ TVShow } />
+          <Route exact={ true } path="/tv/:id" component={ TVShow } />
           <Route exact={ true } path="/search" component={ Search } />
           <Route exact={ true } path="/nowplaying" component={ NowPlaying } />
           <Route exact={ true } path="/people/:id" component={ PeopleProfile } />

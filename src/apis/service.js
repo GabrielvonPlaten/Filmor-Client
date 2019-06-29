@@ -51,6 +51,22 @@ export default {
     return axios.get(url);
   },
 
+  // TV Shows
+  getTVShow(id) {
+    let url = ` https://api.themoviedb.org/3/tv/${id}?api_key=${API_KEY}&language=en-US`;
+    return axios.get(url);
+  },
+
+  getTVShowCast(id) {
+    let url = ` https://api.themoviedb.org/3/tv/${id}/credits?api_key=${API_KEY}&language=en-US`;
+    return axios.get(url);
+  },
+
+  getSimilarShows(id) {
+    let url = ` https://api.themoviedb.org/3/tv/${id}/similar?api_key=${API_KEY}&language=en-US&page=1`;
+    return axios.get(url);
+  },
+
   // Search Results
   getSearchResults(query) {
     let url = `https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&language=en-US&query=${query}&page=1&include_adult=false`;

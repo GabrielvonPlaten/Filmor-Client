@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import './Navbar.sass';
 
-const Navbar = (props) => {
+const Navbar = () => {
   return (
     <header className="navbar-container">
       <NavLink 
