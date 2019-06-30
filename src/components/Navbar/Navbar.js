@@ -14,11 +14,6 @@ const Navbar = () => {
         exact={ true }
       >Home</NavLink>
       <NavLink 
-        to="/nowplaying" 
-        activeClassName="is-active"
-        className="navbar__item router-link"
-      >Now Playing</NavLink>
-      <NavLink 
         to="/search" 
         activeClassName="is-active"
         className="navbar__item router-link"
