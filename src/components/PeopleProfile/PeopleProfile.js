@@ -15,6 +15,7 @@ import apiService from '../../apis/service';
 const PeopleProfile = (props) => {
   const [personData, setPersonData] = useState([]);
   const [personImages, setPersonImages] = useState([]);
+  const [personTVCredits, setPersonTVCredits] = useState([]);
   const [personMovieCredits, setPersonMovieCredits] = useState([]);
 
   useEffect(() => {
@@ -38,6 +39,12 @@ const PeopleProfile = (props) => {
       })
       .catch(err => console.log(err));
       
+
+    apiService.getPersonTVCredits(props.match.params.id)
+      .then(res => {
+        setPersonTVCredits(res.data.cast.sort((a, b) => a.popularity < b.popularity));
+      })
+      .catch(err => console.log(err));
     }, [props]);
 
   const knownForDepartment = (personData) => {
@@ -99,18 +106,35 @@ const PeopleProfile = (props) => {
           </div>
         </div>
 
-        <div className="similar-movies-container">
+        <div className="similar-media-container">
           <h3>Movie Credits</h3>
-          <div className="similar-movies">
-            {personMovieCredits.slice(0, 12).map((movieData, index) => (
+          <div className="similar-media">
+            {personMovieCredits.slice(0, 14).map((movieData, index) => (
               <Link
-                className="similar-movies__item" 
+                className="similar-media__item" 
                 key={index} 
                 to={"/movie/" + movieData.id}>
                 <Poster 
                   mediaData={ movieData } 
                   mediaTitle={ movieData.title.slice(0, 50)}
                   mediaRating={movieData.vote_average} />
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        <div className="similar-media-container">
+          <h3>TV Show Credits</h3>
+          <div className="similar-media">
+            {personTVCredits.slice(0, 14).map((tvData, index) => (
+              <Link
+                className="similar-media__item" 
+                key={index} 
+                to={"/tv/" + tvData.id}>
+                <Poster 
+                  mediaData={ tvData } 
+                  mediaTitle={ tvData.name.slice(0, 50)}
+                  mediaRating={tvData.vote_average} />
               </Link>
             ))}
           </div>

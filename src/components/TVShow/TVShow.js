@@ -119,7 +119,7 @@ const TVShow = (props) => {
           <div className="tv-show-cast-container">
             <h3>Cast: </h3>
             <div className="tv-show-cast">
-              { movieCast.slice(0, 10).map((personData, index) => (
+              { movieCast.slice(0, 12).map((personData, index) => (
                 <Link 
                   key={index} 
                   to={"/people/" + personData.id}>
@@ -131,12 +131,12 @@ const TVShow = (props) => {
         </div>
 
         {/* Similar Movies */}
-        <div className="similar-movies-container">
+        <div className="similar-media-container">
           <h3>Similar Shows</h3>
-          <div className="similar-movies">
+          <div className="similar-media">
             {similarShows.slice(0, 12).map((tvShowData, index) => (
               <Link
-                className="similar-movies__item" 
+                className="similar-media__item" 
                 key={index} 
                 to={"/tv/" + tvShowData.id}>
                 <Poster 
@@ -149,18 +149,20 @@ const TVShow = (props) => {
         </div>
 
         {/* Production Companies */}
-        <div className="production-companies">
-          <h3>Production Companies</h3>
-          <div className="production-companies-list">
-            { productionCompanies.map((company, index) => (
-              <div
-                className="production-company__item" 
-                key={index}>
-                <h2 className="production-company__name">{company.name}</h2>
-              </div>
-            ))}
+        { productionCompanies.length > 0 && 
+          <div className="production-companies">
+            <h3>Production Companies</h3>
+            <div className="production-companies-list">
+              { productionCompanies.map((company, index) => (
+                <div
+                  className="production-company__item" 
+                  key={index}>
+                  <h2 className="production-company__name">{company.name}</h2>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        }
       </div>
     </div>
   )

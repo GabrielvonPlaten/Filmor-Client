@@ -45,6 +45,11 @@ export default {
     return axios.get(url);
   },
 
+  getPersonTVCredits(id) {
+    let url = ` https://api.themoviedb.org/3/person/${id}/tv_credits?api_key=${API_KEY}&language=en-US`;
+    return axios.get(url);
+  },
+
   // TV Shows
   getPopularTVShows() {
     let url = `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US&page=1`;
