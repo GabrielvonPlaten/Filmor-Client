@@ -113,7 +113,7 @@ const Movie = (props) => {
           <div className="cast-container">
             <h3>Cast: </h3>
             <div className="movie-cast">
-              { movieCast.slice(0, 10).map((personData, index) => (
+              { movieCast.slice(0, 12).map((personData, index) => (
                 <Link 
                   key={index} 
                   to={"/people/" + personData.id}>
@@ -125,12 +125,12 @@ const Movie = (props) => {
         </div>
 
         {/* Similar Movies */}
-        <div className="similar-movies-container">
+        <div className="similar-media-container">
           <h3>Similar Movies</h3>
-          <div className="similar-movies">
-            {similarMovies.slice(0, 12).map((movieData, index) => (
+          <div className="similar-media">
+            {similarMovies.slice(0, 14).map((movieData, index) => (
               <Link
-                className="similar-movies__item" 
+                className="similar-media__item" 
                 key={index} 
                 to={"/movie/" + movieData.id}>
                 <Poster 
@@ -143,18 +143,20 @@ const Movie = (props) => {
         </div>
 
         {/* Production Companies */}
-        <div className="production-companies">
-          <h3>Production Companies</h3>
-          <div className="production-companies-list">
-            { productionCompanies.map((company, index) => (
-              <div
-                className="production-company__item" 
-                key={index}>
-                <h2 className="production-company__name">{company.name}</h2>
-              </div>
-            ))}
+        { productionCompanies.length > 0 &&
+          <div className="production-companies">
+            <h3>Production Companies</h3>
+            <div className="production-companies-list">
+              { productionCompanies.map((company, index) => (
+                <div
+                  className="production-company__item" 
+                  key={index}>
+                  <h2 className="production-company__name">{company.name}</h2>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        }
       </div>
     </div>
   )
