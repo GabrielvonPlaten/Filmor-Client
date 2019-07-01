@@ -43,3 +43,42 @@
 
 .search-movies, .search-shows
   grid-template-columns: repeat(8, 1fr)
+
+@media only screen and (max-width: 1140px)
+  .search-container
+    padding-top: 7%
+
+  .search-form
+    width: 70%
+
+  .search-results-container
+    width: 94%
+
+  .search-movies, .search-shows
+    grid-template-columns: repeat(5, 1fr)
+
+
+@media only screen and (max-width: 850px)
+  .search-movies, .search-shows
+    grid-template-columns: repeat(4, 1fr)
+
+@media only screen and (max-width: 600px)
+  .search-container
+    padding-top: 12%
+
+  .search-form
+    width: 98%
+
+  .search-movies, .search-shows
+    grid-template-columns: repeat(3, 1fr)
+
+@media only screen and (max-width: 425px)
+  .search-container
+    padding-top: 15%
+
+@media only screen and (max-width: 375px)
+  .search-container
+    padding-top: 18%
+
+  .search-movies, .search-shows
+    grid-template-columns: repeat(2, 1fr)
