@@ -43,10 +43,10 @@
       text-shadow: $text-shadow
 
     .jumbotron__release-date
-      font-weight: bold
+      font-weight: 300
       color: #ffffff
-      font-size: 2.3rem
-      margin: 0
+      font-size: 2.1rem
+      margin: 0 0 0 0
       text-shadow: $text-shadow
 
     .jumbotron__btn
@@ -120,3 +120,57 @@
 
   .similar-media__item
     text-decoration: none
+
+
+// Media Queries
+@media only screen and (max-width: 1300px) 
+  .poster-list-container
+    grid-template-columns: repeat(4, 1fr)
+
+  .trending-people-container 
+    grid-template-columns: repeat(6, 1fr)
+
+@media only screen and (max-width: 796px)
+  .jumbotron-container
+
+    .jumbotron
+      background-position: center
+
+    .jumbotron-header
+      width: 80%
+      top: 32%
+      left: 12%
+
+      .jumbotron__rating
+        font-weight: 600
+        font-size: 2.3rem
+
+      .genre__item
+        font-size: 1.4rem
+
+      .jumbotron__title
+        font-size: 3.3rem
+
+  .poster-list-container
+    grid-template-columns: repeat(3, 1fr) 
+
+  .trending-people-container 
+    grid-template-columns: repeat(4, 1fr)
+
+@media only screen and (max-width: 530px)
+  .trending-people-container
+    grid-template-columns: repeat(3, 1fr)
+
+@media only screen and (max-width: 375px)
+  .poster-list-container
+    grid-template-columns: repeat(1, 1fr)
+
+  .jumbotron-container
+
+    .jumbotron-header
+
+      .genre-list
+        display: none
+
+  .trending-people-container
+    grid-template-columns: repeat(2, 1fr)
