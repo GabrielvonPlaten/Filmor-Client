@@ -131,4 +131,61 @@
   text-align: center
   margin-bottom: 20%
 
+// Media Queries
+@media only screen and (max-width: 1300px)
+  .movie-overview
+    width: 93%
+
+@media only screen and (max-width: 1150px)
+
+  .movie-cast
+    width: 100%
+    margin: 12% auto 0 auto
+    grid-gap: 1.2rem
+
+@media only screen and (max-width: 880px)
+  .movie-overview-header
+
+    &__title
+      font-size: 2.9rem
+
+    .type-of-media
+      font-size: 2rem
+
+    &__rating
+      font-size: 2.4rem
+      margin:
+        top: 0.5rem
+        left: 2rem 
+
+  .movie-description
+    width: 95%
+
+  .production-companies
+    .production-companies-list
+      grid-template-columns: repeat(2, 1fr)
+      color: red
+
+@media only screen and (max-width: 810px)
+  .movie-cast
+    grid-template-columns: repeat(5, 1fr)
+
+
+@media only screen and (max-width: 650px)
   
+  .movie-overview
+    bottom: 7rem
+    &__image
+      display: none
+
+  .movie-overview-header
+    &__genre-list
+      display: none  
+
+  .movie-cast
+    grid-template-columns: repeat(3, 1fr)
+
+
+@media only screen and (max-width: 375px)
+  .movie-cast
+    grid-template-columns: repeat(2, 1fr)

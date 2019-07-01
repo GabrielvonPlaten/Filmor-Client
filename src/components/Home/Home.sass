@@ -120,6 +120,7 @@
 
   .similar-media__item
     text-decoration: none
+    margin: 0 auto
 
 
 // Media Queries
@@ -129,6 +130,10 @@
 
   .trending-people-container 
     grid-template-columns: repeat(6, 1fr)
+
+@media only screen and (max-width: 836px)
+  .similar-media
+    grid-template-columns: repeat(5, 1fr) 
 
 @media only screen and (max-width: 796px)
   .jumbotron-container
@@ -157,9 +162,18 @@
   .trending-people-container 
     grid-template-columns: repeat(4, 1fr)
 
+
+@media only screen and (max-width: 670px)
+  .similar-media
+    grid-template-columns: repeat(4, 1fr) 
+
+
 @media only screen and (max-width: 530px)
   .trending-people-container
     grid-template-columns: repeat(3, 1fr)
+
+  .similar-media
+    grid-template-columns: repeat(2, 1fr)
 
 @media only screen and (max-width: 375px)
   .poster-list-container
