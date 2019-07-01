@@ -137,3 +137,66 @@
   font-weight: 200
   text-align: center
   margin-bottom: 20%
+
+
+// Media Queries
+@media only screen and (max-width: 1300px)
+  .tv-show-overview
+    width: 93%
+
+@media only screen and (max-width: 1150px)
+
+  .tv-show-cast
+    width: 100%
+    margin: 12% auto 0 auto
+    grid-gap: 1.2rem
+
+@media only screen and (max-width: 880px)
+  .tv-show-overview-header
+
+    &__title
+      font-size: 2.9rem
+
+    .type-of-media
+      font-size: 2rem
+
+    &__rating
+      font-size: 2.4rem
+      margin:
+        top: 0.5rem
+        left: 2rem 
+
+  .tv-show-description
+    width: 95%
+
+    h3
+      display: none
+
+  .production-companies
+    .production-companies-list
+      grid-template-columns: repeat(2, 1fr)
+      color: red
+
+@media only screen and (max-width: 810px)
+  .tv-show-cast
+    grid-template-columns: repeat(5, 1fr)
+
+
+@media only screen and (max-width: 650px)
+  
+  .tv-show-overview
+    bottom: 7rem
+    &__image
+      display: none
+
+  .tv-show-overview-header
+    &__genre-list
+      display: none  
+
+  .tv-show-cast
+    grid-template-columns: repeat(3, 1fr)
+
+
+@media only screen and (max-width: 375px)
+  .tv-show-cast
+    grid-template-columns: repeat(2, 1fr)
