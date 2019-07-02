@@ -1,4 +1,190 @@
-.app
-  width: 40%
+@import '../../Styles/style.sass'
+  
+.landing-page
+  margin-bottom: 5rem 
+
+.jumbotron-container
+  box-shadow: $box-shadow-0
+
+  .jumbotron
+    background-size: cover
+    background-repeat: no-repeat
+
+  .jumbotron__gradient-shadow
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(34, 35, 38, 0.52) 75%)
+    height: 84vh
+
+
+  .jumbotron-header
+    width: 50%
+    position: absolute
+    top: 42%
+    left: 12%
+    letter-spacing: 1px
+
+    .jumbotron__rating
+      font-weight: 600
+      font-size: 4.3rem
+      margin: 0
+      color: $yellow-0
+      letter-spacing: -1px
+      text-shadow: $text-shadow
+
+      svg
+        text-shadow: $text-shadow
+
+
+    .jumbotron__title
+      font-size: 6.3rem
+      margin: 0
+      font-style: normal
+      color: #fff
+      text-transform: uppercase
+      text-shadow: $text-shadow
+
+    .jumbotron__release-date
+      font-weight: 300
+      color: #ffffff
+      font-size: 2.1rem
+      margin: 0 0 0 0
+      text-shadow: $text-shadow
+
+    .jumbotron__btn
+      position: relative
+      top: 3rem
+      text-decoration: none
+
+    .genre-list
+      margin: 0
+      display: flex
+
+    .genre__item
+      color: #f2f2f2
+      font-size: 1.8rem
+      list-style-type: none
+      margin: 1rem 1.5rem 2.5rem 0
+
+.homepage-showcase
+  border-left: 2px solid $yellow-0
+  width: 87%
   margin: 0 auto
-  text-align: center
+
+.section-separation
+  border-bottom: 1px solid #484a4f
+  margin: 0 6% 2.5% 4%
+
+  &__title
+    font-size: 2.2rem
+    font-weight: 200
+    text-transform: uppercase
+    letter-spacing: 2px
+    margin: 4rem 0 0.6rem 0
+    color: #cecece
+
+    .title--yellow
+      color: $yellow-0
+      font-weight: bold
+
+.poster-list-container
+  margin: 0 4%
+  display: grid
+  grid-template-columns: repeat(6, 1fr)
+  grid-gap: 5.2rem 1.7rem
+
+  a
+    color: inherit
+    text-decoration: none
+
+.trending-people-container
+  margin: 0 4%
+  display: grid
+  grid-template-columns: repeat(10, 1fr)
+  
+  a
+    text-decoration: none
+    transition: all 0.3s
+    &:hover
+      color: green
+
+.similar-media-container
+  margin-top: 7%
+
+// Styling for the movie/tv show credits 
+.similar-media
+  border-top: 1px solid #484a4f
+  padding: 3rem 0
+  margin-top: 1rem
+  display: grid
+  grid-template-columns: repeat(7, 1fr)
+  grid-gap: 1.5rem
+
+  .similar-media__item
+    text-decoration: none
+    margin: 0 auto
+
+
+// Media Queries
+@media only screen and (max-width: 1300px) 
+  .poster-list-container
+    grid-template-columns: repeat(4, 1fr)
+
+  .trending-people-container 
+    grid-template-columns: repeat(6, 1fr)
+
+@media only screen and (max-width: 836px)
+  .similar-media
+    grid-template-columns: repeat(5, 1fr) 
+
+@media only screen and (max-width: 796px)
+  .jumbotron-container
+
+    .jumbotron
+      background-position: center
+
+    .jumbotron-header
+      width: 80%
+      top: 32%
+      left: 12%
+
+      .jumbotron__rating
+        font-weight: 600
+        font-size: 2.3rem
+
+      .genre__item
+        font-size: 1.4rem
+
+      .jumbotron__title
+        font-size: 3.3rem
+
+  .poster-list-container
+    grid-template-columns: repeat(3, 1fr) 
+
+  .trending-people-container 
+    grid-template-columns: repeat(4, 1fr)
+
+
+@media only screen and (max-width: 670px)
+  .similar-media
+    grid-template-columns: repeat(4, 1fr) 
+
+
+@media only screen and (max-width: 530px)
+  .trending-people-container
+    grid-template-columns: repeat(3, 1fr)
+
+  .similar-media
+    grid-template-columns: repeat(2, 1fr)
+
+@media only screen and (max-width: 375px)
+  .poster-list-container
+    grid-template-columns: repeat(1, 1fr)
+
+  .jumbotron-container
+
+    .jumbotron-header
+
+      .genre-list
+        display: none
+
+  .trending-people-container
+    grid-template-columns: repeat(2, 1fr)

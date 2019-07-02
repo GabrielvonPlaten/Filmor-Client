@@ -1,8 +1,9 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: ['babel-polyfill', './src/index.js'],
   output: {
     path: path.join(__dirname, 'public', 'dist'),
     filename: 'bundle.js',
@@ -22,7 +23,7 @@ module.exports = {
       ] // multiple loaders using an array
     },
     {
-      test: /\.(png|jpg|gif)$/i,
+      test: /\.(png|jpg|gif|svg)$/i,
       use: [
         {
           loader: 'url-loader',
@@ -44,6 +45,7 @@ module.exports = {
   plugins: [
     new MiniCssExtractPlugin({ 
       filename: "style.css"
-    })
+    }),
+    new Dotenv()
   ], 
 };

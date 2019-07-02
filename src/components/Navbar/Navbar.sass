@@ -1,10 +1,19 @@
+@import '../../Styles/style.sass'
+  
 .navbar-container
+  background: rgba(16, 13, 0, 0.85)
+  box-shadow: $box-shadow-0
   display: flex
-  justify-content: flex-end
   padding-right: 1.2rem
-  background: #171544
   height: 5rem
+  position: fixed
+  justify-content: center
+  width: 100%
+  z-index: 20
 
 .navbar__item
   list-style-type: none
-  margin: 1.4rem 2rem
+  margin: 1.6rem 2rem
+
+  svg
+    margin-right: 0.7rem

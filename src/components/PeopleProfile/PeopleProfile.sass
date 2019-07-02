@@ -1,0 +1,63 @@
+@import '../../Styles/style.sass'
+  
+.person-container
+  padding: 1px
+
+  .jumbotron-container
+
+    .jumbotron-movie__gradient-shadow
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(34, 35, 38, 0.52) 82%)
+      height: 84vh
+
+.person-overview
+  bottom: 14rem
+  position: relative
+  margin: 0 auto
+  min-height: 60rem 
+  width: 80%
+
+  &__image
+    width: 35%
+    float: left
+    margin-right: 2.5rem
+    box-shadow: $box-shadow-8
+
+.person-overview-header
+  border-bottom: 1px solid $yellow-0
+  padding-bottom: 1rem
+
+  &__title
+    margin: 1rem 0 2rem 0
+    font-size: 4.4rem
+    text-shadow: $text-shadow
+      left: 2rem
+
+  .person-department
+    color: $yellow-0
+    font-size: 2.5rem
+    margin-left: 2rem
+
+.person-description
+  color: #e5e5e5
+  font-size: 1.9rem
+  margin-top: 5%
+  line-height: 2.5rem
+  width: 80%
+
+.similar-movies__item
+  text-decoration: none
+  margin-bottom: 2%
+
+@media only screen and (max-width: 1024px)
+  .person-overview
+    width: 94%
+
+  .person-description
+    width: 100%
+
+@media only screen and (max-width: 425px)
+  .person-overview
+  
+    &__image
+      margin-bottom: 2rem
+      width: 100%

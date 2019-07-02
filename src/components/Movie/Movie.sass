@@ -1,0 +1,191 @@
+@import '../../Styles/style.sass'
+  
+.movie-container
+  padding: 1px
+
+  .jumbotron-container
+
+    .jumbotron-movie__gradient-shadow
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(34, 35, 38, 0.52) 82%)
+      height: 84vh
+
+.movie-overview
+  bottom: 14rem
+  position: relative
+  margin: 0 auto
+  min-height: 60rem 
+  width: 80%
+
+  &__image
+    width: 35%
+    float: left
+    margin-right: 2.5rem
+    box-shadow: $box-shadow-8
+
+.movie-overview-header
+  border-bottom: 1px solid $yellow-0
+  padding-bottom: 1rem
+
+  .type-of-media
+    color: $yellow-0
+    font-size: 2.5rem
+    margin-left: 2rem
+
+  .header-rating
+    display: flex
+    margin: 0
+    padding: 0
+
+  &__title
+    margin: 0 0 1rem 0
+    font-size: 4.4rem
+    text-shadow: $text-shadow
+
+  &__rating
+    color: $yellow-0
+    font-size: 3rem
+    font-weight: bold
+    text-shadow: $text-shadow
+    margin:
+      top: 1rem
+      left: 2rem 
+
+  &__genre-list
+    display: flex
+
+    .genre-list__item
+      list-style: none
+      color: #e2e2e2
+      margin-right: 1.5rem
+      font-size: 1.8rem
+      text-shadow: $text-shadow
+
+.movie-description
+  color: #e5e5e5
+  font-size: 1.9rem
+  margin-top: 5%
+  line-height: 2.5rem
+  width: 80%
+
+.movie-release
+  margin: 3% 0 1% 0
+  color: #fff
+
+  &__date
+    border-bottom: 1px solid $yellow-0
+
+.runtime-container
+  font-size: 1.44rem 
+
+  &__total
+    margin-left: 1rem
+
+    span
+      color: #00d27e
+
+.movie-revenue
+  font-size: 1.44rem
+
+  &__total
+    margin-left: 2rem
+
+    span
+      color: $yellow-0
+      font-weight: 200
+
+.cast-container
+  margin:
+    top: 3%
+    left: 2rem
+
+  h3
+    margin-bottom: 1rem
+
+.movie-cast
+  display: grid
+  grid-template-columns: repeat(6, 1fr)
+  width: 50%
+
+  a
+    text-decoration: none
+    margin: 0
+
+.similar-movies__item
+  text-decoration: none
+  margin-bottom: 2%
+
+.production-companies
+  margin-top: 3%
+
+.production-companies-list
+  border-top: 1px solid #484a4f
+  display: grid
+  grid-template-columns: repeat(5, 1fr)
+  margin: 0
+  padding-top: 2%
+
+.production-company__name
+  color: #d7d7d7
+  font-size: 2rem
+  font-weight: 200
+  text-align: center
+  margin-bottom: 20%
+
+// Media Queries
+@media only screen and (max-width: 1300px)
+  .movie-overview
+    width: 93%
+
+@media only screen and (max-width: 1150px)
+
+  .movie-cast
+    width: 100%
+    margin: 12% auto 0 auto
+    grid-gap: 1.2rem
+
+@media only screen and (max-width: 880px)
+  .movie-overview-header
+
+    &__title
+      font-size: 2.9rem
+
+    .type-of-media
+      font-size: 2rem
+
+    &__rating
+      font-size: 2.4rem
+      margin:
+        top: 0.5rem
+        left: 2rem 
+
+  .movie-description
+    width: 95%
+
+  .production-companies
+    .production-companies-list
+      grid-template-columns: repeat(2, 1fr)
+      color: red
+
+@media only screen and (max-width: 810px)
+  .movie-cast
+    grid-template-columns: repeat(5, 1fr)
+
+
+@media only screen and (max-width: 650px)
+  
+  .movie-overview
+    bottom: 7rem
+    &__image
+      display: none
+
+  .movie-overview-header
+    &__genre-list
+      display: none  
+
+  .movie-cast
+    grid-template-columns: repeat(3, 1fr)
+
+
+@media only screen and (max-width: 375px)
+  .movie-cast
+    grid-template-columns: repeat(2, 1fr)

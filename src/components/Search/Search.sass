@@ -1,0 +1,84 @@
+.search-container
+  padding-top: 5%
+
+  &__title
+    font-weight: 200
+    text-align: center
+
+.search-form
+  width: 30%
+  margin: 3rem auto
+  display: flex
+
+  &__input
+    background: none
+    padding: 1rem
+    border: none
+    width: 100%
+    border-bottom: 1px solid #414141
+    color: #fff
+
+.search-results-container
+  width: 80%
+  margin: 0 auto
+
+  .search-title
+    font-weight: 200
+    color: #d4d4d4
+    margin-top: 0.8rem
+    border-bottom: 1px solid #414141
+
+.search-people, .search-movies, .search-shows
+  display: grid
+  margin: 0 auto
+  padding: 2rem
+  grid-gap: 2rem
+
+  a
+    text-decoration: none
+
+
+.search-people
+  grid-template-columns: repeat(10, 1fr)
+
+.search-movies, .search-shows
+  grid-template-columns: repeat(8, 1fr)
+
+@media only screen and (max-width: 1140px)
+  .search-container
+    padding-top: 7%
+
+  .search-form
+    width: 70%
+
+  .search-results-container
+    width: 94%
+
+  .search-movies, .search-shows
+    grid-template-columns: repeat(5, 1fr)
+
+
+@media only screen and (max-width: 850px)
+  .search-movies, .search-shows
+    grid-template-columns: repeat(4, 1fr)
+
+@media only screen and (max-width: 600px)
+  .search-container
+    padding-top: 12%
+
+  .search-form
+    width: 98%
+
+  .search-movies, .search-shows
+    grid-template-columns: repeat(3, 1fr)
+
+@media only screen and (max-width: 425px)
+  .search-container
+    padding-top: 15%
+
+@media only screen and (max-width: 375px)
+  .search-container
+    padding-top: 18%
+
+  .search-movies, .search-shows
+    grid-template-columns: repeat(2, 1fr)

@@ -1,17 +1,29 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+// Util Component
+import ScrollToTop from './components/ScrollToTop/ScrollToTop';
+
+// Components
 import Home from './Components/Home/Home';
-import About from './Components/About/About.jsx';
-import Navbar from './Components/Navbar/Navbar'
+import Movie from './components/Movie/Movie';
+import Navbar from './components/Navbar/Navbar'
+import TVShow from './components/TVShow/TVShow';
+import Search from './components/Search/Search';
+import PeopleProfile from './components/PeopleProfile/PeopleProfile';
 
 const App = () => {
   return (
     <BrowserRouter>
       <div>
+        <ScrollToTop />
         <Navbar />
         <Switch>
           <Route exact={ true } path="/" component={ Home } />
-          <Route exact={ true } path="/about" component={ About } />
+          <Route exact={ true } path="/movie/:id" component={ Movie } />
+          <Route exact={ true } path="/tv/:id" component={ TVShow } />
+          <Route exact={ true } path="/search" component={ Search } />
+          <Route exact={ true } path="/people/:id" component={ PeopleProfile } />
         </Switch>
       </div>
     </BrowserRouter>
