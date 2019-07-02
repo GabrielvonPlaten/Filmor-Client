@@ -1,4 +1,4 @@
-## Filmor -- Personal project using TMDb's API
+## Filmor - Personal project using TMDb's API & React.js
 
 Live: https://filmor.herokuapp.com/
 
