@@ -1,5 +1,7 @@
 ## Filmor -- Personal project using TMDb's API
 
+Live: https://filmor.herokuapp.com/
+
 ## Commands
 **To install**
 ------
