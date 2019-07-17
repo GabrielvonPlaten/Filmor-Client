@@ -64,6 +64,7 @@ const Search: React.FC = () => {
       <h2 className="search-container__title">Search Any Media</h2>
       <form className="search-form" onSubmit={searchMedia}>
         <input
+          autoFocus
           className="search-form__input"
           name="query"
           placeholder="Search..."

@@ -1,6 +1,5 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import faSearch from "../../Styles/images/search.svg";
 import "./Navbar.sass";
 
 const Navbar: React.FC = () => {
@@ -19,7 +18,6 @@ const Navbar: React.FC = () => {
         activeClassName="is-active"
         className="navbar__item router-link"
       >
-        <img src={faSearch} />
         Search
       </NavLink>
     </header>

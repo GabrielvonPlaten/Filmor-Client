@@ -70,7 +70,7 @@ const Movie: React.FC<Props> = props => {
                 <span className="type-of-media">(Movie)</span>
               </h2>
               <span className="movie-overview-header__rating">
-                <img src={faStar} />
+                <img className="movie-overview-header__star" src={faStar} />
                 <span> {movieData.vote_average}</span>
               </span>
             </div>

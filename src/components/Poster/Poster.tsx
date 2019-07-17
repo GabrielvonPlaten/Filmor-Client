@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Poster.sass";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import faStar from "../../Styles/images/star.svg";
 import PropTypes from "prop-types";
 
 import noImage from "../../Styles/images/no-image.svg";
@@ -30,7 +29,7 @@ const Poster: React.FC<PosterProp> = ({
       />
       <h2 className="movie-poster__title">{mediaTitle}</h2>
       <div className="poster-rating">
-        <FontAwesomeIcon icon={faStar} />
+        <img className="poster-rating__star" src={faStar} />
         <span className="poster-rating__rating">{mediaRating}</span>
       </div>
     </div>
