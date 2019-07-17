@@ -1,6 +1,5 @@
-import axios from 'axios';
-const API_KEY = process.env.API_KEY; 
-
+import axios from "axios";
+const API_KEY: any = process.env.API_KEY;
 
 export default {
   // Movies
@@ -9,17 +8,17 @@ export default {
     return axios.get(url);
   },
 
-  getMovieById(id) {
-    let url = `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`
+  getMovieById(id: number) {
+    let url = `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`;
     return axios.get(url);
   },
 
-  getCastAndCrew(id) {
+  getCastAndCrew(id: number) {
     let url = `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${API_KEY}`;
     return axios.get(url);
   },
 
-  getSimilarMovies(id) {
+  getSimilarMovies(id: number) {
     let url = `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${API_KEY}&language=en-US&page=1`;
     return axios.get(url);
   },
@@ -30,22 +29,22 @@ export default {
     return axios.get(url);
   },
 
-  getPersonProfile(id) {
+  getPersonProfile(id: number) {
     let url = ` https://api.themoviedb.org/3/person/${id}?api_key=${API_KEY}&language=en-US`;
     return axios.get(url);
   },
 
-  getPersonImages(id) {
+  getPersonImages(id: number) {
     let url = ` https://api.themoviedb.org/3/person/${id}/tagged_images?api_key=${API_KEY}&language=en-US`;
     return axios.get(url);
   },
 
-  getPersonMovieCredits(id) {
+  getPersonMovieCredits(id: number) {
     let url = ` https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=${API_KEY}&language=en-US`;
     return axios.get(url);
   },
 
-  getPersonTVCredits(id) {
+  getPersonTVCredits(id: number) {
     let url = ` https://api.themoviedb.org/3/person/${id}/tv_credits?api_key=${API_KEY}&language=en-US`;
     return axios.get(url);
   },
@@ -56,24 +55,24 @@ export default {
     return axios.get(url);
   },
 
-  getTVShow(id) {
+  getTVShow(id: number) {
     let url = ` https://api.themoviedb.org/3/tv/${id}?api_key=${API_KEY}&language=en-US`;
     return axios.get(url);
   },
 
-  getTVShowCast(id) {
+  getTVShowCast(id: number) {
     let url = ` https://api.themoviedb.org/3/tv/${id}/credits?api_key=${API_KEY}&language=en-US`;
     return axios.get(url);
   },
 
-  getSimilarShows(id) {
+  getSimilarShows(id: number) {
     let url = ` https://api.themoviedb.org/3/tv/${id}/similar?api_key=${API_KEY}&language=en-US&page=1`;
     return axios.get(url);
   },
 
   // Search Results
-  getSearchResults(query) {
+  getSearchResults(query: string) {
     let url = `https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&language=en-US&query=${query}&page=1&include_adult=false`;
     return axios.get(url);
   }
-}
+};

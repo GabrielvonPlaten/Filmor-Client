@@ -6,33 +6,37 @@
     text-align: center
 
 .search-form
-  width: 30%
-  margin: 3rem auto
   display: flex
+  margin: 3rem auto
+  width: 30%
 
   &__input
     background: none
-    padding: 1rem
     border: none
-    width: 100%
     border-bottom: 1px solid #414141
     color: #fff
+    padding: 1rem
+    width: 100%
+    transition: all 0.15s ease-in
+
+    &:focus
+      border-bottom: 1px solid #0679bd
 
 .search-results-container
-  width: 80%
   margin: 0 auto
+  width: 80%
 
   .search-title
-    font-weight: 200
-    color: #d4d4d4
-    margin-top: 0.8rem
     border-bottom: 1px solid #414141
+    color: #d4d4d4
+    font-weight: 200
+    margin-top: 0.8rem
 
 .search-people, .search-movies, .search-shows
   display: grid
+  grid-gap: 2rem
   margin: 0 auto
   padding: 2rem
-  grid-gap: 2rem
 
   a
     text-decoration: none
