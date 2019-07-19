@@ -72,7 +72,7 @@ const TVShow: React.FC<Prop> = props => {
                 <span className="type-of-media">(Show)</span>
               </h2>
               <span className="tv-show-overview-header__rating">
-                <img src={faStar} />
+                <img className="tv-show-overview-header__star" src={faStar} />
                 <span> {tvShowData.vote_average}</span>
               </span>
             </div>
