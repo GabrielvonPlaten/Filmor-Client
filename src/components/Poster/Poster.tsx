@@ -7,9 +7,9 @@ import noImage from "../../Styles/images/no-image.svg";
 
 interface PosterProp {
   mediaData: any;
-  mediaTitle: any;
-  mediaRating: any;
-  className?: any;
+  mediaTitle: string;
+  mediaRating: number;
+  className?: string;
 }
 
 const Poster: React.FC<PosterProp> = ({

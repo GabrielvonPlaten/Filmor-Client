@@ -5,9 +5,8 @@
   "author": "Gabriel von Platen",
   "license": "MIT",
   "scripts": {
-    "serve": "live-server public/",
-    "build": "webpack",
-    "dev-server": "webpack-dev-server"
+    "serve": "webpack-dev-server",
+    "build": "webpack --mode production"
   },
   "dependencies": {
     "@fortawesome/fontawesome-common-types": "^0.2.19",

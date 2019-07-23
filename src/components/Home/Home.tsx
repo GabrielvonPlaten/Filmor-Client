@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import _ from "lodash";
-import "./Home.sass";
-import faStar from "../../Styles/images/star.svg";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import _ from 'lodash';
+import './Home.sass';
+import faStar from '../../Styles/images/star.svg';
 
 // Components
-import Poster from "../Poster/Poster";
-import PeopleIcons from "../PeopleIcons/PeopleIcons";
+import Poster from '../Poster/Poster';
+import PeopleIcons from '../PeopleIcons/PeopleIcons';
 
 // Api Service
-import apiService from "../../apis/service";
+import apiService from '../../apis/service';
 
 const Home: React.FC = () => {
   const [jumbotronData, setJumbotronData]: any = useState([]);
@@ -49,61 +49,61 @@ const Home: React.FC = () => {
       .catch(err => console.log(err));
   }, []);
 
-  let orderedMovies = _.sortBy(popularData, "popularity").reverse();
+  let orderedMovies = _.sortBy(popularData, 'popularity').reverse();
 
   return (
-    <div className="landing-page">
-      <div className="jumbotron-container">
+    <div className='landing-page'>
+      <div className='jumbotron-container'>
         <div
-          className="jumbotron"
+          className='jumbotron'
           style={{
             backgroundImage:
-              "url(https://image.tmdb.org/t/p/original" +
+              'url(https://image.tmdb.org/t/p/original' +
               jumbotronData.backdrop_path +
-              ")"
+              ')'
           }}
         >
-          <div className="jumbotron-header">
-            <p className="jumbotron__rating">
+          <div className='jumbotron-header'>
+            <p className='jumbotron__rating'>
               <img src={faStar} />
               <span> {jumbotronData.vote_average}</span>
             </p>
-            <h1 className="jumbotron__title">{jumbotronData.title}</h1>
-            <ul className="genre-list">
+            <h1 className='jumbotron__title'>{jumbotronData.title}</h1>
+            <ul className='genre-list'>
               {jumbotronGenres.map((genre: any, index: number) => (
-                <li className="genre__item" key={index}>
+                <li className='genre__item' key={index}>
                   {genre.name}
                 </li>
               ))}
             </ul>
-            {jumbotronData.status !== "Released" ? (
-              <p className="jumbotron__release-date">
+            {jumbotronData.status !== 'Released' ? (
+              <p className='jumbotron__release-date'>
                 {jumbotronData.release_date}
               </p>
             ) : (
-              <p className="jumbotron__release-date">{jumbotronData.status}!</p>
+              <p className='jumbotron__release-date'>{jumbotronData.status}!</p>
             )}
             <Link
-              to={"/movie/" + jumbotronData.id}
-              className="btn btn--yellow jumbotron__btn"
+              to={'/movie/' + jumbotronData.id}
+              className='btn btn--yellow jumbotron__btn'
             >
               Read More
             </Link>
           </div>
-          <div className="jumbotron__gradient-shadow" />
+          <div className='jumbotron__gradient-shadow' />
         </div>
       </div>
 
       {/* Popular Movies Section */}
-      <div className="homepage-showcase">
-        <div className="section-separation">
-          <h2 className="section-separation__title">
-            <span className="title--yellow">Movies</span> - Popular
+      <div className='homepage-showcase'>
+        <div className='section-separation'>
+          <h2 className='section-separation__title'>
+            <span className='title--yellow'>Movies</span> - Popular
           </h2>
         </div>
-        <div className="poster-list-container">
+        <div className='poster-list-container'>
           {orderedMovies.map((movieData, index) => (
-            <Link key={index} to={"/movie/" + movieData.id}>
+            <Link key={index} to={'/movie/' + movieData.id}>
               <Poster
                 mediaData={movieData}
                 mediaTitle={movieData.title.slice(0, 50)}
@@ -114,14 +114,14 @@ const Home: React.FC = () => {
         </div>
 
         {/* Popular TV shows Section */}
-        <div className="section-separation">
-          <h2 className="section-separation__title">
-            <span className="title--yellow">TV</span> - POPULAR
+        <div className='section-separation'>
+          <h2 className='section-separation__title'>
+            <span className='title--yellow'>TV</span> - POPULAR
           </h2>
         </div>
-        <div className="poster-list-container">
+        <div className='poster-list-container'>
           {popularTVShows.map((showData: any, index: number) => (
-            <Link key={index} to={"/tv/" + showData.id}>
+            <Link key={index} to={'/tv/' + showData.id}>
               <Poster
                 mediaData={showData}
                 mediaTitle={showData.name.slice(0, 50)}
@@ -132,14 +132,14 @@ const Home: React.FC = () => {
         </div>
 
         {/* Trending People */}
-        <div className="section-separation">
-          <h2 className="section-separation__title">
-            <span className="title--yellow">PEOPLE</span> - POPULAR
+        <div className='section-separation'>
+          <h2 className='section-separation__title'>
+            <span className='title--yellow'>PEOPLE</span> - POPULAR
           </h2>
         </div>
-        <div className="trending-people-container">
+        <div className='trending-people-container'>
           {popularPeople.map((personData: any, index: number) => (
-            <Link key={index} to={"/people/" + personData.id}>
+            <Link key={index} to={'/people/' + personData.id}>
               <PeopleIcons personData={personData} />
             </Link>
           ))}
