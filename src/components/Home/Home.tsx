@@ -13,43 +13,43 @@ import apiService from '../../apis/service';
 
 const Home: React.FC = () => {
   const [jumbotronData, setJumbotronData]: any = useState([]);
-  const [jumbotronGenres, setGenres]: any = useState([]);
-  const [popularData, setPopularMovies]: any = useState([]);
-  const [popularTVShows, setPopularTVShows]: any = useState([]);
-  const [popularPeople, setPopularPeople]: any = useState([]);
+  const [jumbotronGenres, setGenres]: any[] = useState([]);
+  const [popularData, setPopularMovies]: any[] = useState([]);
+  const [popularTVShows, setPopularTVShows]: any[] = useState([]);
+  const [popularPeople, setPopularPeople]: any[] = useState([]);
 
   // Fetch data from the API once the website is loaded
   useEffect(() => {
     // Popular Movies
     apiService
       .getPopularMovies()
-      .then(res => {
+      .then((res) => {
         // Retrieve all first 13 popular movies but the first
         setPopularMovies(res.data.results.slice(1, 13));
         // Send the ID of the first movie to fetch more details
-        apiService.getMovieById(res.data.results[0].id).then(res => {
+        apiService.getMovieById(res.data.results[0].id).then((res) => {
           setJumbotronData(res.data); // Set jumbotron movie to state
           setGenres(res.data.genres); // Set genres to state
         });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
 
     // Popular TV Shows
     apiService
       .getPopularTVShows()
-      .then(res => {
+      .then((res) => {
         setPopularTVShows(res.data.results.slice(0, 6));
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
 
     // Get trending people
     apiService
       .getTrendingPeople()
-      .then(res => setPopularPeople(res.data.results))
-      .catch(err => console.log(err));
+      .then((res) => setPopularPeople(res.data.results))
+      .catch((err) => console.log(err));
   }, []);
 
-  let orderedMovies = _.sortBy(popularData, 'popularity').reverse();
+  const orderedMovies = _.sortBy(popularData, 'popularity').reverse();
 
   return (
     <div className='landing-page'>
@@ -60,7 +60,7 @@ const Home: React.FC = () => {
             backgroundImage:
               'url(https://image.tmdb.org/t/p/original' +
               jumbotronData.backdrop_path +
-              ')'
+              ')',
           }}
         >
           <div className='jumbotron-header'>
