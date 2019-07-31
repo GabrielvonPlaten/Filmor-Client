@@ -23,10 +23,10 @@ const Poster: React.FC<PosterProps> = ({
         }
         className='movie__backdrop'
       />
-      <h2 className='movie-poster__title'>{mediaTitle}</h2>
       <div className='poster-rating'>
         <img className='poster-rating__star' src={faStar} />
         <span className='poster-rating__rating'>{mediaRating}</span>
+        <h2 className='movie-poster__title'>{mediaTitle}</h2>
       </div>
     </div>
   );
