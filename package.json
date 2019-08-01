@@ -5,9 +5,8 @@
   "author": "Gabriel von Platen",
   "license": "MIT",
   "scripts": {
-    "serve": "live-server public/",
-    "build": "webpack",
-    "dev-server": "webpack-dev-server"
+    "serve": "webpack-dev-server",
+    "build": "webpack --mode production"
   },
   "dependencies": {
     "@fortawesome/fontawesome-common-types": "^0.2.19",
@@ -34,6 +33,7 @@
     "mini-css-extract-plugin": "^0.7.0",
     "node-sass": "^4.12.0",
     "normalize.css": "^8.0.0",
+    "prettier": "^1.18.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1",
