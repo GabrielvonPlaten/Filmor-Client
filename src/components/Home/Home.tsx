@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
 import './Home.sass';
@@ -12,12 +12,11 @@ import PeopleIcons from '../PeopleIcons/PeopleIcons';
 import apiService from '../../apis/service';
 
 const Home: React.FC = () => {
-  const [jumbotronData, setJumbotronData]: any = useState([]);
+  const [jumbotronData, setJumbotronData]: any = useState(null);
   const [jumbotronGenres, setGenres]: any[] = useState([]);
   const [popularData, setPopularMovies]: any[] = useState([]);
   const [popularTVShows, setPopularTVShows]: any[] = useState([]);
   const [popularPeople, setPopularPeople]: any[] = useState([]);
-  const eleRef: any = useRef();
 
   // Fetch data from the API once the website is loaded
   useEffect(() => {
@@ -56,120 +55,132 @@ const Home: React.FC = () => {
   useEffect(() => {
     const elements: any = document.querySelectorAll('.anim');
 
-    const observer = new IntersectionObserver((entries: any) => {
-      entries.forEach((entry: any) => {
-        if (entry.intersectionRatio > 0) {
-          entry.target.style.animation = `anim_one 2s ${entry.target.dataset.delay} forwards ease-out`;
-        } else {
-          entry.target.style.animation = 'none';
-        }
-      });
-    });
+    const observer = new IntersectionObserver(
+      (entries: any) => {
+        entries.forEach((entry: any) => {
+          if (entry.intersectionRatio > 0) {
+            entry.target.style.animation = `anim_one 2.2s ${entry.target.dataset.delay} forwards ease-out`;
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: '0px',
+        threshold: 1,
+      },
+    );
 
-    // observer.observe(elements[0]);
     elements.forEach((el: any) => {
       observer.observe(el);
     });
   });
 
-  return (
-    <div className='landing-page'>
-      <div className='jumbotron-container'>
-        <div
-          className='jumbotron'
-          style={{
-            backgroundImage: `url(https://image.tmdb.org/t/p/original${jumbotronData.backdrop_path})`,
-          }}
-        >
-          <div className='jumbotron-header'>
-            <p className='jumbotron__rating anim' data-delay='0s'>
-              <img src={faStar} />
-              <span> {jumbotronData.vote_average}</span>
-            </p>
-            <h1 className='jumbotron__title anim' data-delay='0s'>
-              {jumbotronData.title}
-            </h1>
-            <ul className='genre-list'>
-              {jumbotronGenres.map((genre: any, index: number) => (
-                <li className='genre__item anim' key={index} data-delay='0.5s'>
-                  {genre.name}
-                </li>
-              ))}
-            </ul>
-            {jumbotronData.status !== 'Released' ? (
-              <p className='jumbotron__release-date'>
-                {jumbotronData.release_date}
+  if (jumbotronData && jumbotronData.backdrop_path) {
+    return (
+      <div className='landing-page'>
+        <div className='jumbotron-container'>
+          <div
+            className='jumbotron'
+            style={{
+              backgroundImage: `url(https://image.tmdb.org/t/p/original${jumbotronData.backdrop_path})`,
+            }}
+          >
+            <div className='jumbotron-header'>
+              <p className='jumbotron__rating anim' data-delay='0.42s'>
+                <img src={faStar} />
+                <span> {jumbotronData.vote_average}</span>
               </p>
-            ) : (
-              <p className='jumbotron__release-date anim' data-delay='0.8s'>
-                {jumbotronData.status}!
-              </p>
-            )}
-            <Link
-              to={`/movie/${jumbotronData.id}`}
-              className='btn btn--yellow jumbotron__btn anim'
-              data-delay='0.8s'
-            >
-              Read More
-            </Link>
+              <h1 className='jumbotron__title anim' data-delay='0.5s'>
+                {jumbotronData.title}
+              </h1>
+              <ul className='genre-list'>
+                {jumbotronGenres.map((genre: any, index: number) => (
+                  <li
+                    className='genre__item anim'
+                    key={index}
+                    data-delay='0.68s'
+                  >
+                    {genre.name}
+                  </li>
+                ))}
+              </ul>
+              {jumbotronData.status !== 'Released' ? (
+                <p className='jumbotron__release-date'>
+                  {jumbotronData.release_date}
+                </p>
+              ) : (
+                <p className='jumbotron__release-date anim' data-delay='0.73s'>
+                  {jumbotronData.status}!
+                </p>
+              )}
+              <Link
+                to={`/movie/${jumbotronData.id}`}
+                className='btn btn--yellow jumbotron__btn anim'
+                data-delay='1.2s'
+              >
+                Read More
+              </Link>
+            </div>
+            <div className='jumbotron__gradient-shadow' />
           </div>
-          <div className='jumbotron__gradient-shadow' />
+        </div>
+
+        {/* Popular Movies Section */}
+        <div className='homepage-showcase'>
+          <div className='section-separation'>
+            <h2 className='section-separation__title'>
+              <span className='title--yellow'>Movies</span> - Popular
+            </h2>
+          </div>
+          <div className='poster-list-container'>
+            {orderedMovies.map((movieData, index) => (
+              <Link key={index} to={`/movie/${movieData.id}`}>
+                <Poster
+                  mediaData={movieData}
+                  mediaTitle={movieData.title.slice(0, 50)}
+                  mediaRating={movieData.vote_average}
+                />
+              </Link>
+            ))}
+          </div>
+
+          {/* Popular TV shows Section */}
+          <div className='section-separation'>
+            <h2 className='section-separation__title'>
+              <span className='title--yellow'>TV</span> - POPULAR
+            </h2>
+          </div>
+          <div className='poster-list-container'>
+            {popularTVShows.map((showData: any, index: number) => (
+              <Link key={index} to={`/tv/${showData.id}`}>
+                <Poster
+                  mediaData={showData}
+                  mediaTitle={showData.name.slice(0, 50)}
+                  mediaRating={showData.vote_average}
+                />
+              </Link>
+            ))}
+          </div>
+
+          {/* Trending People */}
+          <div className='section-separation'>
+            <h2 className='section-separation__title'>
+              <span className='title--yellow'>PEOPLE</span> - POPULAR
+            </h2>
+          </div>
+          <div className='trending-people-container'>
+            {popularPeople.map((personData: any, index: number) => (
+              <Link key={index} to={`/people/${personData.id}`}>
+                <PeopleIcons personData={personData} />
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
-
-      {/* Popular Movies Section */}
-      <div className='homepage-showcase'>
-        <div className='section-separation'>
-          <h2 className='section-separation__title'>
-            <span className='title--yellow'>Movies</span> - Popular
-          </h2>
-        </div>
-        <div className='poster-list-container'>
-          {orderedMovies.map((movieData, index) => (
-            <Link key={index} to={`/movie/${movieData.id}`}>
-              <Poster
-                mediaData={movieData}
-                mediaTitle={movieData.title.slice(0, 50)}
-                mediaRating={movieData.vote_average}
-              />
-            </Link>
-          ))}
-        </div>
-
-        {/* Popular TV shows Section */}
-        <div className='section-separation'>
-          <h2 className='section-separation__title'>
-            <span className='title--yellow'>TV</span> - POPULAR
-          </h2>
-        </div>
-        <div className='poster-list-container'>
-          {popularTVShows.map((showData: any, index: number) => (
-            <Link key={index} to={`/tv/$showData.id}`}>
-              <Poster
-                mediaData={showData}
-                mediaTitle={showData.name.slice(0, 50)}
-                mediaRating={showData.vote_average}
-              />
-            </Link>
-          ))}
-        </div>
-
-        {/* Trending People */}
-        <div className='section-separation'>
-          <h2 className='section-separation__title'>
-            <span className='title--yellow'>PEOPLE</span> - POPULAR
-          </h2>
-        </div>
-        <div className='trending-people-container'>
-          {popularPeople.map((personData: any, index: number) => (
-            <Link key={index} to={`/people/${personData.id}`}>
-              <PeopleIcons personData={personData} />
-            </Link>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
+    );
+  } else {
+    return <div className='home-loading'></div>;
+  }
 };
 
 export default Home;
