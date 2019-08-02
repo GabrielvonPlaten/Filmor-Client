@@ -5,9 +5,9 @@ import './Home.sass';
 import faStar from '../../Styles/images/star.svg';
 
 // Components
-import Poster from '../Poster/Poster';
-import PeopleIcons from '../PeopleIcons/PeopleIcons';
-import LoadingPage from '../LoadingPage/LoadingPage';
+import Poster from '../../Components/Poster/Poster';
+import PeopleIcons from '../../Components/PeopleIcons/PeopleIcons';
+import LoadingPage from '../../Components/LoadingPage/LoadingPage';
 
 // Api Service
 import apiService from '../../apis/service';

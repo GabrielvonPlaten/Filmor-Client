@@ -4,9 +4,9 @@ import './TVShow.sass';
 import faStar from '../../Styles/images/star.svg';
 
 // Components
-import LoadingPage from '../LoadingPage/LoadingPage';
-import PeopleIcons from '../PeopleIcons/PeopleIcons';
-import Poster from '../Poster/Poster';
+import LoadingPage from '../../Components/LoadingPage/LoadingPage';
+import PeopleIcons from '../../Components/PeopleIcons/PeopleIcons';
+import Poster from '../../Components/Poster/Poster';
 
 // Api Service
 import apiService from '../../apis/service';
