@@ -11,6 +11,7 @@ import Navbar from './Components/Navbar/Navbar';
 import TVShow from './Components/TVShow/TVShow';
 import Search from './Components/Search/Search';
 import PeopleProfile from './Components/PeopleProfile/PeopleProfile';
+import Footer from './Components/Footer/Footer';
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
           <Route exact={true} path='/people/:id' component={PeopleProfile} />
         </Switch>
       </div>
+      <Footer />
     </BrowserRouter>
   );
 };
