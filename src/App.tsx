@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import './App.sass';
 
 // Util Component
 import ScrollToTop from './Components/ScrollToTop/ScrollToTop';
@@ -16,7 +17,7 @@ import Footer from './Components/Footer/Footer';
 const App = () => {
   return (
     <BrowserRouter>
-      <div>
+      <div className='app-body'>
         <ScrollToTop />
         <Navbar />
         <Switch>
