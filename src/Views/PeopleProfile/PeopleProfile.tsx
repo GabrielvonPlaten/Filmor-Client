@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import './PeopleProfile.sass';
 
 // Components
-import LoadingPage from '../LoadingPage/LoadingPage';
-import Poster from '../Poster/Poster';
+import LoadingPage from '../../Components/LoadingPage/LoadingPage';
+import Poster from '../../Components/Poster/Poster';
 
 // Api Service
 import apiService from '../../apis/service';

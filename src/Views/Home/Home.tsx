@@ -5,8 +5,9 @@ import './Home.sass';
 import faStar from '../../Styles/images/star.svg';
 
 // Components
-import Poster from '../Poster/Poster';
-import PeopleIcons from '../PeopleIcons/PeopleIcons';
+import Poster from '../../Components/Poster/Poster';
+import PeopleIcons from '../../Components/PeopleIcons/PeopleIcons';
+import LoadingPage from '../../Components/LoadingPage/LoadingPage';
 
 // Api Service
 import apiService from '../../apis/service';
@@ -14,7 +15,7 @@ import apiService from '../../apis/service';
 const Home: React.FC = () => {
   const [jumbotronData, setJumbotronData]: any = useState(null);
   const [jumbotronGenres, setGenres]: any[] = useState([]);
-  const [popularData, setPopularMovies]: any[] = useState([]);
+  const [popularMovies, setPopularMovies]: any[] = useState([]);
   const [popularTVShows, setPopularTVShows]: any[] = useState([]);
   const [popularPeople, setPopularPeople]: any[] = useState([]);
 
@@ -49,7 +50,7 @@ const Home: React.FC = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  const orderedMovies = _.sortBy(popularData, 'popularity').reverse();
+  const orderedMovies = _.sortBy(popularMovies, 'popularity').reverse();
 
   // Animations on scroll
   useEffect(() => {
@@ -75,7 +76,7 @@ const Home: React.FC = () => {
     });
   });
 
-  if (jumbotronData && jumbotronData.backdrop_path) {
+  if (jumbotronData !== null && jumbotronData.backdrop_path) {
     return (
       <div className='landing-page'>
         <div className='jumbotron-container'>
@@ -179,7 +180,7 @@ const Home: React.FC = () => {
       </div>
     );
   } else {
-    return <div className='home-loading'></div>;
+    return <LoadingPage />;
   }
 };
 

@@ -1,21 +1,23 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import './App.sass';
 
 // Util Component
 import ScrollToTop from './Components/ScrollToTop/ScrollToTop';
 
 // Components
-import Home from './Components/Home/Home';
-import Movie from './Components/Movie/Movie';
+import Home from './Views/Home/Home';
+import Movie from './Views/Movie/Movie';
 import Navbar from './Components/Navbar/Navbar';
-import TVShow from './Components/TVShow/TVShow';
-import Search from './Components/Search/Search';
-import PeopleProfile from './Components/PeopleProfile/PeopleProfile';
+import TVShow from './Views/TVShow/TVShow';
+import Search from './Views/Search/Search';
+import PeopleProfile from './Views/PeopleProfile/PeopleProfile';
+import Footer from './Components/Footer/Footer';
 
 const App = () => {
   return (
     <BrowserRouter>
-      <div>
+      <div className='app-body'>
         <ScrollToTop />
         <Navbar />
         <Switch>
@@ -26,6 +28,7 @@ const App = () => {
           <Route exact={true} path='/people/:id' component={PeopleProfile} />
         </Switch>
       </div>
+      <Footer />
     </BrowserRouter>
   );
 };

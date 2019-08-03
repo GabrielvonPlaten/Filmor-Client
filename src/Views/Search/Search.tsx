@@ -5,8 +5,8 @@ import './Search.sass';
 import apiService from '../../apis/service';
 
 // Components
-import PeopleIcons from '../PeopleIcons/PeopleIcons';
-import Poster from '../Poster/Poster';
+import PeopleIcons from '../../Components/PeopleIcons/PeopleIcons';
+import Poster from '../../Components/Poster/Poster';
 
 const Search: React.FC = () => {
   const [searchData, setSearchData]: any = useState([]);

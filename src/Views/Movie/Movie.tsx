@@ -4,9 +4,9 @@ import './Movie.sass';
 import faStar from '../../Styles/images/star.svg';
 
 // Components
-import LoadingPage from '../LoadingPage/LoadingPage';
-import PeopleIcons from '../PeopleIcons/PeopleIcons';
-import Poster from '../Poster/Poster';
+import LoadingPage from '../../Components/LoadingPage/LoadingPage';
+import PeopleIcons from '../../Components/PeopleIcons/PeopleIcons';
+import Poster from '../../Components/Poster/Poster';
 
 // Api Service
 import apiService from '../../apis/service';
@@ -17,7 +17,7 @@ interface Props {
 }
 
 const Movie: React.FC<Props> = (props) => {
-  const [movieData, setMovieData]: any = useState([]);
+  const [movieData, setMovieData]: any = useState(null);
   const [movieGenres, setMovieGenres]: any[] = useState([]);
   const [movieCast, setMovieCast]: any[] = useState([]);
   const [similarMovies, setSimilarMovies]: any[] = useState([]);
@@ -42,7 +42,7 @@ const Movie: React.FC<Props> = (props) => {
       .catch((err) => console.log(err));
   }, [props]);
 
-  if (movieData) {
+  if (movieData !== null) {
     return (
       <div className='movie-container'>
         <div className='jumbotron-container'>
