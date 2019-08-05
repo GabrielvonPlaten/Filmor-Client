@@ -12,12 +12,17 @@ import LoadingPage from '../../Components/LoadingPage/LoadingPage';
 
 // Fetch Hook
 import useFetch from '../../hooks/useFetch';
+import {
+  POPULAR_MOVIES,
+  POPULAR_TV_SHOWS,
+  POPULAR_PEOPLE,
+} from '../../apis/urlTypes';
 
 const Home: React.FC = () => {
   let jumbotronGenres: string[] = [];
 
   let popularMovies: any = useFetch({
-    url: `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`,
+    url: POPULAR_MOVIES,
   });
 
   const jumbotronData: any = useFetch({
@@ -30,11 +35,11 @@ const Home: React.FC = () => {
   }
 
   let popularTVShows: any = useFetch({
-    url: `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US&page=1`,
+    url: POPULAR_TV_SHOWS,
   });
 
   const popularPeople: any = useFetch({
-    url: `https://api.themoviedb.org/3/person/popular?api_key=${API_KEY}&language=en-US&page=1`,
+    url: POPULAR_PEOPLE,
   });
 
   // Animations on scroll
