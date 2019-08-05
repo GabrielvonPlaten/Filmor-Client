@@ -3,56 +3,39 @@ import { Link } from 'react-router-dom';
 import _ from 'lodash';
 import './Home.sass';
 import faStar from '../../Styles/images/star.svg';
+const API_KEY: any = process.env.API_KEY;
 
 // Components
 import Poster from '../../Components/Poster/Poster';
 import PeopleIcons from '../../Components/PeopleIcons/PeopleIcons';
 import LoadingPage from '../../Components/LoadingPage/LoadingPage';
 
+// Fetch Hook
 import useFetch from '../../hooks/useFetch';
 
-// Api Service
-import apiService from '../../apis/service';
-
 const Home: React.FC = () => {
-  const [jumbotronData, setJumbotronData]: any = useState(null);
-  const [jumbotronGenres, setGenres]: any[] = useState([]);
-  const [popularMovies, setPopularMovies]: any[] = useState([]);
-  const [popularTVShows, setPopularTVShows]: any[] = useState([]);
-  const [popularPeople, setPopularPeople]: any[] = useState([]);
+  let jumbotronGenres: string[] = [];
 
-  // Fetch data from the API once the website is loaded
-  useEffect(() => {
-    // Popular Movies
-    apiService
-      .getPopularMovies()
-      .then((res) => {
-        // Retrieve all first 13 popular movies but the first
-        setPopularMovies(res.data.results.slice(1, 13));
-        // Send the ID of the first movie to fetch more details
-        apiService.getMovieById(res.data.results[0].id).then((res) => {
-          setJumbotronData(res.data); // Set jumbotron movie to state
-          setGenres(res.data.genres); // Set genres to state
-        });
-      })
-      .catch((err) => console.log(err));
+  let popularMovies: any = useFetch({
+    url: `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`,
+  });
 
-    // Popular TV Shows
-    apiService
-      .getPopularTVShows()
-      .then((res) => {
-        setPopularTVShows(res.data.results.slice(0, 6));
-      })
-      .catch((err) => console.log(err));
+  const jumbotronData: any = useFetch({
+    url: `https://api.themoviedb.org/3/movie/${popularMovies &&
+      popularMovies[0].id}?api_key=${API_KEY}`,
+  });
 
-    // Get trending people
-    apiService
-      .getTrendingPeople()
-      .then((res) => setPopularPeople(res.data.results))
-      .catch((err) => console.log(err));
-  }, []);
+  if (jumbotronData) {
+    jumbotronGenres = jumbotronData.genres;
+  }
 
-  const orderedMovies = _.sortBy(popularMovies, 'popularity').reverse();
+  let popularTVShows: any = useFetch({
+    url: `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US&page=1`,
+  });
+
+  const popularPeople: any = useFetch({
+    url: `https://api.themoviedb.org/3/person/popular?api_key=${API_KEY}&language=en-US&page=1`,
+  });
 
   // Animations on scroll
   useEffect(() => {
@@ -69,7 +52,7 @@ const Home: React.FC = () => {
       {
         root: null,
         rootMargin: '0px',
-        threshold: 1,
+        threshold: 0,
       },
     );
 
@@ -78,7 +61,7 @@ const Home: React.FC = () => {
     });
   });
 
-  if (jumbotronData !== null && jumbotronData.backdrop_path) {
+  if (popularMovies && jumbotronData && jumbotronData.backdrop_path) {
     return (
       <div className='landing-page'>
         <div className='jumbotron-container'>
@@ -89,11 +72,11 @@ const Home: React.FC = () => {
             }}
           >
             <div className='jumbotron-header'>
-              <p className='jumbotron__rating anim' data-delay='0.42s'>
+              <p className='jumbotron__rating anim' data-delay='0'>
                 <img src={faStar} />
                 <span> {jumbotronData.vote_average}</span>
               </p>
-              <h1 className='jumbotron__title anim' data-delay='0.5s'>
+              <h1 className='jumbotron__title anim' data-delay='0.3s'>
                 {jumbotronData.title}
               </h1>
               <ul className='genre-list'>
@@ -112,14 +95,14 @@ const Home: React.FC = () => {
                   {jumbotronData.release_date}
                 </p>
               ) : (
-                <p className='jumbotron__release-date anim' data-delay='0.73s'>
+                <p className='jumbotron__release-date anim' data-delay='0.68s'>
                   {jumbotronData.status}!
                 </p>
               )}
               <Link
                 to={`/movie/${jumbotronData.id}`}
                 className='btn btn--yellow jumbotron__btn anim'
-                data-delay='1.2s'
+                data-delay='1.3s'
               >
                 Read More
               </Link>
@@ -136,7 +119,7 @@ const Home: React.FC = () => {
             </h2>
           </div>
           <div className='poster-list-container'>
-            {orderedMovies.map((movieData, index) => (
+            {popularMovies.slice(1, 13).map((movieData: any, index: number) => (
               <Link key={index} to={`/movie/${movieData.id}`}>
                 <Poster
                   mediaData={movieData}
@@ -154,15 +137,18 @@ const Home: React.FC = () => {
             </h2>
           </div>
           <div className='poster-list-container'>
-            {popularTVShows.map((showData: any, index: number) => (
-              <Link key={index} to={`/tv/${showData.id}`}>
-                <Poster
-                  mediaData={showData}
-                  mediaTitle={showData.name.slice(0, 50)}
-                  mediaRating={showData.vote_average}
-                />
-              </Link>
-            ))}
+            {popularTVShows &&
+              popularTVShows
+                .slice(0, 12)
+                .map((showData: any, index: number) => (
+                  <Link key={index} to={`/tv/${showData.id}`}>
+                    <Poster
+                      mediaData={showData}
+                      mediaTitle={showData.name.slice(0, 50)}
+                      mediaRating={showData.vote_average}
+                    />
+                  </Link>
+                ))}
           </div>
 
           {/* Trending People */}
@@ -172,11 +158,12 @@ const Home: React.FC = () => {
             </h2>
           </div>
           <div className='trending-people-container'>
-            {popularPeople.map((personData: any, index: number) => (
-              <Link key={index} to={`/people/${personData.id}`}>
-                <PeopleIcons personData={personData} />
-              </Link>
-            ))}
+            {popularPeople &&
+              popularPeople.map((personData: any, index: number) => (
+                <Link key={index} to={`/people/${personData.id}`}>
+                  <PeopleIcons personData={personData} />
+                </Link>
+              ))}
           </div>
         </div>
       </div>
