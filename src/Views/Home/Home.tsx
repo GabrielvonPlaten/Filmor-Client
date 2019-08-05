@@ -10,13 +10,15 @@ import Poster from '../../Components/Poster/Poster';
 import PeopleIcons from '../../Components/PeopleIcons/PeopleIcons';
 import LoadingPage from '../../Components/LoadingPage/LoadingPage';
 
-// Fetch Hook
-import useFetch from '../../hooks/useFetch';
+// URL Types
 import {
   POPULAR_MOVIES,
   POPULAR_TV_SHOWS,
   POPULAR_PEOPLE,
 } from '../../apis/urlTypes';
+
+// Fetch Hook
+import useFetch from '../../hooks/useFetch';
 
 const Home: React.FC = () => {
   let jumbotronGenres: string[] = [];
