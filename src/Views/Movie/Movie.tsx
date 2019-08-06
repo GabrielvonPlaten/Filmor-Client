@@ -9,9 +9,6 @@ import LoadingPage from '../../Components/LoadingPage/LoadingPage';
 import PeopleIcons from '../../Components/PeopleIcons/PeopleIcons';
 import Poster from '../../Components/Poster/Poster';
 
-// Api Service
-import apiService from '../../apis/service';
-
 // useFetch Hook
 import useFetch from '../../hooks/useFetch';
 
