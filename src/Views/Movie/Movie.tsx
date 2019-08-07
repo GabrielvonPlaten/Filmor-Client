@@ -17,12 +17,11 @@ import {
 } from '../../apis/moviesService';
 
 interface Props {
-  props: any;
   match: any;
 }
 
-const Movie: React.FC<Props> = (props) => {
-  const id = props.match.params.id;
+const Movie: React.FC<Props> = ({ match }) => {
+  const id = match.params.id;
   const [movieData, setMovieData]: any[] = useState(null);
   const [movieGenres, setMovieGenres]: any[] = useState([]);
   const [productionCompanies, setProductionCompanies]: any[] = useState([]);
@@ -35,16 +34,16 @@ const Movie: React.FC<Props> = (props) => {
     const castResponse: any = await getMovieCast(id);
     const similarMoviesResponse: any = await getSimilarMovies(id);
 
-    setMovieCast(castResponse.data.cast);
-    setMovieData(movieResponse.data);
-    setSimilarMovies(similarMoviesResponse.data.results);
-    setMovieGenres(movieResponse.data.genres);
-    setProductionCompanies(movieResponse.data.production_companies);
+    setMovieData(movieResponse);
+    setMovieGenres(movieResponse.genres);
+    setProductionCompanies(movieResponse.production_companies);
+    setMovieCast(castResponse.cast);
+    setSimilarMovies(similarMoviesResponse.results);
   };
 
   useEffect(() => {
     getMovie();
-  }, [props]);
+  }, [match]);
 
   if (movieData !== null) {
     return (

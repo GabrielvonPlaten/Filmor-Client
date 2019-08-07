@@ -1,17 +1,23 @@
 import axios from 'axios';
 const API_KEY: any = process.env.API_KEY;
 
-export const getMovieData = (id: number) => {
+// Movie Data
+export const getMovieData = async (id: number) => {
   const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`;
-  return axios.get(url);
+  const response: any = await axios.get(url);
+  return response.data;
 };
 
-export const getSimilarMovies = (id: number) => {
+// Similar Movies
+export const getSimilarMovies = async (id: number) => {
   const url = `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${API_KEY}&language=en-US&page=1`;
-  return axios.get(url);
+  const response: any = await axios.get(url);
+  return response.data;
 };
 
-export const getMovieCast = (id: number) => {
+// Movie Cast
+export const getMovieCast = async (id: number) => {
   const url = `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${API_KEY}`;
-  return axios.get(url);
+  const response: any = await axios.get(url);
+  return response.data;
 };
