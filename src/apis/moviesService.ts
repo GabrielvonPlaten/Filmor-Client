@@ -1,7 +1,7 @@
 import axios from 'axios';
 const API_KEY: any = process.env.API_KEY;
 
-export const getMovieService = (id: number) => {
+export const getMovieData = (id: number) => {
   const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`;
   return axios.get(url);
 };

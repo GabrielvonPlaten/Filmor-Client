@@ -8,8 +8,13 @@ const API_KEY: any = process.env.API_KEY;
 import LoadingPage from '../../Components/LoadingPage/LoadingPage';
 import Poster from '../../Components/Poster/Poster';
 
-// useFetch Hook
-import useFetch from '../../hooks/useFetch';
+// Person API Service
+import {
+  getPersonData,
+  getPersonImages,
+  getMovieCredits,
+  getTVCredits,
+} from '../../apis/personService';
 
 interface PeopleProp {
   match: any;
@@ -17,56 +22,49 @@ interface PeopleProp {
 
 const PeopleProfile: React.FC<PeopleProp> = ({ match }) => {
   const id = match.params.id;
-  let images: any = [];
-  let movieCredits: any = [];
-  let tvCredits: any = [];
+  const [personData, setPersonData]: any = useState(null);
+  const [images, setImages]: any = useState([]);
+  const [movieCredits, setMovieCredits]: any = useState([]);
+  const [tvCredits, setTVCredits]: any = useState([]);
 
   // Get person data
-  const personData: any = useFetch({
-    url: `https://api.themoviedb.org/3/person/${id}?api_key=${API_KEY}&language=en-US`,
-  });
+  const getPerson = async () => {
+    const personResponse = await getPersonData(id);
+    let personImagesResponse = await getPersonImages(id);
+    let movieCreditsResponse = await getMovieCredits(id);
+    let tvCreditsResponse = await getTVCredits(id);
 
-  // Images
-  const getPersonImages: any = useFetch({
-    url: `https://api.themoviedb.org/3/person/${id}/tagged_images?api_key=${API_KEY}&language=en-US`,
-  });
-
-  // Movie Credits
-  const getMovieCredits: any = useFetch({
-    url: `https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=${API_KEY}&language=en-US`,
-  });
-
-  // TV Credits
-  const getTVCredits: any = useFetch({
-    url: `https://api.themoviedb.org/3/person/${id}/tv_credits?api_key=${API_KEY}&language=en-US`,
-  });
-
-  // Sort Images and Credits by popylarity
-  if (getPersonImages && getMovieCredits && getTVCredits) {
-    images = getPersonImages.sort(
+    await personImagesResponse.results.sort(
       (a: any, b: any) => a.media.popularity < b.media.vote_count,
     );
-
-    movieCredits = getMovieCredits.cast.sort(
+    await movieCreditsResponse.cast.sort(
+      (a: any, b: any) => a.popularity < b.popularity,
+    );
+    await tvCreditsResponse.cast.sort(
       (a: any, b: any) => a.popularity < b.popularity,
     );
 
-    tvCredits = getTVCredits.cast.sort(
-      (a: any, b: any) => a.popularity < b.popularity,
-    );
-  }
+    setPersonData(personResponse);
+    setImages(personImagesResponse);
+    setMovieCredits(movieCreditsResponse.cast);
+    setTVCredits(tvCreditsResponse.cast);
+  };
+
+  useEffect(() => {
+    getPerson();
+  }, [match]);
 
   const knownForDepartment = (personData: any) => {
     let { known_for_department, gender } = personData;
-    let personProfessionClass = 'person-department';
+    let personProfessionClassName = 'person-department';
 
     switch (known_for_department) {
       case 'Acting' && gender === 2:
-        return <span className={personProfessionClass}>(Actor)</span>;
+        return <span className={personProfessionClassName}>(Actor)</span>;
       case 'Acting' && gender === 1:
-        return <span className={personProfessionClass}>(Actress)</span>;
+        return <span className={personProfessionClassName}>(Actress)</span>;
       case 'Directing':
-        return <span className={personProfessionClass}>(Director)</span>;
+        return <span className={personProfessionClassName}>(Director)</span>;
       default:
         return <span />;
     }

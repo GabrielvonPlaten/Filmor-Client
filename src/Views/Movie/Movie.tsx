@@ -11,7 +11,7 @@ import Poster from '../../Components/Poster/Poster';
 
 // Movie API Service
 import {
-  getMovieService,
+  getMovieData,
   getSimilarMovies,
   getMovieCast,
 } from '../../apis/moviesService';
@@ -31,9 +31,9 @@ const Movie: React.FC<Props> = (props) => {
 
   // Get movie details
   const getMovie = async () => {
-    let movieResponse: any = await getMovieService(id);
-    let castResponse: any = await getMovieCast(id);
-    let similarMoviesResponse: any = await getSimilarMovies(id);
+    const movieResponse: any = await getMovieData(id);
+    const castResponse: any = await getMovieCast(id);
+    const similarMoviesResponse: any = await getSimilarMovies(id);
 
     setMovieCast(castResponse.data.cast);
     setMovieData(movieResponse.data);
