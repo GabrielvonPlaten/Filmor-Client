@@ -9,8 +9,12 @@ import LoadingPage from '../../Components/LoadingPage/LoadingPage';
 import PeopleIcons from '../../Components/PeopleIcons/PeopleIcons';
 import Poster from '../../Components/Poster/Poster';
 
-// useFetch Hook
-import useFetch from '../../hooks/useFetch';
+// Movie API Service
+import {
+  getMovieService,
+  getSimilarMovies,
+  getMovieCast,
+} from '../../apis/moviesService';
 
 interface Props {
   props: any;
@@ -19,28 +23,28 @@ interface Props {
 
 const Movie: React.FC<Props> = (props) => {
   const id = props.match.params.id;
-  let productionCompanies: string[] = [];
-  let movieGenres: string[] = [];
+  const [movieData, setMovieData]: any[] = useState(null);
+  const [movieGenres, setMovieGenres]: any[] = useState([]);
+  const [productionCompanies, setProductionCompanies]: any[] = useState([]);
+  const [movieCast, setMovieCast]: any[] = useState([]);
+  const [similarMovies, setSimilarMovies]: any[] = useState([]);
 
   // Get movie details
-  const movieData: any = useFetch({
-    url: `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`,
-  });
+  const getMovie = async () => {
+    let movieResponse: any = await getMovieService(id);
+    let castResponse: any = await getMovieCast(id);
+    let similarMoviesResponse: any = await getSimilarMovies(id);
 
-  if (movieData) {
-    productionCompanies = movieData.production_companies;
-    movieGenres = movieData.genres;
-  }
+    setMovieCast(castResponse.data.cast);
+    setMovieData(movieResponse.data);
+    setSimilarMovies(similarMoviesResponse.data.results);
+    setMovieGenres(movieResponse.data.genres);
+    setProductionCompanies(movieResponse.data.production_companies);
+  };
 
-  // Get similar movies
-  const similarMovies: any = useFetch({
-    url: `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${API_KEY}&language=en-US&page=1`,
-  });
-
-  // Get cast
-  const movieCast: any = useFetch({
-    url: `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${API_KEY}`,
-  });
+  useEffect(() => {
+    getMovie();
+  }, [props]);
 
   if (movieData !== null) {
     return (
@@ -121,14 +125,13 @@ const Movie: React.FC<Props> = (props) => {
             <div className='cast-container'>
               <h3>Cast: </h3>
               <div className='movie-cast'>
-                {movieCast &&
-                  movieCast.cast
-                    .slice(0, 12)
-                    .map((personData: any, index: number) => (
-                      <Link key={index} to={`/people/${personData.id}`}>
-                        <PeopleIcons personData={personData} />
-                      </Link>
-                    ))}
+                {movieCast
+                  .slice(0, 12)
+                  .map((personData: any, index: number) => (
+                    <Link key={index} to={`/people/${personData.id}`}>
+                      <PeopleIcons personData={personData} />
+                    </Link>
+                  ))}
               </div>
             </div>
           </div>
@@ -137,22 +140,21 @@ const Movie: React.FC<Props> = (props) => {
           <div className='similar-media-container'>
             <h3>Similar Movies</h3>
             <div className='similar-media'>
-              {similarMovies &&
-                similarMovies
-                  .slice(0, 14)
-                  .map((movieData: any, index: number) => (
-                    <Link
-                      className='similar-media__item'
-                      key={index}
-                      to={`/movie/${movieData.id}`}
-                    >
-                      <Poster
-                        mediaData={movieData}
-                        mediaTitle={movieData.title.slice(0, 50)}
-                        mediaRating={movieData.vote_average}
-                      />
-                    </Link>
-                  ))}
+              {similarMovies
+                .slice(0, 14)
+                .map((movieData: any, index: number) => (
+                  <Link
+                    className='similar-media__item'
+                    key={index}
+                    to={`/movie/${movieData.id}`}
+                  >
+                    <Poster
+                      mediaData={movieData}
+                      mediaTitle={movieData.title.slice(0, 50)}
+                      mediaRating={movieData.vote_average}
+                    />
+                  </Link>
+                ))}
             </div>
           </div>
 
