@@ -21,7 +21,7 @@ interface Props {
 }
 
 const Movie: React.FC<Props> = ({ match }) => {
-  const id = match.params.id;
+  const id = match.params.id; // Movie ID taken from the url params
   const [movieData, setMovieData]: any[] = useState(null);
   const [movieGenres, setMovieGenres]: any[] = useState([]);
   const [productionCompanies, setProductionCompanies]: any[] = useState([]);

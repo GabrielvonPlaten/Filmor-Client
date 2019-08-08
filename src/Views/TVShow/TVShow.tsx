@@ -9,36 +9,40 @@ import LoadingPage from '../../Components/LoadingPage/LoadingPage';
 import PeopleIcons from '../../Components/PeopleIcons/PeopleIcons';
 import Poster from '../../Components/Poster/Poster';
 
-// useFetch Hook
-import useFetch from '../../hooks/useFetch';
+// TVShow API Service
+import {
+  getTVShowData,
+  getTVShowCast,
+  getSimilarTVShows,
+} from '../../apis/tvShowService';
 
 interface Prop {
   match: any;
 }
 
 const TVShow: React.FC<Prop> = ({ match }) => {
-  const id = match.params.id;
-  let showGenres: any[] = [];
-  let TVCast: any[] = [];
-  let productionCompanies: any[] = [];
+  const id = match.params.id; // TV-Show ID taken from the url params
+  const [tvShowData, setTVShowData]: any = useState(null);
+  const [TVCast, setTVCast]: any = useState([]);
+  const [showGenres, setTVShowGenres]: any = useState([]);
+  const [similarShows, setSimilarShows]: any = useState([]);
+  const [productionCompanies, setProductionCompanies]: any = useState([]);
 
-  const tvShowData: any = useFetch({
-    url: `https://api.themoviedb.org/3/tv/${id}?api_key=${API_KEY}&language=en-US`,
-  });
+  const getTVShow = async () => {
+    const tvShowsResponse = await getTVShowData(id);
+    const tvShowsCastResponse = await getTVShowCast(id);
+    const similarTVShowsResponse = await getSimilarTVShows(id);
 
-  const similarShows: any = useFetch({
-    url: `https://api.themoviedb.org/3/tv/${id}/similar?api_key=${API_KEY}&language=en-US&page=1`,
-  });
+    setTVShowData(tvShowsResponse);
+    setTVCast(tvShowsCastResponse.cast);
+    setSimilarShows(similarTVShowsResponse.results);
+    setTVShowGenres(tvShowsResponse.genres);
+    setProductionCompanies(tvShowsResponse.production_companies);
+  };
 
-  const getTVCast: any = useFetch({
-    url: `https://api.themoviedb.org/3/tv/${id}/credits?api_key=${API_KEY}&language=en-US`,
-  });
-
-  if (tvShowData && getTVCast) {
-    productionCompanies = tvShowData.production_companies;
-    showGenres = tvShowData.genres;
-    TVCast = getTVCast.cast;
-  }
+  useEffect(() => {
+    getTVShow();
+  }, [match]);
 
   if (tvShowData) {
     return (
@@ -138,22 +142,21 @@ const TVShow: React.FC<Prop> = ({ match }) => {
           <div className='similar-media-container'>
             <h3>Similar Shows</h3>
             <div className='similar-media'>
-              {similarShows &&
-                similarShows
-                  .slice(0, 12)
-                  .map((tvShowData: any, index: number) => (
-                    <Link
-                      className='similar-media__item'
-                      key={index}
-                      to={`/tv/${tvShowData.id}`}
-                    >
-                      <Poster
-                        mediaData={tvShowData}
-                        mediaTitle={tvShowData.name.slice(0, 50)}
-                        mediaRating={tvShowData.vote_average}
-                      />
-                    </Link>
-                  ))}
+              {similarShows
+                .slice(0, 12)
+                .map((tvShowData: any, index: number) => (
+                  <Link
+                    className='similar-media__item'
+                    key={index}
+                    to={`/tv/${tvShowData.id}`}
+                  >
+                    <Poster
+                      mediaData={tvShowData}
+                      mediaTitle={tvShowData.name.slice(0, 50)}
+                      mediaRating={tvShowData.vote_average}
+                    />
+                  </Link>
+                ))}
             </div>
           </div>
 

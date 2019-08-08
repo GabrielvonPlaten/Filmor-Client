@@ -21,7 +21,7 @@ interface PeopleProp {
 }
 
 const PeopleProfile: React.FC<PeopleProp> = ({ match }) => {
-  const id = match.params.id;
+  const id = match.params.id; // Person ID taken from the url params
   const [personData, setPersonData]: any = useState(null);
   const [images, setImages]: any = useState([]);
   const [movieCredits, setMovieCredits]: any = useState([]);
