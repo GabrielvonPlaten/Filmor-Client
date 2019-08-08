@@ -2,45 +2,48 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import './TVShow.sass';
 import faStar from '../../Styles/images/star.svg';
+const API_KEY: any = process.env.API_KEY;
 
 // Components
 import LoadingPage from '../../Components/LoadingPage/LoadingPage';
 import PeopleIcons from '../../Components/PeopleIcons/PeopleIcons';
 import Poster from '../../Components/Poster/Poster';
 
-// Api Service
-import apiService from '../../apis/service';
+// TVShow API Service
+import {
+  getTVShowData,
+  getTVShowCast,
+  getSimilarTVShows,
+} from '../../apis/tvShowService';
 
 interface Prop {
-  props: any;
   match: any;
 }
 
-const TVShow: React.FC<Prop> = (props) => {
+const TVShow: React.FC<Prop> = ({ match }) => {
+  const id = match.params.id; // TV-Show ID taken from the url params
   const [tvShowData, setTVShowData]: any = useState(null);
-  const [showGenres, setTVShowGenres]: any[] = useState([]);
-  const [TVCast, setTVCast]: any[] = useState([]);
-  const [similarShows, setSimilarShows]: any[] = useState([]);
-  const [productionCompanies, setPropdCompanies]: any[] = useState([]);
+  const [TVCast, setTVCast]: any = useState([]);
+  const [showGenres, setTVShowGenres]: any = useState([]);
+  const [similarShows, setSimilarShows]: any = useState([]);
+  const [productionCompanies, setProductionCompanies]: any = useState([]);
 
+  const getTVShow = async () => {
+    const tvShowsResponse = await getTVShowData(id);
+    const tvShowsCastResponse = await getTVShowCast(id);
+    const similarTVShowsResponse = await getSimilarTVShows(id);
+
+    setTVShowData(tvShowsResponse);
+    setTVCast(tvShowsCastResponse.cast);
+    setSimilarShows(similarTVShowsResponse.results);
+    setTVShowGenres(tvShowsResponse.genres);
+    setProductionCompanies(tvShowsResponse.production_companies);
+  };
+
+  // Fetch APIs
   useEffect(() => {
-    apiService
-      .getTVShow(props.match.params.id)
-      .then((res) => {
-        setTVShowData(res.data);
-        setPropdCompanies(res.data.production_companies);
-        setTVShowGenres(res.data.genres);
-
-        apiService
-          .getSimilarShows(res.data.id)
-          .then((res) => setSimilarShows(res.data.results));
-
-        apiService
-          .getTVShowCast(res.data.id)
-          .then((res) => setTVCast(res.data.cast));
-      })
-      .catch((err) => console.log(err));
-  }, [props]);
+    getTVShow();
+  }, [match]);
 
   if (tvShowData) {
     return (

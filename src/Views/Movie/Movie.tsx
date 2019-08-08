@@ -2,45 +2,49 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Movie.sass';
 import faStar from '../../Styles/images/star.svg';
+const API_KEY: any = process.env.API_KEY;
 
 // Components
 import LoadingPage from '../../Components/LoadingPage/LoadingPage';
 import PeopleIcons from '../../Components/PeopleIcons/PeopleIcons';
 import Poster from '../../Components/Poster/Poster';
 
-// Api Service
-import apiService from '../../apis/service';
+// Movie API Service
+import {
+  getMovieData,
+  getSimilarMovies,
+  getMovieCast,
+} from '../../apis/moviesService';
 
 interface Props {
-  props: any;
   match: any;
 }
 
-const Movie: React.FC<Props> = (props) => {
-  const [movieData, setMovieData]: any = useState(null);
+const Movie: React.FC<Props> = ({ match }) => {
+  const id = match.params.id; // Movie ID taken from the url params
+  const [movieData, setMovieData]: any[] = useState(null);
   const [movieGenres, setMovieGenres]: any[] = useState([]);
+  const [productionCompanies, setProductionCompanies]: any[] = useState([]);
   const [movieCast, setMovieCast]: any[] = useState([]);
   const [similarMovies, setSimilarMovies]: any[] = useState([]);
-  const [productionCompanies, setPropdCompanies]: any[] = useState([]);
 
+  // Get movie details
+  const getMovie = async () => {
+    const movieResponse: any = await getMovieData(id);
+    const castResponse: any = await getMovieCast(id);
+    const similarMoviesResponse: any = await getSimilarMovies(id);
+
+    setMovieData(movieResponse);
+    setMovieGenres(movieResponse.genres);
+    setProductionCompanies(movieResponse.production_companies);
+    setMovieCast(castResponse.cast);
+    setSimilarMovies(similarMoviesResponse.results);
+  };
+
+  // Fetch APIs
   useEffect(() => {
-    apiService
-      .getMovieById(props.match.params.id)
-      .then((res) => {
-        setMovieData(res.data);
-        setPropdCompanies(res.data.production_companies);
-        setMovieGenres(res.data.genres);
-
-        apiService
-          .getSimilarMovies(res.data.id)
-          .then((res) => setSimilarMovies(res.data.results));
-
-        apiService
-          .getCastAndCrew(res.data.id)
-          .then((res) => setMovieCast(res.data.cast));
-      })
-      .catch((err) => console.log(err));
-  }, [props]);
+    getMovie();
+  }, [match]);
 
   if (movieData !== null) {
     return (

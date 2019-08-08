@@ -3,54 +3,43 @@ import { Link } from 'react-router-dom';
 import _ from 'lodash';
 import './Home.sass';
 import faStar from '../../Styles/images/star.svg';
+const API_KEY: any = process.env.API_KEY;
 
 // Components
 import Poster from '../../Components/Poster/Poster';
 import PeopleIcons from '../../Components/PeopleIcons/PeopleIcons';
 import LoadingPage from '../../Components/LoadingPage/LoadingPage';
 
-// Api Service
-import apiService from '../../apis/service';
+// APIs Services
+import { getPopularMovies, getMovieData } from '../../apis/moviesService';
+import { getPopularTVShow } from '../../apis/tvShowService';
+import { getPopularPeople } from '../../apis/personService';
 
 const Home: React.FC = () => {
   const [jumbotronData, setJumbotronData]: any = useState(null);
-  const [jumbotronGenres, setGenres]: any[] = useState([]);
-  const [popularMovies, setPopularMovies]: any[] = useState([]);
-  const [popularTVShows, setPopularTVShows]: any[] = useState([]);
-  const [popularPeople, setPopularPeople]: any[] = useState([]);
+  const [jumbotronGenres, setJumbotronGenres]: any = useState([]);
+  const [popularMovies, setPopularMovies]: any = useState([]);
+  const [popularTVShows, setPopularTVShows]: any = useState([]);
+  const [popularPeople, setpopularPeople]: any = useState([]);
 
-  // Fetch data from the API once the website is loaded
+  const fetchAPIs = async () => {
+    const popularMoviesResponse = await getPopularMovies();
+    const movieID: number = popularMoviesResponse.results[0].id;
+    const movieJumbotronResponse = await getMovieData(movieID);
+    const tvShowsResponse = await getPopularTVShow();
+    const popularPeopleResponse = await getPopularPeople();
+
+    setJumbotronData(movieJumbotronResponse);
+    setJumbotronGenres(movieJumbotronResponse.genres);
+    setPopularMovies(popularMoviesResponse.results.slice(1, 13));
+    setPopularTVShows(tvShowsResponse.results.slice(0, 12));
+    setpopularPeople(popularPeopleResponse.results);
+  };
+
+  // Fetch APIs
   useEffect(() => {
-    // Popular Movies
-    apiService
-      .getPopularMovies()
-      .then((res) => {
-        // Retrieve all first 13 popular movies but the first
-        setPopularMovies(res.data.results.slice(1, 13));
-        // Send the ID of the first movie to fetch more details
-        apiService.getMovieById(res.data.results[0].id).then((res) => {
-          setJumbotronData(res.data); // Set jumbotron movie to state
-          setGenres(res.data.genres); // Set genres to state
-        });
-      })
-      .catch((err) => console.log(err));
-
-    // Popular TV Shows
-    apiService
-      .getPopularTVShows()
-      .then((res) => {
-        setPopularTVShows(res.data.results.slice(0, 6));
-      })
-      .catch((err) => console.log(err));
-
-    // Get trending people
-    apiService
-      .getTrendingPeople()
-      .then((res) => setPopularPeople(res.data.results))
-      .catch((err) => console.log(err));
+    fetchAPIs();
   }, []);
-
-  const orderedMovies = _.sortBy(popularMovies, 'popularity').reverse();
 
   // Animations on scroll
   useEffect(() => {
@@ -67,7 +56,7 @@ const Home: React.FC = () => {
       {
         root: null,
         rootMargin: '0px',
-        threshold: 1,
+        threshold: 0,
       },
     );
 
@@ -76,7 +65,7 @@ const Home: React.FC = () => {
     });
   });
 
-  if (jumbotronData !== null && jumbotronData.backdrop_path) {
+  if (jumbotronData) {
     return (
       <div className='landing-page'>
         <div className='jumbotron-container'>
@@ -87,11 +76,11 @@ const Home: React.FC = () => {
             }}
           >
             <div className='jumbotron-header'>
-              <p className='jumbotron__rating anim' data-delay='0.42s'>
+              <p className='jumbotron__rating anim' data-delay='0'>
                 <img src={faStar} />
                 <span> {jumbotronData.vote_average}</span>
               </p>
-              <h1 className='jumbotron__title anim' data-delay='0.5s'>
+              <h1 className='jumbotron__title anim' data-delay='0.3s'>
                 {jumbotronData.title}
               </h1>
               <ul className='genre-list'>
@@ -110,14 +99,14 @@ const Home: React.FC = () => {
                   {jumbotronData.release_date}
                 </p>
               ) : (
-                <p className='jumbotron__release-date anim' data-delay='0.73s'>
+                <p className='jumbotron__release-date anim' data-delay='0.68s'>
                   {jumbotronData.status}!
                 </p>
               )}
               <Link
                 to={`/movie/${jumbotronData.id}`}
                 className='btn btn--yellow jumbotron__btn anim'
-                data-delay='1.2s'
+                data-delay='1.3s'
               >
                 Read More
               </Link>
@@ -134,7 +123,7 @@ const Home: React.FC = () => {
             </h2>
           </div>
           <div className='poster-list-container'>
-            {orderedMovies.map((movieData, index) => (
+            {popularMovies.map((movieData: any, index: number) => (
               <Link key={index} to={`/movie/${movieData.id}`}>
                 <Poster
                   mediaData={movieData}

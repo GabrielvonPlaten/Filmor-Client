@@ -1,78 +1,71 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import PropTypes, { any } from 'prop-types';
 import './PeopleProfile.sass';
+const API_KEY: any = process.env.API_KEY;
 
 // Components
 import LoadingPage from '../../Components/LoadingPage/LoadingPage';
 import Poster from '../../Components/Poster/Poster';
 
-// Api Service
-import apiService from '../../apis/service';
+// Person API Service
+import {
+  getPersonData,
+  getPersonImages,
+  getMovieCredits,
+  getTVCredits,
+} from '../../apis/personService';
 
 interface PeopleProp {
   match: any;
 }
 
 const PeopleProfile: React.FC<PeopleProp> = ({ match }) => {
+  const id = match.params.id; // Person ID taken from the url params
   const [personData, setPersonData]: any = useState(null);
-  const [personImages, setPersonImages]: any[] = useState([]);
-  const [personTVCredits, setPersonTVCredits]: any[] = useState([]);
-  const [personMovieCredits, setPersonMovieCredits]: any[] = useState([]);
+  const [images, setImages]: any = useState([]);
+  const [movieCredits, setMovieCredits]: any = useState([]);
+  const [tvCredits, setTVCredits]: any = useState([]);
 
+  // Get person data
+  const getPerson = async () => {
+    const personResponse = await getPersonData(id);
+    let personImagesResponse = await getPersonImages(id);
+    let movieCreditsResponse = await getMovieCredits(id);
+    let tvCreditsResponse = await getTVCredits(id);
+
+    await personImagesResponse.results.sort(
+      (a: any, b: any) => a.media.popularity < b.media.vote_count,
+    );
+    await movieCreditsResponse.cast.sort(
+      (a: any, b: any) => a.popularity < b.popularity,
+    );
+    await tvCreditsResponse.cast.sort(
+      (a: any, b: any) => a.popularity < b.popularity,
+    );
+
+    setPersonData(personResponse);
+    setImages(personImagesResponse);
+    setMovieCredits(movieCreditsResponse.cast);
+    setTVCredits(tvCreditsResponse.cast);
+  };
+
+  // Fetch APIs
   useEffect(() => {
-    apiService
-      .getPersonProfile(match.params.id)
-      .then((res) => {
-        setPersonData(res.data);
-      })
-      .catch((err) => console.log(err));
-
-    // Get all images related to the person
-    apiService
-      .getPersonImages(match.params.id)
-      .then((res) => {
-        setPersonImages(
-          res.data.results.sort(
-            (a: any, b: any) => a.media.vote_count < b.media.vote_count,
-          ),
-        );
-      })
-      .catch((err) => console.log(err));
-
-    // Get all Movies that the person has appeared in the credits
-    apiService
-      .getPersonMovieCredits(match.params.id)
-      .then((res) => {
-        // Sort movie credits by the most popularity DESC order
-        setPersonMovieCredits(
-          res.data.cast.sort((a: any, b: any) => a.popularity < b.popularity),
-        );
-      })
-      .catch((err) => console.log(err));
-
-    // Get all TV-Shows that the person has appeared in the credits
-    apiService
-      .getPersonTVCredits(match.params.id)
-      .then((res) => {
-        setPersonTVCredits(
-          res.data.cast.sort((a: any, b: any) => a.popularity < b.popularity),
-        );
-      })
-      .catch((err) => console.log(err));
+    getPerson();
   }, [match]);
 
   const knownForDepartment = (personData: any) => {
     let { known_for_department, gender } = personData;
-    let personProfessionClass = 'person-department';
+    let personProfessionClassName = 'person-department';
 
     switch (known_for_department) {
       case 'Acting' && gender === 2:
-        return <span className={personProfessionClass}>(Actor)</span>;
+        return <span className={personProfessionClassName}>(Actor)</span>;
       case 'Acting' && gender === 1:
-        return <span className={personProfessionClass}>(Actress)</span>;
+        return <span className={personProfessionClassName}>(Actress)</span>;
       case 'Directing':
-        return <span className={personProfessionClass}>(Director)</span>;
+        return <span className={personProfessionClassName}>(Director)</span>;
       default:
         return <span />;
     }
@@ -82,11 +75,11 @@ const PeopleProfile: React.FC<PeopleProp> = ({ match }) => {
     return (
       <div className='person-container'>
         <div className='jumbotron-container'>
-          {personImages && personImages.length > 0 ? (
+          {images && images.length > 0 ? (
             <div
               className='jumbotron'
               style={{
-                backgroundImage: `url(https://image.tmdb.org/t/p/original${personImages[0].media.backdrop_path})`,
+                backgroundImage: `url(https://image.tmdb.org/t/p/original${images[0].media.backdrop_path})`,
               }}
             >
               <div className='jumbotron-movie__gradient-shadow' />
@@ -95,8 +88,8 @@ const PeopleProfile: React.FC<PeopleProp> = ({ match }) => {
             <div
               className='jumbotron'
               style={
-                personMovieCredits[0] && {
-                  backgroundImage: `url(https://image.tmdb.org/t/p/original${personMovieCredits[0].backdrop_path})`,
+                movieCredits[0] && {
+                  backgroundImage: `url(https://image.tmdb.org/t/p/original${movieCredits[0].backdrop_path})`,
                 }
               }
             >
@@ -134,7 +127,7 @@ const PeopleProfile: React.FC<PeopleProp> = ({ match }) => {
           <div className='similar-media-container'>
             <h3>Movie Credits</h3>
             <div className='similar-media'>
-              {personMovieCredits
+              {movieCredits
                 .slice(0, 14)
                 .map((movieData: any, index: number) => (
                   <Link
@@ -155,21 +148,19 @@ const PeopleProfile: React.FC<PeopleProp> = ({ match }) => {
           <div className='similar-media-container'>
             <h3>TV Show Credits</h3>
             <div className='similar-media'>
-              {personTVCredits
-                .slice(0, 14)
-                .map((tvData: any, index: number) => (
-                  <Link
-                    className='similar-media__item'
-                    key={index}
-                    to={`/tv/${tvData.id}`}
-                  >
-                    <Poster
-                      mediaData={tvData}
-                      mediaTitle={tvData.name.slice(0, 50)}
-                      mediaRating={tvData.vote_average}
-                    />
-                  </Link>
-                ))}
+              {tvCredits.slice(0, 14).map((tvData: any, index: number) => (
+                <Link
+                  className='similar-media__item'
+                  key={index}
+                  to={`/tv/${tvData.id}`}
+                >
+                  <Poster
+                    mediaData={tvData}
+                    mediaTitle={tvData.name.slice(0, 50)}
+                    mediaRating={tvData.vote_average}
+                  />
+                </Link>
+              ))}
             </div>
           </div>
         </div>
