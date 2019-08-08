@@ -41,6 +41,7 @@ const Movie: React.FC<Props> = ({ match }) => {
     setSimilarMovies(similarMoviesResponse.results);
   };
 
+  // Fetch APIs
   useEffect(() => {
     getMovie();
   }, [match]);

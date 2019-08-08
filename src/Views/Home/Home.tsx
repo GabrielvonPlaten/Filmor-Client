@@ -10,39 +10,36 @@ import Poster from '../../Components/Poster/Poster';
 import PeopleIcons from '../../Components/PeopleIcons/PeopleIcons';
 import LoadingPage from '../../Components/LoadingPage/LoadingPage';
 
-// URL Types
-import {
-  POPULAR_MOVIES,
-  POPULAR_TV_SHOWS,
-  POPULAR_PEOPLE,
-} from '../../apis/urlTypes';
-
-// Fetch Hook
-import useFetch from '../../hooks/useFetch';
+// APIs Services
+import { getPopularMovies, getMovieData } from '../../apis/moviesService';
+import { getPopularTVShow } from '../../apis/tvShowService';
+import { getPopularPeople } from '../../apis/personService';
 
 const Home: React.FC = () => {
-  let jumbotronGenres: string[] = [];
+  const [jumbotronData, setJumbotronData]: any = useState(null);
+  const [jumbotronGenres, setJumbotronGenres]: any = useState([]);
+  const [popularMovies, setPopularMovies]: any = useState([]);
+  const [popularTVShows, setPopularTVShows]: any = useState([]);
+  const [popularPeople, setpopularPeople]: any = useState([]);
 
-  let popularMovies: any = useFetch({
-    url: POPULAR_MOVIES,
-  });
+  const fetchAPIs = async () => {
+    const popularMoviesResponse = await getPopularMovies();
+    const movieID: number = popularMoviesResponse.results[0].id;
+    const movieJumbotronResponse = await getMovieData(movieID);
+    const tvShowsResponse = await getPopularTVShow();
+    const popularPeopleResponse = await getPopularPeople();
 
-  const jumbotronData: any = useFetch({
-    url: `https://api.themoviedb.org/3/movie/${popularMovies &&
-      popularMovies[0].id}?api_key=${API_KEY}`,
-  });
+    setJumbotronData(movieJumbotronResponse);
+    setJumbotronGenres(movieJumbotronResponse.genres);
+    setPopularMovies(popularMoviesResponse.results.slice(1, 13));
+    setPopularTVShows(tvShowsResponse.results.slice(0, 12));
+    setpopularPeople(popularPeopleResponse.results);
+  };
 
-  if (jumbotronData) {
-    jumbotronGenres = jumbotronData.genres;
-  }
-
-  let popularTVShows: any = useFetch({
-    url: POPULAR_TV_SHOWS,
-  });
-
-  const popularPeople: any = useFetch({
-    url: POPULAR_PEOPLE,
-  });
+  // Fetch APIs
+  useEffect(() => {
+    fetchAPIs();
+  }, []);
 
   // Animations on scroll
   useEffect(() => {
@@ -68,7 +65,7 @@ const Home: React.FC = () => {
     });
   });
 
-  if (popularMovies && jumbotronData && jumbotronData.backdrop_path) {
+  if (jumbotronData) {
     return (
       <div className='landing-page'>
         <div className='jumbotron-container'>
@@ -126,7 +123,7 @@ const Home: React.FC = () => {
             </h2>
           </div>
           <div className='poster-list-container'>
-            {popularMovies.slice(1, 13).map((movieData: any, index: number) => (
+            {popularMovies.map((movieData: any, index: number) => (
               <Link key={index} to={`/movie/${movieData.id}`}>
                 <Poster
                   mediaData={movieData}
@@ -144,18 +141,15 @@ const Home: React.FC = () => {
             </h2>
           </div>
           <div className='poster-list-container'>
-            {popularTVShows &&
-              popularTVShows
-                .slice(0, 12)
-                .map((showData: any, index: number) => (
-                  <Link key={index} to={`/tv/${showData.id}`}>
-                    <Poster
-                      mediaData={showData}
-                      mediaTitle={showData.name.slice(0, 50)}
-                      mediaRating={showData.vote_average}
-                    />
-                  </Link>
-                ))}
+            {popularTVShows.map((showData: any, index: number) => (
+              <Link key={index} to={`/tv/${showData.id}`}>
+                <Poster
+                  mediaData={showData}
+                  mediaTitle={showData.name.slice(0, 50)}
+                  mediaRating={showData.vote_average}
+                />
+              </Link>
+            ))}
           </div>
 
           {/* Trending People */}
@@ -165,12 +159,11 @@ const Home: React.FC = () => {
             </h2>
           </div>
           <div className='trending-people-container'>
-            {popularPeople &&
-              popularPeople.map((personData: any, index: number) => (
-                <Link key={index} to={`/people/${personData.id}`}>
-                  <PeopleIcons personData={personData} />
-                </Link>
-              ))}
+            {popularPeople.map((personData: any, index: number) => (
+              <Link key={index} to={`/people/${personData.id}`}>
+                <PeopleIcons personData={personData} />
+              </Link>
+            ))}
           </div>
         </div>
       </div>

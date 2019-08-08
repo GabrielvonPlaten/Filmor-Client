@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import './Search.sass';
 
-import { searchMedia } from '../../apis/search';
+import { searchMedia } from '../../apis/searchService';
 
 // Components
 import PeopleIcons from '../../Components/PeopleIcons/PeopleIcons';
@@ -14,9 +14,10 @@ const Search: React.FC = () => {
 
   const handleSearch = async (e: any) => {
     e.preventDefault();
+
     let value: string = refQuery.current.value;
     let results: any = await searchMedia(value);
-    await setSearchData(results.data.results);
+    await setSearchData(results.results);
   };
 
   // People Icons Component

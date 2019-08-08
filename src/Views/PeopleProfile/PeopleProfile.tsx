@@ -50,6 +50,7 @@ const PeopleProfile: React.FC<PeopleProp> = ({ match }) => {
     setTVCredits(tvCreditsResponse.cast);
   };
 
+  // Fetch APIs
   useEffect(() => {
     getPerson();
   }, [match]);

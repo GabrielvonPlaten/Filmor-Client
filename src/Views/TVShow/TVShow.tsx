@@ -40,6 +40,7 @@ const TVShow: React.FC<Prop> = ({ match }) => {
     setProductionCompanies(tvShowsResponse.production_companies);
   };
 
+  // Fetch APIs
   useEffect(() => {
     getTVShow();
   }, [match]);
