@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Search.sass';
 
@@ -9,23 +9,49 @@ import PeopleIcons from '../../Components/PeopleIcons/PeopleIcons';
 import Poster from '../../Components/Poster/Poster';
 
 const Search: React.FC = () => {
-  const [searchData, setSearchData]: any = useState([]);
   const refQuery: any = useRef(null);
+  const [searchData, setSearchData] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleSearch = async (e: any) => {
     e.preventDefault();
 
+    setIsLoading(true);
     let value: string = refQuery.current.value;
     let results: any = await searchMedia(value);
     await setSearchData(results.results);
+    setIsLoading(false);
   };
+
+  useEffect(() => {
+    const elements: any = document.querySelectorAll('.media-anims');
+
+    const observer = new IntersectionObserver(
+      (entries: any) => {
+        entries.forEach((entry: any) => {
+          if (entry.intersectionRatio > 0) {
+            entry.target.style.animation = `media_animation 0.7s forwards ease-in`;
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0,
+      },
+    );
+
+    elements.forEach((el: any) => {
+      observer.observe(el);
+    });
+  }, [searchData]);
 
   // People Icons Component
   let displayPerson = searchData.map((res: any, index: number) => {
     if (res.media_type === 'person')
       return (
-        <Link key={index} to={'/people/' + res.id}>
-          <div className='search-item'>
+        <Link key={index} to={`/people/${res.id}`}>
+          <div className='search-item media-anims'>
             <PeopleIcons personData={res} />
           </div>
         </Link>
@@ -36,8 +62,8 @@ const Search: React.FC = () => {
   let displayMovies = searchData.map((res: any, index: number) => {
     if (res.media_type === 'movie')
       return (
-        <Link key={index} to={'/movie/' + res.id}>
-          <div className='search-item'>
+        <Link key={index} to={`/movie/${res.id}`}>
+          <div className='search-item media-anims'>
             <Poster
               mediaData={res}
               mediaTitle={res.title}
@@ -52,8 +78,8 @@ const Search: React.FC = () => {
   let displayShows = searchData.map((res: any, index: number) => {
     if (res.media_type === 'tv')
       return (
-        <Link key={index} to={'/tv/' + res.id}>
-          <div className='search-item'>
+        <Link key={index} to={`/tv/${res.id}`}>
+          <div className='search-item media-anims'>
             <Poster
               mediaData={res}
               mediaTitle={res.name}
@@ -76,6 +102,7 @@ const Search: React.FC = () => {
         />
         <button className='btn btn--blue'>Search</button>
       </form>
+      {isLoading && <h1 className='loading-media'>Loading...</h1>}
       <div className='search-results-container'>
         {displayPerson.length > 0 && <h2 className='search-title'>People</h2>}
         {displayPerson.length > 0 && (
