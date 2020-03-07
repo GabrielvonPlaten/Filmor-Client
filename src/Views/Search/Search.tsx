@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import './Search.sass';
 
 import { searchMedia } from '../../apis/searchService';
@@ -8,22 +8,30 @@ import { searchMedia } from '../../apis/searchService';
 import PeopleIcons from '../../Components/PeopleIcons/PeopleIcons';
 import Poster from '../../Components/Poster/Poster';
 
-const Search: React.FC = () => {
-  const refQuery: any = useRef(null);
-  const [searchData, setSearchData] = useState<any[]>([]);
+interface PropsInterface {
+  match: any;
+}
+
+const Search: React.FC<PropsInterface> = ({ match }) => {
+  const title: string = match.params.title;
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [searchData, setSearchData] = useState<any[]>([]);
 
-  const handleSearch = async (e: any) => {
-    e.preventDefault();
-
+  const handleSearch = async () => {
     setIsLoading(true);
-    let value: string = refQuery.current.value;
-    let results: any = await searchMedia(value);
+    const results: any = await searchMedia(title);
     await setSearchData(results.results);
+
+    if (searchData.length === 0) {
+      setIsLoading(true);
+      return;
+    }
+
     setIsLoading(false);
   };
 
   useEffect(() => {
+    handleSearch();
     const elements: any = document.querySelectorAll('.media-anims');
 
     const observer = new IntersectionObserver(
@@ -47,7 +55,7 @@ const Search: React.FC = () => {
   }, [searchData]);
 
   // People Icons Component
-  let displayPerson = searchData.map((res: any, index: number) => {
+  const displayPerson = searchData.map((res: any, index: number) => {
     if (res.media_type === 'person')
       return (
         <Link key={index} to={`/people/${res.id}`}>
@@ -59,7 +67,7 @@ const Search: React.FC = () => {
   });
 
   // Movie Poster Component
-  let displayMovies = searchData.map((res: any, index: number) => {
+  const displayMovies = searchData.map((res: any, index: number) => {
     if (res.media_type === 'movie')
       return (
         <Link key={index} to={`/movie/${res.id}`}>
@@ -75,7 +83,7 @@ const Search: React.FC = () => {
   });
 
   // TV-Show Poster Component
-  let displayShows = searchData.map((res: any, index: number) => {
+  const displayShows = searchData.map((res: any, index: number) => {
     if (res.media_type === 'tv')
       return (
         <Link key={index} to={`/tv/${res.id}`}>
@@ -92,16 +100,6 @@ const Search: React.FC = () => {
 
   return (
     <div className='search-container'>
-      <h2 className='search-container__title'>Search Any Media</h2>
-      <form className='search-form' onSubmit={(e) => handleSearch(e)}>
-        <input
-          autoFocus
-          className='search-form__input'
-          ref={refQuery}
-          placeholder='Search...'
-        />
-        <button className='btn btn--blue'>Search</button>
-      </form>
       {isLoading && <h1 className='loading-media'>Loading...</h1>}
       <div className='search-results-container'>
         {displayPerson.length > 0 && <h2 className='search-title'>People</h2>}
