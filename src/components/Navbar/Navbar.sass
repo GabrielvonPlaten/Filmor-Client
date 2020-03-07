@@ -4,13 +4,29 @@
   background: rgba(16, 13, 0, 0.85)
   box-shadow: $box-shadow-0
   display: flex
-  padding-right: 1.2rem
   height: 5rem
   position: fixed
-  justify-content: center
   width: 100%
   z-index: 20
 
 .navbar__item
   list-style-type: none
   margin: 1.6rem 2rem
+
+.search-form
+  display: flex
+  padding: 1rem
+  margin: 0 auto
+  width: 20%
+
+  &__input
+    background: none
+    border: none
+    border-bottom: 1px solid #414141
+    color: #fff
+    width: 100%
+    transition: all 0.15s ease-in
+    text-transform: capitalize
+
+    &:focus
+      border-bottom: 1px solid $green-1

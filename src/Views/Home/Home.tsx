@@ -105,7 +105,7 @@ const Home: React.FC = () => {
               )}
               <Link
                 to={`/movie/${jumbotronData.id}`}
-                className='btn btn--yellow jumbotron__btn anim'
+                className='btn btn--yellow glow--yellow jumbotron__btn anim'
                 data-delay='1.3s'
               >
                 Read More
