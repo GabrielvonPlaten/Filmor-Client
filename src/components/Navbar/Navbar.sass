@@ -1,29 +1,43 @@
 @import '../../Styles/style.sass'
   
 .navbar-container
-  background: rgba(16, 13, 0, 0.85)
-  box-shadow: $box-shadow-0
+  background: rgba(16, 13, 0, 0.75)
+  border-bottom: 1px solid rgba(12, 10, 0, 0.95)
   display: flex
   height: 5rem
   position: fixed
   width: 100%
   z-index: 20
 
+.navbar-blur
+  backdrop-filter: saturate(150%) blur(6px)
+  -webkit-backdrop-filter: saturate(150%) blur(6px)
+  height: 5rem
+  position: fixed
+  width: 100%
+  z-index: 1
+
 .navbar__item
   list-style-type: none
   margin: 1.6rem 2rem
+  z-index: 9999
 
 .search-form
   display: flex
   padding: 1rem
-  margin: 0 auto
-  width: 20%
+  margin: 0
+  width: 17%
+
+  .form-line
+    border-left: 1px solid #494949
+    margin-right: 5%
 
   &__input
     background: none
-    border: none
-    border-bottom: 1px solid #414141
+    border: 1px solid transparent
+    margin-left: 2%
     color: #fff
+    font-weight: 200
     width: 100%
     transition: all 0.15s ease-in
     text-transform: capitalize

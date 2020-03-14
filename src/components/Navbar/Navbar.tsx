@@ -11,7 +11,7 @@ const Navbar: React.FC = () => {
     <Route
       render={({ history }) => (
         <button
-          className='btn--blue'
+          className='btn btn--bare'
           onClick={() => {
             history.push(`/search/${searchData}`);
             setSearchData('');
@@ -27,15 +27,17 @@ const Navbar: React.FC = () => {
 
   return (
     <header className='navbar-container'>
+      <div className='navbar-blur' />
       <NavLink
         to='/'
         activeClassName='is-active'
         className='navbar__item router-link'
         exact={true}
       >
-        Home
+        Filmore
       </NavLink>
       <form className='navbar__item search-form'>
+        <div className='form-line' />
         <input
           className='search-form__input'
           onChange={(e) => handleSearch(e)}
