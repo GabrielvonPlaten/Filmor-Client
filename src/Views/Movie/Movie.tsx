@@ -16,11 +16,10 @@ import {
   getMovieCast,
 } from '../../apis/moviesService';
 
-interface Props {
-  match: any;
-}
+// Interface
+import { MatchIdInterface } from '../../types/MatchInterface';
 
-const Movie: React.FC<Props> = ({ match }) => {
+const Movie: React.FC<{ match: MatchIdInterface }> = ({ match }) => {
   const id = match.params.id; // Movie ID taken from the url params
   const [movieData, setMovieData]: any[] = useState(null);
   const [movieGenres, setMovieGenres]: any[] = useState([]);

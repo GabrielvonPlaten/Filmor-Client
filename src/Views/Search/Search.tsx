@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, ReactElement } from 'react';
 import { Link, Route } from 'react-router-dom';
 import './Search.sass';
 
@@ -8,18 +8,17 @@ import { searchMedia } from '../../apis/searchService';
 import PeopleIcons from '../../Components/PeopleIcons/PeopleIcons';
 import Poster from '../../Components/Poster/Poster';
 
-interface PropsInterface {
-  match: any;
-}
+// Interface
+import { MatchTitleInterface } from '../../types/MatchInterface';
 
-const Search: React.FC<PropsInterface> = ({ match }) => {
+const Search: React.FC<{ match: MatchTitleInterface }> = ({ match }) => {
   const title: string = match.params.title;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchData, setSearchData] = useState<any[]>([]);
 
   const handleSearch = async () => {
     setIsLoading(true);
-    const results: any = await searchMedia(title);
+    const results = await searchMedia(title);
     await setSearchData(results.results);
 
     if (searchData.length === 0) {
@@ -32,7 +31,7 @@ const Search: React.FC<PropsInterface> = ({ match }) => {
 
   useEffect(() => {
     handleSearch();
-    const elements: any = document.querySelectorAll('.media-anims');
+    const elements = document.querySelectorAll('.media-anims');
 
     const observer = new IntersectionObserver(
       (entries: any) => {
@@ -49,13 +48,15 @@ const Search: React.FC<PropsInterface> = ({ match }) => {
       },
     );
 
-    elements.forEach((el: any) => {
+    elements.forEach((el) => {
       observer.observe(el);
     });
   }, [searchData]);
 
   // People Icons Component
-  const displayPerson = searchData.map((res: any, index: number) => {
+  const displayPerson = searchData.map((res: any, index: number):
+    | ReactElement
+    | undefined => {
     if (res.media_type === 'person')
       return (
         <Link key={index} to={`/people/${res.id}`}>
@@ -67,7 +68,9 @@ const Search: React.FC<PropsInterface> = ({ match }) => {
   });
 
   // Movie Poster Component
-  const displayMovies = searchData.map((res: any, index: number) => {
+  const displayMovies = searchData.map((res: any, index: number):
+    | ReactElement
+    | undefined => {
     if (res.media_type === 'movie')
       return (
         <Link key={index} to={`/movie/${res.id}`}>
@@ -83,7 +86,9 @@ const Search: React.FC<PropsInterface> = ({ match }) => {
   });
 
   // TV-Show Poster Component
-  const displayShows = searchData.map((res: any, index: number) => {
+  const displayShows = searchData.map((res: any, index: number):
+    | ReactElement
+    | undefined => {
     if (res.media_type === 'tv')
       return (
         <Link key={index} to={`/tv/${res.id}`}>
