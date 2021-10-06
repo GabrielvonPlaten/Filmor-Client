@@ -1,53 +1,58 @@
-const path = require("path");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const Dotenv = require("dotenv-webpack");
+const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
-  entry: ["babel-polyfill", "./src/index.tsx"],
+  entry: ['babel-polyfill', './src/index.tsx'],
   output: {
-    path: path.join(__dirname, "public", "dist"),
-    filename: "bundle.js"
+    path: path.resolve(__dirname, 'public'),
+    filename: 'bundle.js',
+    publicPath: '/',
+    chunkFilename: 'bundle.chunk.js',
   },
   module: {
     rules: [
       {
-        use: ["babel-loader", "ts-loader"],
+        use: ['babel-loader', 'ts-loader'],
         test: /\.ts|\.tsx$/,
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.s?a?c?ss$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"] // multiple loaders using an array
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'], // multiple loaders using an array
       },
       {
         test: /\.(png|jpg|gif|svg)$/i,
         use: [
           {
-            loader: "url-loader",
+            loader: 'url-loader',
             options: {
-              limit: undefined
-            }
-          }
-        ]
-      }
-    ]
+              limit: undefined,
+            },
+          },
+        ],
+      },
+    ],
   },
 
   resolve: {
-    extensions: [".ts", ".tsx", ".js", ".json"]
+    extensions: ['.ts', '.tsx', '.js', '.json'],
   },
 
-  devtool: "cheap-module-source-map",
+  devtool: 'cheap-module-source-map',
   devServer: {
-    contentBase: path.join(__dirname, "public"),
+    contentBase: path.join(__dirname, 'public'),
     historyApiFallback: true,
-    publicPath: "/dist/"
+    publicPath: '/',
+    proxy: {
+      '/api': 'http://localhost:5000',
+    },
   },
-  mode: "development",
+  mode: 'development',
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "style.css"
+      filename: 'style.css',
     }),
-    new Dotenv()
-  ]
+    new Dotenv(),
+  ],
 };
