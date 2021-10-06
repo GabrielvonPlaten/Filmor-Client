@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ReactElement } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes, { any } from 'prop-types';
 import './PeopleProfile.sass';
-const API_KEY: any = process.env.API_KEY;
 
 // Components
 import LoadingPage from '../../Components/LoadingPage/LoadingPage';
@@ -16,11 +14,11 @@ import {
   getTVCredits,
 } from '../../apis/personService';
 
-interface PeopleProp {
-  match: any;
-}
+// Interface
+import { MatchIdInterface } from '../../types/MatchInterface';
+import { PersonInterface } from '../../types/Person_Interface';
 
-const PeopleProfile: React.FC<PeopleProp> = ({ match }) => {
+const PeopleProfile: React.FC<{ match: MatchIdInterface }> = ({ match }) => {
   const id = match.params.id; // Person ID taken from the url params
   const [personData, setPersonData]: any = useState(null);
   const [images, setImages]: any = useState([]);
@@ -30,9 +28,9 @@ const PeopleProfile: React.FC<PeopleProp> = ({ match }) => {
   // Get person data
   const getPerson = async () => {
     const personResponse = await getPersonData(id);
-    let personImagesResponse = await getPersonImages(id);
-    let movieCreditsResponse = await getMovieCredits(id);
-    let tvCreditsResponse = await getTVCredits(id);
+    const personImagesResponse = await getPersonImages(id);
+    const movieCreditsResponse = await getMovieCredits(id);
+    const tvCreditsResponse = await getTVCredits(id);
 
     await personImagesResponse.results.sort(
       (a: any, b: any) => a.media.popularity < b.media.vote_count,
@@ -55,17 +53,18 @@ const PeopleProfile: React.FC<PeopleProp> = ({ match }) => {
     getPerson();
   }, [match]);
 
-  const knownForDepartment = (personData: any) => {
-    let { known_for_department, gender } = personData;
-    let personProfessionClassName = 'person-department';
+  const knownForDepartment = (personData: PersonInterface): ReactElement => {
+    const { known_for_department, gender } = personData;
 
-    switch (known_for_department) {
+    const personProfessionClassName = 'person-department';
+
+    switch (known_for_department as any) {
       case 'Acting' && gender === 2:
-        return <span className={personProfessionClassName}>(Actor)</span>;
+        return <span className={personProfessionClassName}>Actor</span>;
       case 'Acting' && gender === 1:
-        return <span className={personProfessionClassName}>(Actress)</span>;
+        return <span className={personProfessionClassName}>Actress</span>;
       case 'Directing':
-        return <span className={personProfessionClassName}>(Director)</span>;
+        return <span className={personProfessionClassName}>Director</span>;
       default:
         return <span />;
     }
@@ -169,10 +168,6 @@ const PeopleProfile: React.FC<PeopleProp> = ({ match }) => {
   } else {
     return <LoadingPage />;
   }
-};
-
-PeopleProfile.propTypes = {
-  match: PropTypes.object.isRequired,
 };
 
 export default PeopleProfile;

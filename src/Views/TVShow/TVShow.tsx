@@ -2,7 +2,6 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import './TVShow.sass';
 import faStar from '../../Styles/images/star.svg';
-const API_KEY: any = process.env.API_KEY;
 
 // Components
 import LoadingPage from '../../Components/LoadingPage/LoadingPage';

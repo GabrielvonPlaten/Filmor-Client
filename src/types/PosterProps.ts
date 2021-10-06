@@ -1,5 +1,7 @@
 export interface PosterProps {
-  mediaData: any;
+  mediaData: {
+    poster_path: string;
+  };
   mediaTitle: string;
   mediaRating: number;
 }

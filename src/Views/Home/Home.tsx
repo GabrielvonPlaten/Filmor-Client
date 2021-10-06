@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import _ from 'lodash';
 import './Home.sass';
 import faStar from '../../Styles/images/star.svg';
-const API_KEY: any = process.env.API_KEY;
 
 // Components
 import Poster from '../../Components/Poster/Poster';
@@ -16,11 +15,11 @@ import { getPopularTVShow } from '../../apis/tvShowService';
 import { getPopularPeople } from '../../apis/personService';
 
 const Home: React.FC = () => {
-  const [jumbotronData, setJumbotronData]: any = useState(null);
-  const [jumbotronGenres, setJumbotronGenres]: any = useState([]);
-  const [popularMovies, setPopularMovies]: any = useState([]);
-  const [popularTVShows, setPopularTVShows]: any = useState([]);
-  const [popularPeople, setpopularPeople]: any = useState([]);
+  const [jumbotronData, setJumbotronData]: any = useState<null>(null);
+  const [jumbotronGenres, setJumbotronGenres] = useState<undefined[]>([]);
+  const [popularMovies, setPopularMovies] = useState<undefined[]>([]);
+  const [popularTVShows, setPopularTVShows] = useState<undefined[]>([]);
+  const [popularPeople, setpopularPeople] = useState<undefined[]>([]);
 
   const fetchAPIs = async () => {
     const popularMoviesResponse = await getPopularMovies();
@@ -65,7 +64,7 @@ const Home: React.FC = () => {
     });
   });
 
-  if (jumbotronData) {
+  if (jumbotronData !== null) {
     return (
       <div className='landing-page'>
         <div className='jumbotron-container'>

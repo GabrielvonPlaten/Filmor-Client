@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Poster.sass';
 import faStar from '../../Styles/images/star.svg';
-import PropTypes from 'prop-types';
 
 import noImage from '../../Styles/images/no-image.svg';
 
@@ -24,18 +23,12 @@ const Poster: React.FC<PosterProps> = ({
         className='movie__backdrop'
       />
       <div className='poster-rating'>
+        <h2 className='movie-poster__title'>{mediaTitle}</h2>
         <img className='poster-rating__star' src={faStar} />
         <span className='poster-rating__rating'>{mediaRating}</span>
-        <h2 className='movie-poster__title'>{mediaTitle}</h2>
       </div>
     </div>
   );
-};
-
-Poster.propTypes = {
-  mediaData: PropTypes.object.isRequired,
-  mediaTitle: PropTypes.string.isRequired,
-  mediaRating: PropTypes.number.isRequired,
 };
 
 export default Poster;
