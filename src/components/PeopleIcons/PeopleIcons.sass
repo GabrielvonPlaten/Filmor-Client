@@ -1,4 +1,4 @@
-@import '../../Styles/style.sass'
+@use '../../Styles' as v
   
 .person-icon-container
   margin-bottom: 2rem
@@ -9,7 +9,7 @@
     transition: all 0.3s
     width: 115px
     &:hover
-      border: 1px solid $green-0
+      border: 1px solid v.$green-0
 
   .person-icon__name
     color: #f3f3f3

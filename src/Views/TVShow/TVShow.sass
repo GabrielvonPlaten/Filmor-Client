@@ -1,4 +1,4 @@
-@import '../../Styles/style.sass'
+@use '../../Styles' as v
 
 .tv-show-container
   padding: 1px
@@ -18,14 +18,14 @@
     width: 35%
     float: left
     margin-right: 2.5rem
-    box-shadow: $box-shadow-8
+    box-shadow: v.$box-shadow-8
 
 .tv-show-overview-header
-  border-bottom: 1px solid $yellow-0
+  border-bottom: 1px solid v.$yellow-0
   padding-bottom: 1rem
 
   .type-of-media
-    color: $yellow-0
+    color: v.$yellow-0
     font-size: 2.5rem
     margin-left: 2rem
 
@@ -37,13 +37,13 @@
   &__title
     margin: 0 0 1rem 0
     font-size: 4.4rem
-    text-shadow: $text-shadow
+    text-shadow: v.$text-shadow
 
   &__rating
-    color: $yellow-0
+    color: v.$yellow-0
     font-size: 3rem
     font-weight: bold
-    text-shadow: $text-shadow
+    text-shadow: v.$text-shadow
     margin:
       top: 1rem
       left: 2rem 
@@ -59,7 +59,7 @@
       color: #e2e2e2
       margin-right: 1.5rem
       font-size: 1.8rem
-      text-shadow: $text-shadow
+      text-shadow: v.$text-shadow
 
 .tv-show-description
   color: #e5e5e5
@@ -73,7 +73,7 @@
   color: #fff
 
   &__date
-    border-bottom: 1px solid $yellow-0
+    border-bottom: 1px solid v.$yellow-0
 
 .tv-show-seasons
   font-size: 1.44rem 
@@ -91,7 +91,7 @@
     margin-left: 1rem
 
     span
-      color: $yellow-0
+      color: v.$yellow-0
       font-weight: 200
 
   .episode-length

@@ -1,6 +1,9 @@
-@import '../../Styles/style.sass'
+@use '../../Styles' as v
 
 .popular-movie
+  height: auto
+  min-height: 110%
+  background: v.$bg-dark-2
 
   .movie__backdrop
     background-repeat: no-repeat
@@ -11,8 +14,8 @@
     
     transition: all 0.3s
     &:hover
-      border: 1px solid $green-1
-      box-shadow: $box-shadow-0
+      border: 1px solid v.$green-1
+      box-shadow: v.$box-shadow-0
 
   .movie-poster__title
     color: #e9eaeb
@@ -20,7 +23,7 @@
     font-weight: 200
 
   .poster-rating
-    color: $yellow-0
+    color: v.$yellow-0
     font-size: 1.4rem
     margin: 0
 
