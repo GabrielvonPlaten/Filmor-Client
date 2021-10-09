@@ -30,8 +30,8 @@ const Home: React.FC = () => {
 
     setJumbotronData(movieJumbotronResponse);
     setJumbotronGenres(movieJumbotronResponse.genres);
-    setPopularMovies(popularMoviesResponse.results.slice(1, 13));
-    setPopularTVShows(tvShowsResponse.results.slice(0, 12));
+    setPopularMovies(popularMoviesResponse.results.slice(1, 8));
+    setPopularTVShows(tvShowsResponse.results.slice(0, 7));
     setpopularPeople(popularPeopleResponse.results);
   };
 
@@ -39,6 +39,10 @@ const Home: React.FC = () => {
   useEffect(() => {
     fetchAPIs();
   }, []);
+
+  useEffect(() => {
+    console.log(popularMovies);
+  }, [popularMovies]);
 
   // Animations on scroll
   useEffect(() => {
@@ -118,35 +122,27 @@ const Home: React.FC = () => {
         <div className='homepage-showcase'>
           <div className='section-separation'>
             <h2 className='section-separation__title'>
-              <span className='title--yellow'>Movies</span> - Popular
+              Trending <span className='title--yellow'>Movies</span>
             </h2>
           </div>
           <div className='poster-list-container'>
-            {popularMovies.map((movieData: any, index: number) => (
-              <Link key={index} to={`/movie/${movieData.id}`}>
-                <Poster
-                  mediaData={movieData}
-                  mediaTitle={movieData.title.slice(0, 50)}
-                  mediaRating={movieData.vote_average}
-                />
-              </Link>
+            {popularMovies.map((movieData: any) => (
+              <div key={movieData.id}>
+                <Poster mediaData={movieData} mediaType='movie' />
+              </div>
             ))}
           </div>
 
           {/* Popular TV shows Section */}
           <div className='section-separation'>
             <h2 className='section-separation__title'>
-              <span className='title--yellow'>TV</span> - POPULAR
+              Trendinng on <span className='title--yellow'>TV</span>
             </h2>
           </div>
           <div className='poster-list-container'>
-            {popularTVShows.map((showData: any, index: number) => (
-              <Link key={index} to={`/tv/${showData.id}`}>
-                <Poster
-                  mediaData={showData}
-                  mediaTitle={showData.name.slice(0, 50)}
-                  mediaRating={showData.vote_average}
-                />
+            {popularTVShows.map((showData: any) => (
+              <Link key={showData.id} to={`/tv/${showData.id}`}>
+                <Poster mediaData={showData} mediaType='tvshow' />
               </Link>
             ))}
           </div>

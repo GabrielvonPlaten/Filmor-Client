@@ -28,3 +28,13 @@ export const getMovieCast = async (id: number) => {
   const response = await axios.get(url);
   return response.data;
 };
+
+export const getMovieVideo = async (id: number) => {
+  try {
+    const url = `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${API_KEY}&language=en-US`;
+    const response = await axios.get(url);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
