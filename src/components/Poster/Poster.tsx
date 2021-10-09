@@ -16,7 +16,7 @@ const Poster: React.FC<{ mediaData: any; mediaType: MediaType }> = ({
 }) => {
   return (
     <div className='popular-movie'>
-      <Link to={`/movie/${mediaData.id}`}>
+      <Link to={`/${mediaType}/${mediaData.id}`}>
         <img
           src={
             mediaData.poster_path
@@ -28,7 +28,7 @@ const Poster: React.FC<{ mediaData: any; mediaType: MediaType }> = ({
       </Link>
 
       <div className='poster-header'>
-        <Link to={`/movie/${mediaData.id}`}>
+        <Link to={`/${mediaType}/${mediaData.id}`}>
           {mediaType === 'movie' && mediaData.title && (
             <h2 className='poster-header__title'>
               {' '}
