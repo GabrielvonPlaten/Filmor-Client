@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, ReactElement } from 'react';
+import React, { useState, useEffect, ReactElement, Fragment } from 'react';
 import { Link, Route } from 'react-router-dom';
 import './Search.sass';
 
@@ -22,7 +22,7 @@ const Search: React.FC<{ match: MatchTitleInterface }> = ({ match }) => {
     await setSearchData(results.results);
 
     if (searchData.length === 0) {
-      setIsLoading(true);
+      setIsLoading(false);
       return;
     }
 
@@ -31,31 +31,11 @@ const Search: React.FC<{ match: MatchTitleInterface }> = ({ match }) => {
 
   useEffect(() => {
     handleSearch();
-    const elements = document.querySelectorAll('.media-anims');
-
-    const observer = new IntersectionObserver(
-      (entries: any) => {
-        entries.forEach((entry: any) => {
-          if (entry.intersectionRatio > 0) {
-            entry.target.style.animation = `media_animation 0.7s forwards ease-in`;
-          }
-        });
-      },
-      {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0,
-      },
-    );
-
-    elements.forEach((el) => {
-      observer.observe(el);
-    });
-  }, [searchData]);
+  }, [match]);
 
   // People Icons Component
   const displayPerson = searchData.map(
-    (res: any, index: number): ReactElement | void => {
+    (res: any, index: number): ReactElement | null => {
       if (res.media_type === 'person')
         return (
           <Link key={index} to={`/people/${res.id}`}>
@@ -69,16 +49,12 @@ const Search: React.FC<{ match: MatchTitleInterface }> = ({ match }) => {
 
   // Movie Poster Component
   const displayMovies = searchData.map(
-    (res: any, index: number): ReactElement | void => {
+    (res: any, index: number): ReactElement | null => {
       if (res.media_type === 'movie')
         return (
           <Link key={index} to={`/movie/${res.id}`}>
             <div className='search-item media-anims'>
-              <Poster
-                mediaData={res}
-                mediaTitle={res.title}
-                mediaRating={res.vote_average}
-              />
+              <Poster mediaData={res} mediaType='movie' />
             </div>
           </Link>
         );
@@ -87,40 +63,46 @@ const Search: React.FC<{ match: MatchTitleInterface }> = ({ match }) => {
 
   // TV-Show Poster Component
   const displayShows = searchData.map(
-    (res: any, index: number): ReactElement | void => {
+    (res: any, index: number): ReactElement | null => {
       if (res.media_type === 'tv')
         return (
           <Link key={index} to={`/tv/${res.id}`}>
             <div className='search-item media-anims'>
-              <Poster
-                mediaData={res}
-                mediaTitle={res.name}
-                mediaRating={res.vote_average}
-              />
+              <Poster mediaData={res} mediaType='tvshow' />
             </div>
           </Link>
         );
     },
   );
 
+  console.log(typeof displayPerson[0]);
+
   return (
     <div className='search-container'>
       {isLoading && <h1 className='loading-media'>Loading...</h1>}
       <div className='search-results-container'>
-        {displayPerson[0] && <h2 className='search-title'>People</h2>}
-        {displayPerson[0] && (
-          <div className='search-movies'>{displayPerson}</div>
+        {typeof displayMovies[0] !== 'undefined' && (
+          <Fragment>
+            <h2 className='search-title'>Movies</h2>
+            <div className='search-movies'>{displayMovies}</div>
+          </Fragment>
         )}
       </div>
       <div className='search-results-container'>
-        {displayMovies[0] && <h2 className='search-title'>Movies</h2>}
-        {displayMovies[0] && (
-          <div className='search-movies'>{displayMovies}</div>
+        {typeof displayShows[0] !== 'undefined' && (
+          <Fragment>
+            <h2 className='search-title'>TV Shows</h2>
+            <div className='search-shows'>{displayShows}</div>
+          </Fragment>
         )}
       </div>
       <div className='search-results-container'>
-        {displayShows[0] && <h2 className='search-title'>TV Shows</h2>}
-        {displayShows[0] && <div className='search-shows'>{displayShows}</div>}
+        {typeof displayPerson[0] !== 'undefined' && (
+          <Fragment>
+            <h2 className='search-title'>People</h2>
+            <div className='search-movies'>{displayPerson}</div>
+          </Fragment>
+        )}
       </div>
     </div>
   );

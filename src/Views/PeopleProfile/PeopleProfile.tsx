@@ -134,11 +134,7 @@ const PeopleProfile: React.FC<{ match: MatchIdInterface }> = ({ match }) => {
                     key={index}
                     to={`/movie/${movieData.id}`}
                   >
-                    <Poster
-                      mediaData={movieData}
-                      mediaTitle={movieData.title.slice(0, 50)}
-                      mediaRating={movieData.vote_average}
-                    />
+                    <Poster mediaData={movieData} mediaType='movie' />
                   </Link>
                 ))}
             </div>
@@ -153,11 +149,7 @@ const PeopleProfile: React.FC<{ match: MatchIdInterface }> = ({ match }) => {
                   key={index}
                   to={`/tv/${tvData.id}`}
                 >
-                  <Poster
-                    mediaData={tvData}
-                    mediaTitle={tvData.name.slice(0, 50)}
-                    mediaRating={tvData.vote_average}
-                  />
+                  <Poster mediaData={tvData} mediaType='tvshow' />
                 </Link>
               ))}
             </div>

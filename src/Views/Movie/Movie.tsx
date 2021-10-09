@@ -14,6 +14,7 @@ import {
   getMovieData,
   getSimilarMovies,
   getMovieCast,
+  getMovieVideo,
 } from '../../apis/moviesService';
 
 // Interface
@@ -44,6 +45,15 @@ const Movie: React.FC<{ match: MatchIdInterface }> = ({ match }) => {
   useEffect(() => {
     getMovie();
   }, [match]);
+
+  useEffect(() => {
+    async function fetchMovieVideo() {
+      const movieVideoResponse = await getMovieVideo(movieData.id);
+      console.log(movieVideoResponse);
+    }
+
+    fetchMovieVideo();
+  }, [movieData]);
 
   if (movieData !== null) {
     return (
@@ -147,11 +157,7 @@ const Movie: React.FC<{ match: MatchIdInterface }> = ({ match }) => {
                     key={index}
                     to={`/movie/${movieData.id}`}
                   >
-                    <Poster
-                      mediaData={movieData}
-                      mediaTitle={movieData.title.slice(0, 50)}
-                      mediaRating={movieData.vote_average}
-                    />
+                    <Poster mediaData={movieData} mediaType='movie' />
                   </Link>
                 ))}
             </div>

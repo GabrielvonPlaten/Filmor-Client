@@ -7,7 +7,7 @@ interface History {
   history: any;
 }
 
-function ScrollToTop({ history }: History) {
+function ScrollToTop({ history }: History): any {
   useEffect(() => {
     const unlisten = history.listen(() => {
       window.scrollTo(0, 0);

@@ -150,11 +150,7 @@ const TVShow: React.FC<Prop> = ({ match }) => {
                     key={index}
                     to={`/tv/${tvShowData.id}`}
                   >
-                    <Poster
-                      mediaData={tvShowData}
-                      mediaTitle={tvShowData.name.slice(0, 50)}
-                      mediaRating={tvShowData.vote_average}
-                    />
+                    <Poster mediaData={tvShowData} mediaType='tvshow' />
                   </Link>
                 ))}
             </div>
