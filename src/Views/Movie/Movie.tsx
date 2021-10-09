@@ -146,20 +146,14 @@ const Movie: React.FC<{ match: MatchIdInterface }> = ({ match }) => {
           </div>
 
           {/* Similar Movies */}
-          <div className='similar-media-container'>
+          <div className='similar-movies'>
             <h3>Similar Movies</h3>
             <div className='similar-media'>
-              {similarMovies
-                .slice(0, 14)
-                .map((movieData: any, index: number) => (
-                  <Link
-                    className='similar-media__item'
-                    key={index}
-                    to={`/movie/${movieData.id}`}
-                  >
-                    <Poster mediaData={movieData} mediaType='movie' />
-                  </Link>
-                ))}
+              {similarMovies.slice(0, 14).map((movieData: any) => (
+                <div key={movieData.id}>
+                  <Poster mediaData={movieData} mediaType='movie' />
+                </div>
+              ))}
             </div>
           </div>
 
@@ -169,8 +163,10 @@ const Movie: React.FC<{ match: MatchIdInterface }> = ({ match }) => {
               <h3>Production Companies</h3>
               <div className='production-companies-list'>
                 {productionCompanies.map((company: any, index: number) => (
-                  <div className='production-company__item' key={index}>
-                    <h2 className='production-company__name'>{company.name}</h2>
+                  <div className='production-companies-list__item' key={index}>
+                    <h2 className='production-companies-list__name'>
+                      {company.name}
+                    </h2>
                   </div>
                 ))}
               </div>
