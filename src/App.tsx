@@ -27,7 +27,7 @@ const App = () => {
           <Route exact={true} path='/tvshow/:id' component={TVShow} />
           <Route exact={true} path='/search/:title' component={Search} />
           <Route exact={true} path='/people/:id' component={PeopleProfile} />
-          <Route exact={true} path='/vidoeos/:id' component={Video} />
+          <Route exact={true} path='/video/:id' component={Video} />
         </Switch>
       </div>
       <Footer />
