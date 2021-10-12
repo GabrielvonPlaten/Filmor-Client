@@ -43,15 +43,17 @@ const Poster: React.FC<{ mediaData: any; mediaType: MediaType }> = ({
         </Link>
 
         <div className='poster-evenout'>
-          {mediaType === 'movie' && mediaData.release_date ? (
-            <p className='poster-header__release_date'>
-              {mediaData.release_date}
-            </p>
-          ) : (
-            <p className='poster-header__release_date'>
-              {mediaData.first_air_date}
-            </p>
-          )}
+          <div>
+            {mediaType === 'movie' && mediaData.release_date ? (
+              <p className='poster-header__release_date'>
+                {mediaData.release_date}
+              </p>
+            ) : (
+              <p className='poster-header__release_date'>
+                {mediaData.first_air_date}
+              </p>
+            )}
+          </div>
           <div className='poster-rating'>
             <img className='poster-rating__star' src={faStar} />
             <span className='poster-rating__rating'>
