@@ -28,3 +28,13 @@ export const getSimilarTVShows = async (id: number) => {
   const response = await axios.get(url);
   return response.data;
 };
+
+export const GetTVShowVideo = async (id: number) => {
+  try {
+    const url = `https://api.themoviedb.org/3/tv/${id}/videos?api_key=${API_KEY}&language=en-US`;
+    const response = await axios.get(url);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
