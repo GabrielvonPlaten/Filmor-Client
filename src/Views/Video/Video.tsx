@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import YouTube from 'react-youtube';
 import './Video.sass';
 
+// Interfaces
+import { MatchIdInterface } from '../../types/MatchInterface';
+
 // APIS
 import { getMovieData, getMovieVideo } from '../../apis/moviesService';
-import { MatchIdInterface } from '../../types/MatchInterface';
-import { Link } from 'react-router-dom';
+import { getTVShowData, GetTVShowVideo } from '../../apis/tvShowService';
 
 const Video: React.FC<{ match: MatchIdInterface }> = ({ match }) => {
   const [videoData, setVideoData] = useState<any>([]);
-  const [movieData, setMovieData] = useState<any>([]);
+  const [mediaData, setMediaData] = useState<any>([]);
   const [videoId, setVideoId] = useState<string>('')
 
   // Youtube options
@@ -27,14 +30,25 @@ const Video: React.FC<{ match: MatchIdInterface }> = ({ match }) => {
   }, [match]);
 
   const fetchVideo = async () => {
-    const movieResponse = await getMovieData(match.params.id);
-    const videoResponse = await getMovieVideo(match.params.id);
+    if (match.params.mediatype === 'movie') {
+      const movieResponse = await getMovieData(match.params.id);
+      const videoResponse = await getMovieVideo(match.params.id);
+  
+      setMediaData(movieResponse);
+      setVideoData(videoResponse);
+      // Sets a video in the video player on component mounted
+      setVideoId(videoResponse.results[0].key);
+    }
 
-    setMovieData(movieResponse);
-    setVideoData(videoResponse);
+    if (match.params.mediatype === 'tvshow') {
+      const movieResponse = await getTVShowData(match.params.id);
+      const videoResponse = await GetTVShowVideo(match.params.id);
 
-    // Sets a video in the video player on component mounted
-    setVideoId(videoResponse.results[0].key);
+      setMediaData(movieResponse);
+      setVideoData(videoResponse);
+      // Sets a video in the video player on component mounted
+      setVideoId(videoResponse.results[0].key);
+    }
   };
 
   const _onReady = (event: any) => {
@@ -48,17 +62,26 @@ const Video: React.FC<{ match: MatchIdInterface }> = ({ match }) => {
     setVideoId(key)
   }
   
+  // console.log(match);
+  
 
   return (
     <div className='video' style={{
-      backgroundImage: `url(https://image.tmdb.org/t/p/original${movieData.backdrop_path})`,
+      backgroundImage: `url(https://image.tmdb.org/t/p/original${mediaData.backdrop_path})`,
     }}>
         <div className='video-container'>
-          <Link to={`/movie/${movieData.id}`}>
-            <h1 className="media-video-description__title">{movieData.title}</h1>
-          </Link>
+          { match.params.mediatype === 'movie' && 
+            <Link to={`/movie/${mediaData.id}`}>
+              <h1 className="media-video-description__title">{mediaData.title}</h1>
+            </Link>
+          }
+          { match.params.mediatype === 'tvshow' && 
+            <Link to={`/tvshow/${mediaData.id}`}>
+              <h1 className="media-video-description__title">{mediaData.name}</h1>
+            </Link>
+          }
           <div className='video-header'>
-            <img src={`https://image.tmdb.org/t/p/original${movieData.poster_path}`} />
+            <img src={`https://image.tmdb.org/t/p/original${mediaData.poster_path}`} />
             <YouTube
               videoId={videoId}
               opts={opts}

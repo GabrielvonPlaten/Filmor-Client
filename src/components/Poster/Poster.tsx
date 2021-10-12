@@ -59,7 +59,7 @@ const Poster: React.FC<{ mediaData: any; mediaType: MediaType }> = ({
             </span>
           </div>
           <div className='poster-button-container'>
-            <Link to={`/video/${mediaData.id}`}>Trailer</Link>
+            <Link to={`/video/${mediaType}/${mediaData.id}`}>Trailer</Link>
           </div>
         </div>
       </div>
