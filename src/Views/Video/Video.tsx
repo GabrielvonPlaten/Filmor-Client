@@ -10,7 +10,9 @@ import { MatchIdInterface } from '../../types/MatchInterface';
 import { getMovieData, getMovieVideo } from '../../apis/moviesService';
 import { getTVShowData, GetTVShowVideo } from '../../apis/tvShowService';
 
-const Video: React.FC<{ match: MatchIdInterface }> = ({ match }) => {
+
+// !TODO! Fix this match types
+const Video: React.FC<{ match: any }> = ({ match }) => {
   const [videoData, setVideoData] = useState<any>([]);
   const [mediaData, setMediaData] = useState<any>([]);
   const [videoId, setVideoId] = useState<string>('')

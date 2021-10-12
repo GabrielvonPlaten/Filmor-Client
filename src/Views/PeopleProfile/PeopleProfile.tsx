@@ -98,10 +98,12 @@ const PeopleProfile: React.FC<{ match: MatchIdInterface }> = ({ match }) => {
         </div>
 
         <div className='person-overview'>
-          <img
-            className='person-overview__image'
-            src={`https://image.tmdb.org/t/p/original${personData.profile_path}`}
-          />
+          <div>
+            <img
+              className='person-overview__image'
+              src={`https://image.tmdb.org/t/p/original${personData.profile_path}`}
+            />
+          </div>
           <div className='person-overview-information'>
             <div className='person-overview-header'>
               <h2 className='person-overview-header__title'>
@@ -119,40 +121,32 @@ const PeopleProfile: React.FC<{ match: MatchIdInterface }> = ({ match }) => {
             {/* Person Overview */}
             <div className='person-description'>
               <h3>Overview:</h3>
-              <p>{personData.biography}</p>
+              <section className='person-description__bio'>
+                <p>{personData.biography}</p>
+              </section>
             </div>
           </div>
+        </div>
 
-          <div className='similar-media-container'>
-            <h3>Movie Credits</h3>
-            <div className='similar-media'>
-              {movieCredits
-                .slice(0, 14)
-                .map((movieData: any, index: number) => (
-                  <Link
-                    className='similar-media__item'
-                    key={index}
-                    to={`/movie/${movieData.id}`}
-                  >
-                    <Poster mediaData={movieData} mediaType='movie' />
-                  </Link>
-                ))}
-            </div>
+        <div className='actor-media-credits'>
+          <h3>| Movie Credits</h3>
+          <div className='actor-media-credits__items'>
+            {movieCredits.slice(0, 14).map((movieData: any) => (
+              <div key={movieData.id}>
+                <Poster mediaData={movieData} mediaType='movie' />
+              </div>
+            ))}
           </div>
+        </div>
 
-          <div className='similar-media-container'>
-            <h3>TV Show Credits</h3>
-            <div className='similar-media'>
-              {tvCredits.slice(0, 14).map((tvData: any, index: number) => (
-                <Link
-                  className='similar-media__item'
-                  key={index}
-                  to={`/tv/${tvData.id}`}
-                >
-                  <Poster mediaData={tvData} mediaType='tvshow' />
-                </Link>
-              ))}
-            </div>
+        <div className='actor-media-credits'>
+          <h3>| TV Show Credits</h3>
+          <div className='actor-media-credits__items'>
+            {tvCredits.slice(0, 14).map((tvData: any) => (
+              <div key={tvData.id}>
+                <Poster mediaData={tvData} mediaType='tvshow' />
+              </div>
+            ))}
           </div>
         </div>
       </div>
