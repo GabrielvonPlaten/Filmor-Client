@@ -7,9 +7,9 @@
 .jumbotron-container
   box-shadow: v.$box-shadow-0
 
-  .jumbotron
-    background-size: cover
-    background-repeat: no-repeat
+.jumbotron
+  background-size: cover
+  background-repeat: no-repeat
 
   .jumbotron__gradient-shadow
     background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(34, 35, 38, 0.45) 75%)
@@ -47,10 +47,31 @@
     font-size: 2.1rem
     margin: 0 0 0 0
 
-  .jumbotron__btn
+  &__btn
     position: relative
+    margin-right: 2em
     top: 3rem
     text-decoration: none
+
+  &__trailer-button
+    color: v.$white-100
+    font-weight: 500
+
+    &:hover img
+      transform: scale(1.1)
+
+    &:hover span
+      text-decoration: underline
+
+    img
+      height: 2.2em
+      position: relative
+      top: 0.5em
+      margin-right: 1em
+      transition: 0.2s
+
+    span
+      font-size: 2.1rem
 
   .genre-list
     margin: 0
