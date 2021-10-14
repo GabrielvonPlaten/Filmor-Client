@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import _ from 'lodash';
 import './Home.sass';
 import faStar from '../../Styles/images/star.svg';
+import playBtn from '../../Styles/images/play-button.svg';
 
 // Components
 import Poster from '../../Components/Poster/Poster';
@@ -108,10 +108,18 @@ const Home: React.FC = () => {
               )}
               <Link
                 to={`/movie/${jumbotronData.id}`}
-                className='btn btn--yellow glow--yellow jumbotron__btn anim'
+                className='btn btn--yellow jumbotron__btn anim'
                 data-delay='1.3s'
               >
                 Read More
+              </Link>
+              <Link
+                to={`/video/movie/${jumbotronData.id}`}
+                className='jumbotron__trailer-button jumbotron__btn anim'
+                data-delay='1.3s'
+              >
+                <img src={playBtn} />
+                <span>Watch Trailer</span>
               </Link>
             </div>
             <div className='jumbotron__gradient-shadow' />
