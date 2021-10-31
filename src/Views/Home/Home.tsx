@@ -131,7 +131,7 @@ const Home: React.FC = () => {
           </div>
           <div className='poster-list-container'>
             {popularMovies.map((movieData: any) => (
-              <div key={movieData.id}>
+              <div className='poster-list-container__item' key={movieData.id}>
                 <Poster mediaData={movieData} mediaType='movie' />
               </div>
             ))}

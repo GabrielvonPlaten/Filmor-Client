@@ -147,8 +147,11 @@ const Movie: React.FC<{ match: MatchIdInterface }> = ({ match }) => {
 
           {/* Similar Movies */}
           <div className='similar-movies'>
-            <h3>Similar Movies</h3>
-            <div className='similar-media'>
+            <div className='similar-movies__title'>
+              <h3>Similar Movies</h3>
+            </div>
+
+            <div className='poster-list-container'>
               {similarMovies.slice(0, 14).map((movieData: any) => (
                 <div key={movieData.id}>
                   <Poster mediaData={movieData} mediaType='movie' />
