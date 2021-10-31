@@ -2,7 +2,6 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import './TVShow.sass';
 import faStar from '../../Styles/images/star.svg';
-const API_KEY: any = process.env.API_KEY;
 
 // Components
 import LoadingPage from '../../Components/LoadingPage/LoadingPage';
@@ -151,11 +150,7 @@ const TVShow: React.FC<Prop> = ({ match }) => {
                     key={index}
                     to={`/tv/${tvShowData.id}`}
                   >
-                    <Poster
-                      mediaData={tvShowData}
-                      mediaTitle={tvShowData.name.slice(0, 50)}
-                      mediaRating={tvShowData.vote_average}
-                    />
+                    <Poster mediaData={tvShowData} mediaType='tvshow' />
                   </Link>
                 ))}
             </div>

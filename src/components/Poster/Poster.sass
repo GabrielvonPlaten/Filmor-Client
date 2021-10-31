@@ -1,40 +1,81 @@
-@import '../../Styles/style.sass'
+@use '../../Styles' as v
 
 .popular-movie
+  height: 100%
+  background: v.$bg-dark-300
+  border: 1px solid #616161
+  transition: all 0.3s
+  display: flex
+  flex-direction: column
+  // align-items: stretch
 
   .movie__backdrop
-    background-repeat: no-repeat
-    background-size: contain
-    border: 1px solid #616161
-    border-radius: 3px
-    width: 100%
-    
-    transition: all 0.3s
-    &:hover
-      border: 1px solid $green-1
-      box-shadow: $box-shadow-0
+    width:  100%
+    height: 18em
+    object-fit: cover
 
-  .movie-poster__title
-    color: #e9eaeb
+.poster-header
+  margin: 0.7em
+  position: relative
+  height: 100%
+  justify-content: center
+
+  &__title
+    color: v.$white-150
     font-size: 1.6rem
-    font-weight: 200
+    font-weight: 500
+    text-decoration: none
+    
+    &:hover
+      text-decoration: underline
+
+  &__release_date
+    color: v.$white-200
+    font-size: 1.4rem
 
   .poster-rating
-    color: $yellow-0
-    font-size: 1.4rem
-    margin: 0
+    color: v.$yellow-0
+    font-size: 1.6rem
+    margin: 0.5em 0
 
     &__star
       width: 1.8rem
       margin: 0
-      padding: 0 
+      padding: 0
+      position: relative
+      top: 2px
 
     &__rating
-      margin-left: 1rem
+      margin-left: 0.5rem
+      font-weight: 500
 
+.poster-evenout
+  display: flex
+  flex-direction: column
+  align-items: flex-start
+
+
+.poster-button-container
+  width: 100%
+  display: flex
+  justify-content: center
+
+  a
+    font-size: 1.4rem
+    border: 1px solid v.$black-100
+    padding: 0.3em 1.5em
+    color: v.$white-200
+
+    transition: 0.2s
+    &:hover
+      border: 1px solid v.$yellow-0
+      background: v.$yellow-0
+      color: v.$black-200
+      box-shadow: v.$yellow-glow
 
 // Media queries
-@media only screen and (max-width: 836px)
-  .movie-poster__title
-    display: none 
+@media only screen and (max-width: 1450px)
+  .poster-button-container
+    left: 10%
+
 

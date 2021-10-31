@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './PeopleIcons.sass';
 
 // import noImage from "../../Styles/images/no-image.svg";
 import noImage from '../../Styles/images/no-image.svg';
 
 // Types
-import { Person } from '../../types/PeopleIcons';
+import { PersonIconInformation } from '../../types/Person_Interface';
 
-const PeopleIcons: React.FC<Person> = ({ personData }) => {
+const PeopleIcons: React.FC<{ personData: PersonIconInformation }> = ({
+  personData,
+}) => {
   return (
     <div className='person-icon-container'>
       <div>

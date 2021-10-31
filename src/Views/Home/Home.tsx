@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import _ from 'lodash';
 import './Home.sass';
 import faStar from '../../Styles/images/star.svg';
-const API_KEY: any = process.env.API_KEY;
+import playBtn from '../../Styles/images/play-button.svg';
 
 // Components
 import Poster from '../../Components/Poster/Poster';
@@ -16,11 +15,11 @@ import { getPopularTVShow } from '../../apis/tvShowService';
 import { getPopularPeople } from '../../apis/personService';
 
 const Home: React.FC = () => {
-  const [jumbotronData, setJumbotronData]: any = useState(null);
-  const [jumbotronGenres, setJumbotronGenres]: any = useState([]);
-  const [popularMovies, setPopularMovies]: any = useState([]);
-  const [popularTVShows, setPopularTVShows]: any = useState([]);
-  const [popularPeople, setpopularPeople]: any = useState([]);
+  const [jumbotronData, setJumbotronData]: any = useState<null>(null);
+  const [jumbotronGenres, setJumbotronGenres] = useState<undefined[]>([]);
+  const [popularMovies, setPopularMovies] = useState<undefined[]>([]);
+  const [popularTVShows, setPopularTVShows] = useState<undefined[]>([]);
+  const [popularPeople, setpopularPeople] = useState<undefined[]>([]);
 
   const fetchAPIs = async () => {
     const popularMoviesResponse = await getPopularMovies();
@@ -31,8 +30,8 @@ const Home: React.FC = () => {
 
     setJumbotronData(movieJumbotronResponse);
     setJumbotronGenres(movieJumbotronResponse.genres);
-    setPopularMovies(popularMoviesResponse.results.slice(1, 13));
-    setPopularTVShows(tvShowsResponse.results.slice(0, 12));
+    setPopularMovies(popularMoviesResponse.results.slice(1, 8));
+    setPopularTVShows(tvShowsResponse.results.slice(0, 7));
     setpopularPeople(popularPeopleResponse.results);
   };
 
@@ -65,7 +64,7 @@ const Home: React.FC = () => {
     });
   });
 
-  if (jumbotronData) {
+  if (jumbotronData !== null) {
     return (
       <div className='landing-page'>
         <div className='jumbotron-container'>
@@ -105,10 +104,18 @@ const Home: React.FC = () => {
               )}
               <Link
                 to={`/movie/${jumbotronData.id}`}
-                className='btn btn--yellow glow--yellow jumbotron__btn anim'
+                className='btn btn--yellow jumbotron__btn anim'
                 data-delay='1.3s'
               >
                 Read More
+              </Link>
+              <Link
+                to={`/video/movie/${jumbotronData.id}`}
+                className='jumbotron__trailer-button jumbotron__btn anim'
+                data-delay='1.3s'
+              >
+                <img src={playBtn} />
+                <span>Watch Trailer</span>
               </Link>
             </div>
             <div className='jumbotron__gradient-shadow' />
@@ -119,36 +126,28 @@ const Home: React.FC = () => {
         <div className='homepage-showcase'>
           <div className='section-separation'>
             <h2 className='section-separation__title'>
-              <span className='title--yellow'>Movies</span> - Popular
+              Trending <span className='title--yellow'>Movies</span>
             </h2>
           </div>
           <div className='poster-list-container'>
-            {popularMovies.map((movieData: any, index: number) => (
-              <Link key={index} to={`/movie/${movieData.id}`}>
-                <Poster
-                  mediaData={movieData}
-                  mediaTitle={movieData.title.slice(0, 50)}
-                  mediaRating={movieData.vote_average}
-                />
-              </Link>
+            {popularMovies.map((movieData: any) => (
+              <div key={movieData.id}>
+                <Poster mediaData={movieData} mediaType='movie' />
+              </div>
             ))}
           </div>
 
           {/* Popular TV shows Section */}
           <div className='section-separation'>
             <h2 className='section-separation__title'>
-              <span className='title--yellow'>TV</span> - POPULAR
+              Trendinng on <span className='title--yellow'>TV</span>
             </h2>
           </div>
           <div className='poster-list-container'>
-            {popularTVShows.map((showData: any, index: number) => (
-              <Link key={index} to={`/tv/${showData.id}`}>
-                <Poster
-                  mediaData={showData}
-                  mediaTitle={showData.name.slice(0, 50)}
-                  mediaRating={showData.vote_average}
-                />
-              </Link>
+            {popularTVShows.map((showData: any) => (
+              <div key={showData.id}>
+                <Poster mediaData={showData} mediaType='tvshow' />
+              </div>
             ))}
           </div>
 

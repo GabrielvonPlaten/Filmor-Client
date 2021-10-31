@@ -1,15 +1,15 @@
-@import '../../Styles/style.sass'
+@use '../../Styles' as v
 
 .landing-page
   margin-bottom: 5rem 
 
 // Jumbotron
 .jumbotron-container
-  box-shadow: $box-shadow-0
+  box-shadow: v.$box-shadow-0
 
-  .jumbotron
-    background-size: cover
-    background-repeat: no-repeat
+.jumbotron
+  background-size: cover
+  background-repeat: no-repeat
 
   .jumbotron__gradient-shadow
     background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(34, 35, 38, 0.45) 75%)
@@ -28,19 +28,18 @@
     font-size: 3.5rem
     margin: 0
     letter-spacing: -1px
-    color: $yellow-0
+    color: v.$yellow-0
 
     img
       width: 3.5rem
 
 
-  .jumbotron__title
+  &__title
     font-size: 4.5rem
     margin: 0
     font-style: normal
     color: #fff
-    text-transform: uppercase
-    text-shadow: $text-shadow-1
+    text-shadow: v.$text-shadow-1
 
   .jumbotron__release-date
     font-weight: 300
@@ -48,10 +47,31 @@
     font-size: 2.1rem
     margin: 0 0 0 0
 
-  .jumbotron__btn
+  &__btn
     position: relative
+    margin-right: 2em
     top: 3rem
     text-decoration: none
+
+  &__trailer-button
+    color: v.$white-100
+    font-weight: 500
+
+    &:hover img
+      transform: scale(1.1)
+
+    &:hover span
+      text-decoration: underline
+
+    img
+      height: 2.2em
+      position: relative
+      top: 0.5em
+      margin-right: 1em
+      transition: 0.2s
+
+    span
+      font-size: 2.1rem
 
   .genre-list
     margin: 0
@@ -64,7 +84,7 @@
     margin: 1rem 1.5rem 2.5rem 0
 
 .homepage-showcase
-  border-left: 2px solid $yellow-0
+  border-left: 2px solid v.$yellow-0
   width: 87%
   margin: 0 auto
 
@@ -74,14 +94,12 @@
 
   &__title
     font-size: 2.2rem
-    font-weight: 200
-    text-transform: uppercase
     letter-spacing: 2px
     margin: 4rem 0 0.6rem 0
     color: #cecece
 
     .title--yellow
-      color: $yellow-0
+      color: v.$yellow-0
       font-weight: bold
 
 // Media Poster for Movies and TV-Shows
@@ -90,7 +108,7 @@
   padding: 1.4%
   margin: 0 3%
   display: grid
-  grid-template-columns: repeat(6, 1fr)
+  grid-template-columns: repeat(7, 1fr)
   grid-gap: 5.2rem 1.7rem
 
   a
@@ -116,13 +134,15 @@
   border-top: 1px solid #484a4f
   padding: 3rem 0
   margin-top: 1rem
-  display: grid
-  grid-template-columns: repeat(7, 1fr)
-  grid-gap: 1.5rem
+  display: flex
+  flex-wrap: wrap
 
   .similar-media__item
     text-decoration: none
     margin: 0 auto
+
+  a
+    text-decoration: none 
 
 .anim
   opacity: 0
@@ -145,7 +165,7 @@
     grid-template-columns: repeat(6, 1fr)
 
 @media only screen and (max-width: 836px)
-  .similar-media
+  .similar-media, .actor-media-credits__items
     grid-template-columns: repeat(5, 1fr) 
 
 @media only screen and (max-width: 796px)
@@ -177,7 +197,7 @@
 
 
 @media only screen and (max-width: 670px)
-  .similar-media
+  .similar-media, .actor-media-credits__items
     grid-template-columns: repeat(4, 1fr) 
 
 
@@ -185,7 +205,7 @@
   .trending-people-container
     grid-template-columns: repeat(3, 1fr)
 
-  .similar-media
+  .similar-media, .actor-media-credits__items
     grid-template-columns: repeat(2, 1fr)
 
 @media only screen and (max-width: 375px)

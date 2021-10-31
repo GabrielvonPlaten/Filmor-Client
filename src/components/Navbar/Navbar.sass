@@ -1,4 +1,4 @@
-@import '../../Styles/style.sass'
+@use '../../Styles' as v
   
 .navbar-container
   background: rgba(16, 13, 0, 0.75)
@@ -37,10 +37,10 @@
     border: 1px solid transparent
     margin-left: 2%
     color: #fff
-    font-weight: 200
     width: 100%
     transition: all 0.15s ease-in
     text-transform: capitalize
+    outline: none
 
     &:focus
-      border-bottom: 1px solid $green-1
+      border-bottom: 1px solid v.$green-1

@@ -1,49 +1,49 @@
-@import './_variables.sass'
+@use './_variables.sass' as v
   
 =btn
   background: #cfcfcf
-  box-shadow: $button-shadow
+  box-shadow: v.$button-shadow
   color: #000
   padding: 1rem 2rem
 
 =btn--yellow
   background: none
   box-shadow: none
-  border: 1px solid $yellow-0
+  border: 1px solid v.$yellow-0
   border-radius: 4px
   color: #fff
   text-transform: uppercase
   transition: all 0.35s
   &:hover
-    box-shadow: $yellow-glow
-    background: $yellow-0
+    box-shadow: v.$yellow-glow
+    background: v.$yellow-0
     color: #000
 
 
 =btn--green
   background: none
   box-shadow: none
-  border: 1px solid $green-0
+  border: 1px solid v.$green-0
   border-radius: 4px
   color: #fff
   text-transform: uppercase
   transition: all 0.25s
   &:hover
-    box-shadow: $button-shadow
-    background: $green-0
+    box-shadow: v.$button-shadow
+    background: v.$green-0
 
 =btn--blue
   background: none
   box-shadow: none
-  border: 1px solid $blue-0
+  border: 1px solid v.$blue-0
   border-radius: 4px
   color: #dadada
   transition: all 0.25s
-  padding: 0.6rem 1.2rem
+  // padding: 0.6rem 1.2rem
   font-size: 1.5rem
   &:hover
-    box-shadow: $button-shadow
-    background: $blue-0
+    box-shadow: v.$blue-glow
+    background: v.$blue-0
 
 =btn--bare
   background: none
@@ -52,9 +52,8 @@
   box-shadow: none
   color: #939393
   font-size: 1.4rem
-  font-weight: 200
   padding: 0.6rem 1.2rem
   transition: all 0.15s
   &:hover
-    border: 1px solid $green-1
+    border: 1px solid v.$green-1
     color: #c9c9c9

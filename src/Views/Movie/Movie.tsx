@@ -14,13 +14,13 @@ import {
   getMovieData,
   getSimilarMovies,
   getMovieCast,
+  getMovieVideo,
 } from '../../apis/moviesService';
 
-interface Props {
-  match: any;
-}
+// Interface
+import { MatchIdInterface } from '../../types/MatchInterface';
 
-const Movie: React.FC<Props> = ({ match }) => {
+const Movie: React.FC<{ match: MatchIdInterface }> = ({ match }) => {
   const id = match.params.id; // Movie ID taken from the url params
   const [movieData, setMovieData]: any[] = useState(null);
   const [movieGenres, setMovieGenres]: any[] = useState([]);
@@ -45,6 +45,15 @@ const Movie: React.FC<Props> = ({ match }) => {
   useEffect(() => {
     getMovie();
   }, [match]);
+
+  useEffect(() => {
+    async function fetchMovieVideo() {
+      const movieVideoResponse = await getMovieVideo(movieData.id);
+      console.log(movieVideoResponse);
+    }
+
+    fetchMovieVideo();
+  }, [movieData]);
 
   if (movieData !== null) {
     return (
@@ -137,24 +146,14 @@ const Movie: React.FC<Props> = ({ match }) => {
           </div>
 
           {/* Similar Movies */}
-          <div className='similar-media-container'>
+          <div className='similar-movies'>
             <h3>Similar Movies</h3>
             <div className='similar-media'>
-              {similarMovies
-                .slice(0, 14)
-                .map((movieData: any, index: number) => (
-                  <Link
-                    className='similar-media__item'
-                    key={index}
-                    to={`/movie/${movieData.id}`}
-                  >
-                    <Poster
-                      mediaData={movieData}
-                      mediaTitle={movieData.title.slice(0, 50)}
-                      mediaRating={movieData.vote_average}
-                    />
-                  </Link>
-                ))}
+              {similarMovies.slice(0, 14).map((movieData: any) => (
+                <div key={movieData.id}>
+                  <Poster mediaData={movieData} mediaType='movie' />
+                </div>
+              ))}
             </div>
           </div>
 
@@ -164,8 +163,10 @@ const Movie: React.FC<Props> = ({ match }) => {
               <h3>Production Companies</h3>
               <div className='production-companies-list'>
                 {productionCompanies.map((company: any, index: number) => (
-                  <div className='production-company__item' key={index}>
-                    <h2 className='production-company__name'>{company.name}</h2>
+                  <div className='production-companies-list__item' key={index}>
+                    <h2 className='production-companies-list__name'>
+                      {company.name}
+                    </h2>
                   </div>
                 ))}
               </div>
