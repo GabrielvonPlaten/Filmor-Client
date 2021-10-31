@@ -1,11 +1,13 @@
 @import '../../Styles/style.sass'
 
 .popular-movie
-  height: auto
-  min-height: 100%
+  height: 100%
   background: v.$bg-dark-300
   border: 1px solid #616161
   transition: all 0.3s
+  display: flex
+  flex-direction: column
+  // align-items: stretch
 
   .movie__backdrop
     width:  100%
@@ -14,16 +16,16 @@
 
 .poster-header
   margin: 0.7em
-  padding-bottom: 0.6em
   position: relative
-  min-height: 8.5em
+  height: 100%
+  justify-content: center
 
   &__title
     color: v.$white-150
     font-size: 1.6rem
     font-weight: 500
     text-decoration: none
-
+    
     &:hover
       text-decoration: underline
 
@@ -48,22 +50,18 @@
       font-weight: 500
 
 .poster-evenout
-  // position: absolute
-  // bottom: 20%
-  // left: 0
+  display: flex
+  flex-direction: column
+  align-items: flex-start
+
 
 .poster-button-container
-  text-align: center
-  margin-left: 1em
-  position: absolute
-  bottom: 20%
-  // right: max(20%, 5em)
-  left: 20%
-  
+  width: 100%
+  display: flex
+  justify-content: center
 
   a
     font-size: 1.4rem
-    position: absolute
     border: 1px solid v.$black-100
     padding: 0.3em 1.5em
     color: v.$white-200
@@ -79,13 +77,5 @@
 @media only screen and (max-width: 1450px)
   .poster-button-container
     left: 10%
-
-@media only screen and (max-width: 1200px)
-  .poster-header__title
-    display: none
-
-@media only screen and (max-width: 836px)
-  .movie-poster__title
-    display: none 
 
 
