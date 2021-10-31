@@ -1,11 +1,11 @@
-@import '../../Styles/style.sass'
+@use '../../Styles' as v
 
 .landing-page
   margin-bottom: 5rem 
 
 // Jumbotron
 .jumbotron-container
-  box-shadow: $box-shadow-0
+  box-shadow: v.$box-shadow-0
 
 .jumbotron
   background-size: cover
@@ -28,7 +28,7 @@
     font-size: 3.5rem
     margin: 0
     letter-spacing: -1px
-    color: $yellow-0
+    color: v.$yellow-0
 
     img
       width: 3.5rem
@@ -84,7 +84,7 @@
     margin: 1rem 1.5rem 2.5rem 0
 
 .homepage-showcase
-  border-left: 2px solid $yellow-0
+  border-left: 2px solid v.$yellow-0
   width: 87%
   margin: 0 auto
 
@@ -99,7 +99,7 @@
     color: #cecece
 
     .title--yellow
-      color: $yellow-0
+      color: v.$yellow-0
       font-weight: bold
 
 // Media Poster for Movies and TV-Shows

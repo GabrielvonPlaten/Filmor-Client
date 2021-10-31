@@ -1,4 +1,4 @@
-@import '../../Styles/style.sass'
+@use '../../Styles' as v
   
 .person-container
   padding: 1px
@@ -28,7 +28,7 @@
     box-shadow: v.$box-shadow-8
 
 .person-overview-header
-  border-bottom: 1px solid $yellow-0
+  border-bottom: 1px solid v.$yellow-0
   padding-bottom: 1rem
 
   &__title
@@ -38,7 +38,7 @@
     left: 2rem
 
   .person-department
-    color: $yellow-0
+    color: v.$yellow-0
     font-size: 2.5rem
     margin-left: 2rem
 

@@ -40,10 +40,6 @@ const Home: React.FC = () => {
     fetchAPIs();
   }, []);
 
-  useEffect(() => {
-    console.log(popularMovies);
-  }, [popularMovies]);
-
   // Animations on scroll
   useEffect(() => {
     const elements: any = document.querySelectorAll('.anim');
@@ -149,7 +145,9 @@ const Home: React.FC = () => {
           </div>
           <div className='poster-list-container'>
             {popularTVShows.map((showData: any) => (
-              <Poster mediaData={showData} mediaType='tvshow' />
+              <div key={showData.id}>
+                <Poster mediaData={showData} mediaType='tvshow' />
+              </div>
             ))}
           </div>
 
